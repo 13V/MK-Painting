@@ -417,62 +417,123 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Transformation / Before-After */
+/* Transformation / Before-After Slider */
 .transformation {
     padding: 80px 0;
     background: var(--bg-card);
     border-top: 1px solid var(--border);
 }
 
-.before-after {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
+.slider-container {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.ba-item {
+.slider-wrapper {
     position: relative;
-    flex: 1;
-    max-width: 450px;
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-.ba-item img {
+.before-image,
+.after-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 300px;
+    height: 100%;
+}
+
+.before-image {
+    z-index: 2;
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+.after-image {
+    z-index: 1;
+}
+
+.slider-wrapper img {
+    width: 100%;
+    height: 400px;
     object-fit: cover;
     display: block;
 }
 
-.ba-label {
+.image-label {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    padding: 8px 16px;
+    top: 20px;
+    padding: 10px 20px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
+    z-index: 10;
 }
 
-.ba-label.before {
+.image-label.before {
+    left: 20px;
     background: #EF4444;
     color: white;
 }
 
-.ba-label.after {
+.image-label.after {
+    right: 20px;
     background: #10B981;
     color: white;
 }
 
-.ba-arrow {
-    font-size: 48px;
-    color: var(--primary);
-    font-weight: 700;
+.slider-control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    opacity: 0;
+    cursor: ew-resize;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    background: var(--gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: white;
+    font-size: 14px;
+    z-index: 5;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+    pointer-events: none;
+}
+
+.slider-button::before,
+.slider-button::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 400px;
+    background: var(--gradient);
+}
+
+.slider-button::before {
+    top: 56px;
+}
+
+.slider-button::after {
+    bottom: 56px;
 }
 
 /* Contact */

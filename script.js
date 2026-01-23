@@ -76,3 +76,29 @@ function calculateQuote() {
 
 // Initial calculation
 calculateQuote();
+
+// Before/After Slider
+const baSlider = document.getElementById('baSlider');
+const beforeImage = document.querySelector('.before-image');
+const sliderButton = document.querySelector('.slider-button');
+
+function updateSlider(value) {
+    const percentage = value + '%';
+    beforeImage.style.clipPath = `polygon(0 0, ${percentage} 0, ${percentage} 100%, 0 100%)`;
+    sliderButton.style.left = percentage;
+}
+
+baSlider.addEventListener('input', (e) => {
+    updateSlider(e.target.value);
+});
+
+// Handle page reload from cache (Safari fix)
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        baSlider.value = 50;
+        updateSlider(50);
+    }
+});
+
+// Initialize slider
+updateSlider(50);

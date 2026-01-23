@@ -154,22 +154,28 @@
         </div>
     </section>
 
-    <!-- Before/After Section -->
+    <!-- Before/After Slider -->
     <section class="transformation">
         <div class="container">
             <div class="section-header">
                 <h2>See The Difference</h2>
-                <p>Quality transformations that speak for themselves</p>
+                <p>Drag the slider to reveal the transformation</p>
             </div>
-            <div class="before-after">
-                <div class="ba-item">
-                    <div class="ba-label before">Before</div>
-                    <img src="before.png" alt="Room before painting">
-                </div>
-                <div class="ba-arrow">→</div>
-                <div class="ba-item">
-                    <div class="ba-label after">After</div>
-                    <img src="after.png" alt="Room after painting">
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <div class="before-image">
+                        <img src="before.png" alt="Before painting">
+                        <div class="image-label before">Before</div>
+                    </div>
+                    <div class="after-image">
+                        <img src="after.png" alt="After painting">
+                        <div class="image-label after">After</div>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="slider-control" id="baSlider">
+                    <div class="slider-button">
+                        <span>◀</span>
+                        <span>▶</span>
+                    </div>
                 </div>
             </div>
         </div>
