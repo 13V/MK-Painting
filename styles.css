@@ -498,7 +498,101 @@ body {
     transform: scale(1.2);
 }
 
+/* Section CTA (repeated call-to-action) */
+.section-cta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+/* Trust Section */
+.trust-section {
+    padding: 80px 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+}
+
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.trust-item {
+    display: flex;
+    gap: 16px;
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.trust-check {
+    font-size: 24px;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.trust-item h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.trust-item p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Service Areas */
+.service-areas {
+    padding: 80px 0;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+}
+
+.areas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.area-column {
+    text-align: center;
+    padding: 24px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.area-column h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.area-column p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.areas-note {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.areas-note a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
 /* Contact */
+
 .contact {
     padding: 80px 0;
 }
@@ -755,5 +849,24 @@ body {
 
     .result-amount {
         font-size: 32px;
+    }
+
+    .trust-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .areas-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .areas-grid {
+        grid-template-columns: 1fr;
     }
 }
