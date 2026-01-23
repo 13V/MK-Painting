@@ -77,28 +77,51 @@ function calculateQuote() {
 // Initial calculation
 calculateQuote();
 
-// Before/After Slider
-const baSlider = document.getElementById('baSlider');
-const beforeImage = document.querySelector('.before-image');
-const sliderButton = document.querySelector('.slider-button');
+// Gallery Carousel
+const track = document.getElementById('carouselTrack');
+const slides = document.querySelectorAll('.carousel-slide');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dotsContainer = document.getElementById('carouselDots');
 
-function updateSlider(value) {
-    const percentage = value + '%';
-    beforeImage.style.clipPath = `polygon(0 0, ${percentage} 0, ${percentage} 100%, 0 100%)`;
-    sliderButton.style.left = percentage;
+let currentIndex = 0;
+const totalSlides = slides.length;
+
+// Create dots
+slides.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.classList.add('carousel-dot');
+    if (index === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(index));
+    dotsContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll('.carousel-dot');
+
+function updateCarousel() {
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+    });
 }
 
-baSlider.addEventListener('input', (e) => {
-    updateSlider(e.target.value);
-});
+function goToSlide(index) {
+    currentIndex = index;
+    updateCarousel();
+}
 
-// Handle page reload from cache (Safari fix)
-window.addEventListener('pageshow', (event) => {
-    if (event.persisted) {
-        baSlider.value = 50;
-        updateSlider(50);
-    }
-});
+function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateCarousel();
+}
 
-// Initialize slider
-updateSlider(50);
+function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+}
+
+prevBtn.addEventListener('click', prevSlide);
+nextBtn.addEventListener('click', nextSlide);
+
+// Auto-advance every 5 seconds
+setInterval(nextSlide, 5000);
