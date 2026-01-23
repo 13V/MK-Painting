@@ -5,420 +5,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="MK Painting Services - Professional residential and commercial painters in Adelaide. Quality workmanship, free quotes, fully licensed and insured.">
+        content="MK Painting Services - Professional painters in Adelaide. Interior, exterior, commercial painting.">
     <title>MK Painting Services | Professional Painters Adelaide</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <div class="logo">
-                    <span class="logo-icon">🎨</span>
-                    <span class="logo-text">MK<span class="logo-highlight">Painting</span></span>
-                </div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#why-us">Why Us</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <a href="tel:0400000000" class="btn btn-primary nav-cta">Get Free Quote</a>
+    <!-- Compact Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">🎨 <span>MK Painting</span></div>
+            <a href="tel:0400000000" class="header-phone">📞 Call Now</a>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
+    <!-- Hero - Compact -->
     <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="container">
-                <div class="hero-badge">
-                    <span>✓</span> Licensed & Insured
-                </div>
-                <h1 class="hero-title">Professional<br><span class="highlight">Painting Services</span></h1>
-                <p class="hero-subtitle">Transform your space with expert residential and commercial painting in
-                    Adelaide</p>
-
-                <div class="trust-row">
-                    <div class="trust-item">
-                        <span class="trust-icon">👨‍👩‍👦</span>
-                        <span>Family Operated</span>
-                    </div>
-                    <div class="trust-item">
-                        <span class="trust-icon">📋</span>
-                        <span>Free Quotes</span>
-                    </div>
-                    <div class="trust-item">
-                        <span class="trust-icon">👴</span>
-                        <span>Senior Discounts</span>
-                    </div>
-                </div>
-
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary btn-large">Get Free Quote</a>
-                    <a href="tel:0400000000" class="btn btn-secondary btn-large">📞 Call Now</a>
-                </div>
+        <div class="hero-inner">
+            <div class="hero-badges">
+                <span class="badge">✓ Licensed</span>
+                <span class="badge">✓ Insured</span>
+                <span class="badge">✓ Free Quotes</span>
+            </div>
+            <h1>Professional<br><span>Painting</span> Services</h1>
+            <p>Quality residential & commercial painting in Adelaide</p>
+            <div class="hero-actions">
+                <a href="#quote" class="btn-primary">Get Free Quote</a>
+                <a href="tel:0400000000" class="btn-secondary">📞 0400 000 000</a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Our Services</span>
-                <h2 class="section-title">Expert Painting Solutions</h2>
-                <p class="section-subtitle">Quality workmanship for every project, big or small</p>
+    <!-- Services - Tabbed -->
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="service-tabs">
+            <button class="tab active" data-tab="interior">🏠 Interior</button>
+            <button class="tab" data-tab="exterior">🏡 Exterior</button>
+            <button class="tab" data-tab="commercial">🏢 Commercial</button>
+        </div>
+        <div class="service-panels">
+            <div class="panel active" id="interior">
+                <h3>Interior Painting</h3>
+                <ul>
+                    <li>✓ Walls & ceilings</li>
+                    <li>✓ Feature walls & accent colours</li>
+                    <li>✓ Doors, trims & skirting</li>
+                    <li>✓ Spray painting cabinetry</li>
+                </ul>
             </div>
-
-            <div class="services-grid">
-                <div class="service-card featured">
-                    <div class="service-icon">🏠</div>
-                    <h3>Interior Painting</h3>
-                    <p>Transform your living spaces with flawless interior painting. Walls, ceilings, feature walls, and
-                        detailed trim work.</p>
-                    <ul class="service-features">
-                        <li>✓ Walls & ceilings</li>
-                        <li>✓ Feature walls</li>
-                        <li>✓ Doors & trims</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🏡</div>
-                    <h3>Exterior Painting</h3>
-                    <p>Protect and beautify your home's exterior with quality paints that withstand Australian weather.
-                    </p>
-                    <ul class="service-features">
-                        <li>✓ Weatherproof coatings</li>
-                        <li>✓ Fascias & gutters</li>
-                        <li>✓ Decks & fences</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🏢</div>
-                    <h3>Commercial Painting</h3>
-                    <p>Professional painting for offices, retail, hotels, and commercial properties. Minimal disruption
-                        guaranteed.</p>
-                    <ul class="service-features">
-                        <li>✓ Offices & retail</li>
-                        <li>✓ After-hours work</li>
-                        <li>✓ Strata & body corp</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🏛️</div>
-                    <h3>Heritage & Restoration</h3>
-                    <p>Specialist heritage painting for period homes. Federation, Edwardian, and Colonial style
-                        expertise.</p>
-                    <ul class="service-features">
-                        <li>✓ Period homes</li>
-                        <li>✓ Restoration work</li>
-                        <li>✓ Colour matching</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">💨</div>
-                    <h3>Spray Painting</h3>
-                    <p>Professional airless spray application for smooth, even finishes on large surfaces and cabinetry.
-                    </p>
-                    <ul class="service-features">
-                        <li>✓ Airless spraying</li>
-                        <li>✓ Cabinetry & doors</li>
-                        <li>✓ Even coverage</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <h3>Colour Consultation</h3>
-                    <p>Expert colour advice to help you choose the perfect palette for your home or business.</p>
-                    <ul class="service-features">
-                        <li>✓ Free consultations</li>
-                        <li>✓ Trend advice</li>
-                        <li>✓ Sample testing</li>
-                    </ul>
-                </div>
+            <div class="panel" id="exterior">
+                <h3>Exterior Painting</h3>
+                <ul>
+                    <li>✓ Weatherproof coatings</li>
+                    <li>✓ Fascias & gutters</li>
+                    <li>✓ Decks & fences</li>
+                    <li>✓ Heritage restoration</li>
+                </ul>
+            </div>
+            <div class="panel" id="commercial">
+                <h3>Commercial Painting</h3>
+                <ul>
+                    <li>✓ Offices & retail shops</li>
+                    <li>✓ Strata & body corporate</li>
+                    <li>✓ After-hours available</li>
+                    <li>✓ Minimal disruption</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Our Work</span>
-                <h2 class="section-title">Project Gallery</h2>
-                <p class="section-subtitle">See the quality of our craftsmanship</p>
+    <!-- Why Us - Compact Grid -->
+    <section class="why-us">
+        <h2>Why Choose Us</h2>
+        <div class="benefits">
+            <div class="benefit">
+                <span>👨‍👩‍👦</span>
+                <strong>Family Business</strong>
             </div>
-
-            <div class="gallery-note">
-                <p>📸 <strong>Gallery Ready!</strong> Add your project photos to showcase your work.</p>
+            <div class="benefit">
+                <span>🎨</span>
+                <strong>Premium Paints</strong>
             </div>
+            <div class="benefit">
+                <span>💰</span>
+                <strong>Senior Discounts</strong>
+            </div>
+            <div class="benefit">
+                <span>⭐</span>
+                <strong>20+ Years</strong>
+            </div>
+        </div>
+        <div class="brands">
+            <small>Using:</small> Dulux • Haymes • Wattyl • Berger
+        </div>
+    </section>
 
-            <div class="gallery-grid">
-                <div class="gallery-item placeholder">
-                    <div class="placeholder-content">
-                        <span>🖼️</span>
-                        <p>Project 1</p>
-                    </div>
-                </div>
-                <div class="gallery-item placeholder">
-                    <div class="placeholder-content">
-                        <span>🖼️</span>
-                        <p>Project 2</p>
-                    </div>
-                </div>
-                <div class="gallery-item placeholder">
-                    <div class="placeholder-content">
-                        <span>🖼️</span>
-                        <p>Project 3</p>
-                    </div>
-                </div>
-                <div class="gallery-item placeholder">
-                    <div class="placeholder-content">
-                        <span>🖼️</span>
-                        <p>Project 4</p>
-                    </div>
-                </div>
-                <div class="gallery-item placeholder">
-                    <div class="placeholder-content">
-                        <span>🖼️</span>
-                        <p>Project 5</p>
-                    </div>
-                </div>
-                <div class="gallery-item placeholder">
-                    <div class="placeholder-content">
-                        <span>🖼️</span>
-                        <p>Project 6</p>
-                    </div>
-                </div>
+    <!-- Quote Form - Clean -->
+    <section class="quote" id="quote">
+        <h2>Get Your Free Quote</h2>
+        <form id="quoteForm">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            <input type="text" name="suburb" placeholder="Suburb" required>
+            <select name="service" required>
+                <option value="">Select Service</option>
+                <option value="interior">Interior Painting</option>
+                <option value="exterior">Exterior Painting</option>
+                <option value="commercial">Commercial</option>
+                <option value="other">Other</option>
+            </select>
+            <textarea name="message" placeholder="Project details (optional)" rows="3"></textarea>
+            <button type="submit">Request Quote</button>
+        </form>
+    </section>
+
+    <!-- Contact Strip -->
+    <section class="contact">
+        <div class="contact-item">
+            <span>📞</span>
+            <div>
+                <strong>Phone</strong>
+                <a href="tel:0400000000">0400 000 000</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <span>📍</span>
+            <div>
+                <strong>Location</strong>
+                <p>Gulfview Heights, SA</p>
+            </div>
+        </div>
+        <div class="contact-item">
+            <span>🕐</span>
+            <div>
+                <strong>Hours</strong>
+                <p>Mon-Sat: 7am-7pm</p>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section id="why-us" class="why-us">
-        <div class="container">
-            <div class="why-us-content">
-                <div class="why-us-text">
-                    <span class="section-badge">Why Choose Us</span>
-                    <h2>Adelaide's Trusted<br>Painting Professionals</h2>
-                    <p class="lead">MK Painting Services is a family-operated business delivering quality workmanship
-                        across Adelaide.</p>
-
-                    <div class="benefits-grid">
-                        <div class="benefit-item">
-                            <div class="benefit-icon">👨‍👩‍👦</div>
-                            <div class="benefit-content">
-                                <h4>Family Operated</h4>
-                                <p>Personal service and attention to detail on every project.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">✓</div>
-                            <div class="benefit-content">
-                                <h4>Licensed & Insured</h4>
-                                <p>Fully licensed painters with comprehensive insurance coverage.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🎨</div>
-                            <div class="benefit-content">
-                                <h4>Premium Paints</h4>
-                                <p>Using Dulux, Haymes, Berger, Wattyl and Sikkens products.</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">💰</div>
-                            <div class="benefit-content">
-                                <h4>Senior Discounts</h4>
-                                <p>Special rates for pensioners and seniors.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="why-us-stats">
-                    <div class="stat-card">
-                        <div class="stat-number">20+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Satisfaction</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">Free</div>
-                        <div class="stat-label">Quotes</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Paint Brands -->
-    <section class="brands">
-        <div class="container">
-            <h3>Trusted Paint Brands</h3>
-            <div class="brands-list">
-                <span class="brand-item">Dulux</span>
-                <span class="brand-item">Haymes</span>
-                <span class="brand-item">Berger</span>
-                <span class="brand-item">Wattyl</span>
-                <span class="brand-item">Sikkens</span>
-                <span class="brand-item">Cabot's</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <span class="section-badge">Get In Touch</span>
-                    <h2>Request Your Free Quote</h2>
-                    <p>Contact us today for a no-obligation quote on your painting project.</p>
-
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="method-icon">📞</div>
-                            <div class="method-content">
-                                <h4>Phone</h4>
-                                <a href="tel:0400000000" class="method-link">0400 000 000</a>
-                                <p>Call for immediate assistance</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-method">
-                            <div class="method-icon">✉️</div>
-                            <div class="method-content">
-                                <h4>Email</h4>
-                                <a href="mailto:info@mkpainting.com.au" class="method-link">info@mkpainting.com.au</a>
-                                <p>We'll respond within 24 hours</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-method">
-                            <div class="method-icon">📍</div>
-                            <div class="method-content">
-                                <h4>Location</h4>
-                                <p class="method-link">Gulfview Heights, SA</p>
-                                <p>Servicing all Adelaide metro</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-method">
-                            <div class="method-icon">🕐</div>
-                            <div class="method-content">
-                                <h4>Hours</h4>
-                                <p class="method-link">Mon-Fri: 7am - 7pm</p>
-                                <p>Sat: 8am - 5pm</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="trust-badges">
-                        <div class="badge">✓ Free Quotes</div>
-                        <div class="badge">✓ Senior Discounts</div>
-                        <div class="badge">✓ Fully Insured</div>
-                    </div>
-                </div>
-
-                <form class="quote-form" id="quoteForm">
-                    <h3>Get a Free Quote</h3>
-
-                    <div class="form-row">
-                        <input type="text" name="name" placeholder="Your Name *" required>
-                        <input type="tel" name="phone" placeholder="Phone Number *" required>
-                    </div>
-
-                    <input type="email" name="email" placeholder="Email Address *" required>
-                    <input type="text" name="suburb" placeholder="Suburb *" required>
-
-                    <select name="service" required>
-                        <option value="">Select Service *</option>
-                        <option value="interior">Interior Painting</option>
-                        <option value="exterior">Exterior Painting</option>
-                        <option value="commercial">Commercial Painting</option>
-                        <option value="heritage">Heritage & Restoration</option>
-                        <option value="spray">Spray Painting</option>
-                        <option value="colour">Colour Consultation</option>
-                        <option value="other">Other</option>
-                    </select>
-
-                    <select name="property">
-                        <option value="">Property Type</option>
-                        <option value="house">House</option>
-                        <option value="unit">Unit/Apartment</option>
-                        <option value="office">Office</option>
-                        <option value="commercial">Commercial Property</option>
-                        <option value="other">Other</option>
-                    </select>
-
-                    <textarea name="message" placeholder="Tell us about your project..." rows="4"></textarea>
-
-                    <button type="submit" class="btn btn-primary btn-large btn-block">Get Free Quote</button>
-                    <p class="form-note">* Required fields • Response within 24 hours</p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <span class="logo-icon">🎨</span>
-                        <span class="logo-text">MK<span class="logo-highlight">Painting</span></span>
-                    </div>
-                    <p>Professional painting services across Adelaide. Quality workmanship guaranteed.</p>
-                    <a href="tel:0400000000" class="footer-phone">📞 0400 000 000</a>
-                </div>
-
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Services</h4>
-                        <a href="#services">Interior Painting</a>
-                        <a href="#services">Exterior Painting</a>
-                        <a href="#services">Commercial</a>
-                        <a href="#services">Heritage Work</a>
-                        <a href="#services">Spray Painting</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <a href="#why-us">About Us</a>
-                        <a href="#gallery">Gallery</a>
-                        <a href="#contact">Get Quote</a>
-                        <a href="#contact">Contact</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contact</h4>
-                        <p>Phone: 0400 000 000</p>
-                        <p>Email: info@mkpainting.com.au</p>
-                        <p>Gulfview Heights, SA</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2026 MK Painting Services. All rights reserved.</p>
-                <p>Licensed & Insured | ABN: [To be added]</p>
-            </div>
-        </div>
+    <!-- Simple Footer -->
+    <footer>
+        <p>© 2026 MK Painting Services • Licensed & Insured</p>
     </footer>
 
     <script src="script.js"></script>
