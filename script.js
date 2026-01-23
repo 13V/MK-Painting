@@ -1,32 +1,3 @@
-// Tab functionality
-const tabs = document.querySelectorAll('.tab');
-const panels = document.querySelectorAll('.panel');
-
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        // Remove active from all
-        tabs.forEach(t => t.classList.remove('active'));
-        panels.forEach(p => p.classList.remove('active'));
-
-        // Add active to clicked
-        tab.classList.add('active');
-        const panelId = tab.dataset.tab;
-        document.getElementById(panelId).classList.add('active');
-    });
-});
-
-// Form submission
-const form = document.getElementById('quoteForm');
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const name = data.get('name');
-    const phone = data.get('phone');
-
-    alert(`Thanks ${name}! We'll call you at ${phone} within 24 hours.`);
-    form.reset();
-});
-
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -36,4 +7,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
+});
+
+// Form
+const form = document.getElementById('quoteForm');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = data.get('name');
+    const phone = data.get('phone');
+    alert(`Thanks ${name}! We'll call you at ${phone} within 24 hours.`);
+    form.reset();
+});
+
+// Navbar scroll effect
+let lastScroll = 0;
+const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (currentScroll > 100) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+    } else {
+        navbar.style.boxShadow = 'none';
+    }
 });
