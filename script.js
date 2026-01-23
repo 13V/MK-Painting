@@ -9,15 +9,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form
-const form = document.getElementById('quoteForm');
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const name = data.get('name');
-    const phone = data.get('phone');
-    alert(`Thanks ${name}! We'll call you at ${phone} within 24 hours.`);
-    form.reset();
+// Form handlers
+const forms = document.querySelectorAll('#quoteForm, #heroQuoteForm');
+forms.forEach(form => {
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = new FormData(form);
+            const name = data.get('name');
+            const phone = data.get('phone');
+            alert(`Thanks ${name}! We'll call you at ${phone} within 24 hours.`);
+            form.reset();
+        });
+    }
 });
 
 // Navbar scroll effect

@@ -49,20 +49,27 @@
                         <a href="tel:0400000000" class="btn-secondary">📞 0400 000 000</a>
                     </div>
                 </div>
-                <div class="hero-card">
-                    <div class="card-header">
-                        <span class="icon">👨‍👩‍👦</span>
-                        <h3>Family Operated</h3>
+                <div class="hero-form">
+                    <div class="form-header">
+                        <h3>Request a Free Quote</h3>
+                        <p>We'll be in touch fast</p>
                     </div>
-                    <ul class="quick-features">
-                        <li>💰 Senior Discounts Available</li>
-                        <li>📋 Free Quotes & Consultations</li>
-                        <li>🎨 Colour Advice Included</li>
-                        <li>⭐ 5-Star Quality Guaranteed</li>
-                    </ul>
-                    <div class="brands-used">
-                        <small>We use</small>
-                        <div class="brand-logos">Dulux • Haymes • Wattyl • Berger</div>
+                    <form id="heroQuoteForm">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="tel" name="phone" placeholder="Phone Number" required>
+                        <input type="text" name="suburb" placeholder="Suburb" required>
+                        <select name="service" required>
+                            <option value="">Select Service</option>
+                            <option value="interior">Interior Painting</option>
+                            <option value="exterior">Exterior Painting</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="heritage">Heritage/Restoration</option>
+                        </select>
+                        <button type="submit" class="btn-submit">Get Free Quote →</button>
+                    </form>
+                    <div class="form-trust">
+                        <span>✓ Licensed & Insured</span>
+                        <span>✓ No Obligation</span>
                     </div>
                 </div>
             </div>
