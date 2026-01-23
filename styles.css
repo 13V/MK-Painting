@@ -156,10 +156,45 @@ body {
 .hero-text p {
     color: #1A1A1A;
     font-size: 18px;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
     line-height: 1.7;
     font-weight: 500;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.stars {
+    color: #DAA520;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.rating-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1A1A1A;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Urgency Message */
+.urgency-text {
+    background: linear-gradient(135deg, rgba(184, 134, 11, 0.15) 0%, rgba(218, 165, 32, 0.15) 100%);
+    border: 1px solid var(--primary);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 20px;
+    display: inline-block;
+    text-shadow: none;
 }
 
 .hero-cta {
@@ -884,5 +919,58 @@ body {
 @media (max-width: 480px) {
     .areas-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Floating Call Button */
+.floating-call {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gradient);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 8px 30px rgba(184, 134, 11, 0.4);
+    z-index: 1000;
+    transition: all 0.3s;
+    animation: pulse 2s infinite;
+}
+
+.floating-call:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(184, 134, 11, 0.6);
+}
+
+.call-icon {
+    font-size: 20px;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 30px rgba(184, 134, 11, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 8px 40px rgba(184, 134, 11, 0.7);
+    }
+}
+
+@media (max-width: 640px) {
+    .floating-call .call-text {
+        display: none;
+    }
+
+    .floating-call {
+        padding: 16px;
+        border-radius: 50%;
     }
 }
