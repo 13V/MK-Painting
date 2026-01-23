@@ -101,6 +101,80 @@
         </div>
     </section>
 
+    <!-- Quote Calculator -->
+    <section id="calculator" class="calculator">
+        <div class="container">
+            <div class="section-header">
+                <h2>Instant Quote Estimate</h2>
+                <p>Get a quick estimate for your painting project</p>
+            </div>
+            <div class="calc-wrapper">
+                <div class="calc-form">
+                    <div class="calc-group">
+                        <label>Project Type</label>
+                        <select id="projectType">
+                            <option value="interior">Interior Painting</option>
+                            <option value="exterior">Exterior Painting</option>
+                            <option value="full">Full House (Int + Ext)</option>
+                        </select>
+                    </div>
+                    <div class="calc-group">
+                        <label>Number of Rooms</label>
+                        <select id="roomCount">
+                            <option value="1">1 Room</option>
+                            <option value="2">2 Rooms</option>
+                            <option value="3">3 Rooms</option>
+                            <option value="4">4 Rooms</option>
+                            <option value="5">5+ Rooms</option>
+                        </select>
+                    </div>
+                    <div class="calc-group">
+                        <label>Room Size</label>
+                        <select id="roomSize">
+                            <option value="small">Small (up to 12m²)</option>
+                            <option value="medium">Medium (12-20m²)</option>
+                            <option value="large">Large (20m²+)</option>
+                        </select>
+                    </div>
+                    <div class="calc-group">
+                        <label>Include Ceiling?</label>
+                        <select id="ceiling">
+                            <option value="no">No</option>
+                            <option value="yes">Yes (+30%)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="calc-result">
+                    <div class="result-label">Estimated Price Range</div>
+                    <div class="result-amount" id="calcResult">$400 - $600</div>
+                    <p class="result-note">*Indicative only. Final quote provided on inspection.</p>
+                    <a href="#contact" class="btn-primary">Get Exact Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Section -->
+    <section class="transformation">
+        <div class="container">
+            <div class="section-header">
+                <h2>See The Difference</h2>
+                <p>Quality transformations that speak for themselves</p>
+            </div>
+            <div class="before-after">
+                <div class="ba-item">
+                    <div class="ba-label before">Before</div>
+                    <img src="before.png" alt="Room before painting">
+                </div>
+                <div class="ba-arrow">→</div>
+                <div class="ba-item">
+                    <div class="ba-label after">After</div>
+                    <img src="after.png" alt="Room after painting">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">

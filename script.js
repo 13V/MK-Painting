@@ -21,14 +21,58 @@ form.addEventListener('submit', (e) => {
 });
 
 // Navbar scroll effect
-let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
-
 window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 100) {
+    if (window.scrollY > 100) {
         navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
     } else {
         navbar.style.boxShadow = 'none';
     }
 });
+
+// Quote Calculator
+const projectType = document.getElementById('projectType');
+const roomCount = document.getElementById('roomCount');
+const roomSize = document.getElementById('roomSize');
+const ceiling = document.getElementById('ceiling');
+const calcResult = document.getElementById('calcResult');
+
+// Base prices
+const basePrices = {
+    interior: { small: 350, medium: 500, large: 700 },
+    exterior: { small: 800, medium: 1200, large: 1800 },
+    full: { small: 1500, medium: 2200, large: 3200 }
+};
+
+function calculateQuote() {
+    const type = projectType.value;
+    const rooms = parseInt(roomCount.value);
+    const size = roomSize.value;
+    const hasCeiling = ceiling.value === 'yes';
+
+    // Get base price per room
+    let basePrice = basePrices[type][size];
+
+    // Multiply by rooms
+    let total = basePrice * rooms;
+
+    // Add ceiling (+30%)
+    if (hasCeiling) {
+        total = total * 1.3;
+    }
+
+    // Create range (±15%)
+    const low = Math.round(total * 0.85);
+    const high = Math.round(total * 1.15);
+
+    // Format as currency
+    calcResult.textContent = `$${low.toLocaleString()} - $${high.toLocaleString()}`;
+}
+
+// Add event listeners to all calculator inputs
+[projectType, roomCount, roomSize, ceiling].forEach(input => {
+    input.addEventListener('change', calculateQuote);
+});
+
+// Initial calculation
+calculateQuote();
