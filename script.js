@@ -81,54 +81,42 @@ function calculateQuote() {
 // Initial calculation
 calculateQuote();
 
-// Gallery Carousel
-const track = document.getElementById('carouselTrack');
-const slides = document.querySelectorAll('.carousel-slide');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const dotsContainer = document.getElementById('carouselDots');
+// Gallery Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.querySelector('.lightbox-close');
+const galleryItems = document.querySelectorAll('.gallery-item img');
 
-let currentIndex = 0;
-const totalSlides = slides.length;
+if (lightbox && lightboxImg && galleryItems.length > 0) {
+    galleryItems.forEach(img => {
+        img.parentElement.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scroll
+        });
+    });
 
-// Create dots
-slides.forEach((_, index) => {
-    const dot = document.createElement('button');
-    dot.classList.add('carousel-dot');
-    if (index === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => goToSlide(index));
-    dotsContainer.appendChild(dot);
-});
+    const closeLightbox = () => {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    };
 
-const dots = document.querySelectorAll('.carousel-dot');
+    lightboxClose.addEventListener('click', closeLightbox);
 
-function updateCarousel() {
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
+    // Close on click outside image
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+            closeLightbox();
+        }
     });
 }
-
-function goToSlide(index) {
-    currentIndex = index;
-    updateCarousel();
-}
-
-function nextSlide() {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    updateCarousel();
-}
-
-function prevSlide() {
-    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    updateCarousel();
-}
-
-prevBtn.addEventListener('click', prevSlide);
-nextBtn.addEventListener('click', nextSlide);
-
-// Auto-advance every 5 seconds
-setInterval(nextSlide, 5000);
 
 // FAQ Accordion
 const faqItems = document.querySelectorAll('.faq-item');
