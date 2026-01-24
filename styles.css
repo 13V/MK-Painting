@@ -192,9 +192,19 @@ body {
     border-radius: 8px;
     font-weight: 600;
     color: #1A1A1A;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     display: inline-block;
     text-shadow: none;
+}
+
+.guarantee-text {
+    display: block;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 24px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .hero-cta {
