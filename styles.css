@@ -566,7 +566,7 @@ body {
 
 .trust-wrapper {
     display: grid;
-    grid-template-columns: 1fr 2.2fr;
+    grid-template-columns: 1.4fr 1fr;
     gap: 60px;
     align-items: center;
 }
