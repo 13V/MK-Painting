@@ -566,9 +566,9 @@ body {
 
 .trust-wrapper {
     display: grid;
-    grid-template-columns: 0.9fr 1.4fr;
+    grid-template-columns: 1fr 1.6fr;
     gap: 60px;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .trust-content .section-header {
@@ -578,8 +578,8 @@ body {
 
 .trust-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
 .trust-item {
