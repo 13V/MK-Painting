@@ -1,6 +1,6 @@
-# MK Painting Services - Premium Website
+# M&K Painting Services - Premium Website
 
-Professional painting services website for MK Painting Services in Adelaide.
+Professional painting services website for M&K Painting Services in Adelaide.
 
 ## Features
 
