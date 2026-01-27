@@ -56,13 +56,16 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 800;
-    font-size: 20px;
 }
 
-.logo-icon {
-    font-size: 24px;
+.logo a {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
 }
 
 .nav-right {
