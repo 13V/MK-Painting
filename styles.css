@@ -188,13 +188,15 @@ body {
 .urgency-text {
     background: linear-gradient(135deg, rgba(184, 134, 11, 0.15) 0%, rgba(218, 165, 32, 0.15) 100%);
     border: 1px solid var(--primary);
-    padding: 12px 20px;
+    padding: 16px 20px;
     border-radius: 8px;
     font-weight: 600;
     color: #1A1A1A;
-    margin-bottom: 12px;
-    display: inline-block;
+    margin-bottom: 20px;
+    display: block;
     text-shadow: none;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 .guarantee-text {

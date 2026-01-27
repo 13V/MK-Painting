@@ -9,20 +9,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form handlers
+// Form handlers - Removed preventDefault to allow Formspree submission
 const forms = document.querySelectorAll('#quoteForm, #heroQuoteForm');
-forms.forEach(form => {
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const data = new FormData(form);
-            const name = data.get('name');
-            const phone = data.get('phone');
-            alert(`Thanks ${name}! We'll call you at ${phone} within 24 hours.`);
-            form.reset();
-        });
-    }
-});
+// We let the browser handle the POST request to Formspree directly.
 
 // Navbar scroll effect
 const navbar = document.querySelector('.navbar');
