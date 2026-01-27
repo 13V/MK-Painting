@@ -34,16 +34,17 @@ quoteForms.forEach(form => {
             .then(async (response) => {
                 let json = await response.json();
                 if (response.status == 200) {
-                    alert("Success! Your quote request has been sent. We'll be in touch shortly.");
+                    // Show success message
+                    showFormMessage(form, 'success', "Quote Sent! We'll call you within 24 hours.");
                     form.reset();
                 } else {
                     console.log(response);
-                    alert("Something went wrong. Please try again or call us directly.");
+                    showFormMessage(form, 'error', "Something went wrong. Please call us directly.");
                 }
             })
             .catch(error => {
                 console.log(error);
-                alert("Error: Could not reach the server. Please check your connection.");
+                showFormMessage(form, 'error', "Connection error. Please try again.");
             })
             .then(function () {
                 submitBtn.textContent = originalBtnText;
@@ -51,6 +52,30 @@ quoteForms.forEach(form => {
             });
     });
 });
+
+// Show animated message on form
+function showFormMessage(form, type, message) {
+    // Remove any existing message
+    const existing = form.querySelector('.form-message');
+    if (existing) existing.remove();
+
+    // Create message element
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'form-message ' + type;
+    msgDiv.innerHTML = type === 'success'
+        ? '<span class="msg-icon">✓</span> ' + message
+        : '<span class="msg-icon">✕</span> ' + message;
+
+    // Insert after submit button
+    const submitBtn = form.querySelector('.btn-submit');
+    submitBtn.insertAdjacentElement('afterend', msgDiv);
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        msgDiv.style.opacity = '0';
+        setTimeout(() => msgDiv.remove(), 300);
+    }, 5000);
+}
 
 // Navbar scroll effect
 const navbar = document.querySelector('.navbar');
