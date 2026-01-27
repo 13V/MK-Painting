@@ -60,6 +60,7 @@ body {
 .logo a {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .logo-img {
@@ -68,8 +69,8 @@ body {
 }
 
 .logo-text {
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 800;
     color: #1A1A1A;
     margin-left: 12px;
 }
