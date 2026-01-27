@@ -63,8 +63,15 @@ body {
 }
 
 .logo-img {
-    height: 80px;
+    height: 55px;
     width: auto;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-left: 12px;
 }
 
 .nav-right {
