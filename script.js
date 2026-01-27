@@ -9,9 +9,48 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form handlers - Removed preventDefault to allow Formspree submission
-const forms = document.querySelectorAll('#quoteForm, #heroQuoteForm');
-// We let the browser handle the POST request to Formspree directly.
+// Form handlers - AJAX submission for Web3Forms
+const quoteForms = document.querySelectorAll('#quoteForm, #heroQuoteForm');
+quoteForms.forEach(form => {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalBtnText = submitBtn.textContent;
+
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    alert("Success! Your quote request has been sent. We'll be in touch shortly.");
+                    form.reset();
+                } else {
+                    console.log(response);
+                    alert("Something went wrong. Please try again or call us directly.");
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Error: Could not reach the server. Please check your connection.");
+            })
+            .then(function () {
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
+    });
+});
 
 // Navbar scroll effect
 const navbar = document.querySelector('.navbar');

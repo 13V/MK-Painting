@@ -63,7 +63,10 @@
                         <h3>Request a Free Quote</h3>
                         <p>We'll be in touch fast</p>
                     </div>
-                    <form id="heroQuoteForm" action="https://formspree.io/f/anthonysopia@bigpond.com" method="POST">
+                    <form id="heroQuoteForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                        <input type="hidden" name="subject" value="New Quote Request from M&K Website">
+                        <input type="hidden" name="from_name" value="M&K Painting Landing Page">
                         <input type="text" name="name" placeholder="Your Name" required>
                         <input type="tel" name="phone" placeholder="Phone Number" required>
                         <input type="text" name="suburb" placeholder="Suburb" required>
@@ -432,7 +435,9 @@
                     </div>
                 </div>
 
-                <form class="quote-form" id="quoteForm" action="https://formspree.io/f/anthonysopia@bigpond.com" method="POST">
+                <form class="quote-form" id="quoteForm" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="New Contact Form Submission - M&K Painting">
                     <div class="form-row">
                         <input type="text" name="name" placeholder="Your Name" required>
                         <input type="tel" name="phone" placeholder="Phone" required>
