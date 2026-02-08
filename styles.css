@@ -124,7 +124,7 @@ body {
     bottom: 0;
     background:
         linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.4) 100%),
-        url('hero-bg.jpg');
+        url('M&K16.jpg');
     background-size: cover;
     background-position: center;
 }
