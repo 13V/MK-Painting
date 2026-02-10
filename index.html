@@ -4,1283 +4,550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEO Growth Proposal — M&K Painting Services</title>
+    <meta name="description"
+        content="MK Painting Services - Premium residential and commercial painters in Adelaide. Quality workmanship guaranteed.">
+    <title>MK Painting Services | Premium Painters Adelaide</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:wght@600;700;800&display=swap"
         rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --brand: #1a365d;
-            --brand-light: #2b6cb0;
-            --accent: #e53e3e;
-            --accent-light: #fc8181;
-            --green: #38a169;
-            --green-light: #c6f6d5;
-            --orange: #dd6b20;
-            --orange-light: #feebc8;
-            --gray-50: #f7fafc;
-            --gray-100: #edf2f7;
-            --gray-200: #e2e8f0;
-            --gray-300: #cbd5e0;
-            --gray-500: #718096;
-            --gray-700: #2d3748;
-            --gray-900: #1a202c;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: var(--gray-700);
-            background: white;
-            line-height: 1.6;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-
-        @media print {
-            .page-break {
-                page-break-before: always;
-            }
-
-            body {
-                font-size: 11pt;
-            }
-
-            .no-print {
-                display: none;
-            }
-        }
-
-        /* COVER PAGE */
-        .cover {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--brand) 0%, #1a202c 100%);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 60px 40px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cover::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .cover::after {
-            content: '';
-            position: absolute;
-            bottom: -40%;
-            left: -20%;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .cover-badge {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 40px;
-        }
-
-        .cover h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 52px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            max-width: 700px;
-        }
-
-        .cover h1 span {
-            color: var(--accent-light);
-        }
-
-        .cover-sub {
-            font-size: 20px;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 50px;
-            max-width: 500px;
-        }
-
-        .cover-meta {
-            display: flex;
-            gap: 40px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 1px;
-        }
-
-        .cover-prepared {
-            margin-top: 80px;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* SECTIONS */
-        .section {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-
-        .section-full {
-            max-width: 100%;
-            padding: 60px;
-            background: var(--gray-50);
-        }
-
-        .section-full .section-inner {
-            max-width: 850px;
-            margin: 0 auto;
-        }
-
-        .section-label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--brand-light);
-            margin-bottom: 12px;
-        }
-
-        .section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 8px;
-        }
-
-        .section-full h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 8px;
-        }
-
-        .section-desc {
-            font-size: 16px;
-            color: var(--gray-500);
-            margin-bottom: 40px;
-        }
-
-        /* STATS ROW */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .stat-card {
-            background: white;
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--brand);
-            line-height: 1;
-        }
-
-        .stat-value.green {
-            color: var(--green);
-        }
-
-        .stat-value.red {
-            color: var(--accent);
-        }
-
-        .stat-value.orange {
-            color: var(--orange);
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--gray-500);
-            margin-top: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        /* RANKING VISUAL */
-        .ranking-visual {
-            background: var(--gray-900);
-            border-radius: 16px;
-            padding: 40px;
-            color: white;
-            margin: 30px 0;
-        }
-
-        .ranking-visual h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 12px;
-        }
-
-        .ranking-list {
-            list-style: none;
-        }
-
-        .ranking-item {
-            display: flex;
-            align-items: center;
-            padding: 14px 20px;
-            border-radius: 10px;
-            margin-bottom: 6px;
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-
-        .ranking-item .rank {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 14px;
-            margin-right: 16px;
-            flex-shrink: 0;
-        }
-
-        .ranking-item.top3 {
-            background: rgba(56, 161, 105, 0.1);
-        }
-
-        .ranking-item.top3 .rank {
-            background: var(--green);
-            color: white;
-        }
-
-        .ranking-item.mid {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .ranking-item.mid .rank {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--gray-300);
-        }
-
-        .ranking-item.mk-current {
-            background: rgba(229, 62, 62, 0.15);
-            border: 1px solid rgba(229, 62, 62, 0.3);
-        }
-
-        .ranking-item.mk-current .rank {
-            background: var(--accent);
-            color: white;
-        }
-
-        .ranking-item .name {
-            flex: 1;
-            font-weight: 500;
-        }
-
-        .ranking-item .reviews {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
-            margin-left: auto;
-        }
-
-        .ranking-gap {
-            text-align: center;
-            padding: 16px;
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 13px;
-            letter-spacing: 3px;
-        }
-
-        /* COMPARISON TABLE */
-        .comp-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            font-size: 14px;
-        }
-
-        .comp-table thead th {
-            background: var(--brand);
-            color: white;
-            padding: 14px 16px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .comp-table thead th:first-child {
-            border-radius: 10px 0 0 0;
-        }
-
-        .comp-table thead th:last-child {
-            border-radius: 0 10px 0 0;
-        }
-
-        .comp-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--gray-100);
-        }
-
-        .comp-table tr:nth-child(even) td {
-            background: var(--gray-50);
-        }
-
-        .comp-table tr.mk-row td {
-            background: #fff5f5;
-            font-weight: 600;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        .badge-green {
-            background: var(--green-light);
-            color: var(--green);
-        }
-
-        .badge-red {
-            background: #fed7d7;
-            color: var(--accent);
-        }
-
-        .badge-orange {
-            background: var(--orange-light);
-            color: var(--orange);
-        }
-
-        /* TIMELINE */
-        .timeline {
-            position: relative;
-            margin: 40px 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 28px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--brand-light), var(--green));
-            border-radius: 3px;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .timeline-dot {
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            background: var(--brand);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            flex-shrink: 0;
-            z-index: 1;
-            line-height: 1.2;
-        }
 
-        .timeline-dot span {
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        .timeline-dot.month2 {
-            background: var(--brand-light);
-        }
-
-        .timeline-dot.month3 {
-            background: var(--green);
-        }
-
-        .timeline-content {
-            background: white;
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 24px;
-            flex: 1;
-        }
-
-        .timeline-content h4 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 4px;
-        }
-
-        .timeline-content .subtitle {
-            font-size: 13px;
-            color: var(--gray-500);
-            margin-bottom: 16px;
-        }
-
-        .timeline-content ul {
-            list-style: none;
-        }
-
-        .timeline-content li {
-            padding: 6px 0;
-            font-size: 14px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .timeline-content li::before {
-            content: '✓';
-            color: var(--green);
-            font-weight: 800;
-            flex-shrink: 0;
-        }
-
-        /* PROJECTION CHART */
-        .projection-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin: 30px 0;
-        }
-
-        .projection-card {
-            background: white;
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 28px;
-        }
-
-        .projection-card h4 {
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gray-500);
-            margin-bottom: 16px;
-        }
-
-        .bar-chart {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .bar-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .bar-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--gray-500);
-            width: 50px;
-            flex-shrink: 0;
-        }
-
-        .bar-track {
-            flex: 1;
-            height: 28px;
-            background: var(--gray-100);
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .bar-fill {
-            height: 100%;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            font-size: 12px;
-            font-weight: 700;
-            color: white;
-            min-width: fit-content;
-        }
-
-        .bar-fill.blue {
-            background: linear-gradient(90deg, var(--brand), var(--brand-light));
-        }
-
-        .bar-fill.green {
-            background: linear-gradient(90deg, #2f855a, var(--green));
-        }
-
-        .bar-fill.teal {
-            background: linear-gradient(90deg, #2b6cb0, #4299e1);
-        }
-
-        /* ROI BOX */
-        .roi-box {
-            background: linear-gradient(135deg, var(--brand) 0%, #1a202c 100%);
-            border-radius: 16px;
-            padding: 48px;
-            color: white;
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .roi-box h3 {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 20px;
-        }
-
-        .roi-numbers {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 16px;
-        }
-
-        .roi-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 800;
-        }
-
-        .roi-num.cost {
-            color: var(--accent-light);
-        }
-
-        .roi-num.revenue {
-            color: #68d391;
-        }
-
-        .roi-arrow {
-            font-size: 30px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .roi-label {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .roi-bottom {
-            margin-top: 24px;
-            font-size: 28px;
-            font-weight: 800;
-            color: #68d391;
-        }
-
-        /* AFTER 3 MONTHS */
-        .after-ranking {
-            background: linear-gradient(135deg, #1a3a2a 0%, #0d2818 100%);
-            border-radius: 16px;
-            padding: 40px;
-            color: white;
-            margin: 30px 0;
-        }
-
-        .after-ranking h3 {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 24px;
-        }
-
-        .after-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .after-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-
-        .after-keyword {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .after-pos {
-            font-size: 13px;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-
-        .after-pos.top3 {
-            background: rgba(56, 161, 105, 0.2);
-            color: #68d391;
-        }
-
-        .after-pos.top10 {
-            background: rgba(66, 153, 225, 0.2);
-            color: #63b3ed;
-        }
-
-        .after-pos.page1 {
-            background: rgba(237, 137, 54, 0.2);
-            color: #f6ad55;
-        }
-
-        /* PRICING */
-        .pricing-box {
-            background: white;
-            border: 2px solid var(--brand);
-            border-radius: 16px;
-            overflow: hidden;
-            margin: 40px 0;
-        }
-
-        .pricing-header {
-            background: var(--brand);
-            color: white;
-            padding: 24px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .pricing-header h3 {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .pricing-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            font-weight: 800;
-        }
-
-        .pricing-price span {
-            font-size: 16px;
-            font-weight: 400;
-            opacity: 0.6;
-        }
-
-        .pricing-body {
-            padding: 32px;
-        }
-
-        .pricing-body ul {
-            list-style: none;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .pricing-body li {
-            font-size: 14px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .pricing-body li::before {
-            content: '✓';
-            color: var(--green);
-            font-weight: 800;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .pricing-footer {
-            padding: 20px 32px;
-            background: var(--gray-50);
-            border-top: 1px solid var(--gray-200);
-            font-size: 13px;
-            color: var(--gray-500);
-            text-align: center;
-        }
-
-        /* CTA */
-        .cta-section {
-            background: var(--gray-50);
-            padding: 80px 40px;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            color: var(--gray-900);
-            margin-bottom: 16px;
-        }
-
-        .cta-section p {
-            font-size: 18px;
-            color: var(--gray-500);
-            max-width: 500px;
-            margin: 0 auto 32px;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            background: var(--brand);
-            color: white;
-            padding: 16px 48px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .cta-btn:hover {
-            background: var(--brand-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(26, 54, 93, 0.3);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 30px;
-            font-size: 12px;
-            color: var(--gray-300);
-        }
-
-        /* DIVIDER */
-        hr {
-            border: none;
-            height: 1px;
-            background: var(--gray-200);
-            margin: 40px 0;
-        }
-
-        .highlight-box {
-            background: #fffff0;
-            border-left: 4px solid var(--orange);
-            padding: 20px 24px;
-            border-radius: 0 8px 8px 0;
-            margin: 24px 0;
-            font-size: 15px;
-        }
-
-        .highlight-box strong {
-            color: var(--gray-900);
-        }
-    </style>
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="M&K Painting Services | Premium Painters Adelaide">
+    <meta property="og:description"
+        content="Professional residential and commercial painters in Adelaide. Quality workmanship guaranteed. Licensed & Insured.">
+    <meta property="og:image" content="https://mk-painting.vercel.app/logo.png">
+    <meta property="og:url" content="https://mk-painting.vercel.app">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="M&K Painting Services | Premium Painters Adelaide">
+    <meta name="twitter:description"
+        content="Professional residential and commercial painters in Adelaide. Quality workmanship guaranteed.">
+    <meta name="twitter:image" content="https://mk-painting.vercel.app/logo.png">
+
+    <!-- JSON-LD LocalBusiness Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Painter",
+      "name": "M&K Painting Services",
+      "image": "https://mk-painting.vercel.app/logo.png",
+      "@id": "https://mk-painting.vercel.app",
+      "url": "https://mk-painting.vercel.app",
+      "telephone": "0405352932",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Gulfview Heights",
+        "addressLocality": "Adelaide",
+        "addressRegion": "SA",
+        "postalCode": "5096",
+        "addressCountry": "AU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -34.7876,
+        "longitude": 138.6531
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "07:00",
+        "closes": "19:00"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Mawson Lakes"
+        },
+        {
+          "@type": "City",
+          "name": "Gawler"
+        },
+        {
+          "@type": "City",
+          "name": "Golden Grove"
+        },
+        {
+          "@type": "City",
+          "name": "Salisbury"
+        },
+        {
+          "@type": "City",
+          "name": "Adelaide"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "28"
+      }
+    }
+    </script>
 </head>
 
 <body>
-
-    <!-- COVER PAGE -->
-    <div class="cover">
-        <div class="cover-badge">SEO Growth Proposal</div>
-        <h1>Get <span>More Customers</span> Through Google</h1>
-        <p class="cover-sub">A tailored SEO growth plan for M&K Painting Services to dominate local search in Mawson
-            Lakes, Gawler & Golden Grove.</p>
-        <div class="cover-meta">
-            <span>Prepared: February 2026</span>
-            <span>•</span>
-            <span>Confidential</span>
-        </div>
-        <p class="cover-prepared">Prepared for M&K Painting Services — Gulfview Heights, SA</p>
-    </div>
-
-    <!-- CURRENT POSITION -->
-    <div class="section page-break">
-        <div class="section-label">Current Snapshot</div>
-        <h2>Where M&K Stands Today</h2>
-        <p class="section-desc">A look at your current online presence and what's already working.</p>
-
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-value green">5.0★</div>
-                <div class="stat-label">Google Rating</div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <img src="logo.png" alt="M&K Painting Services Logo" class="logo-img">
+                    <span class="logo-text">M&K Painting Services</span>
+                </a>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">28</div>
-                <div class="stat-label">Google Reviews</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value red">Page 4+</div>
-                <div class="stat-label">Current Ranking</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value orange">~0</div>
-                <div class="stat-label">Monthly Organic Leads</div>
+            <div class="nav-right">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="tel:0405352932" class="btn-cta">📞 Get Quote</a>
             </div>
         </div>
+    </nav>
 
-        <div class="highlight-box">
-            <strong>The Good News:</strong> M&K has the highest star rating of any Adelaide painter on Google (5.0★).
-            The website is professional, mobile-friendly, and fast. The issue isn't quality — <strong>it's
-                visibility</strong>. Google doesn't know you exist yet.
-        </div>
-    </div>
-
-    <!-- RANKING VISUAL -->
-    <div class="section">
-        <div class="section-label">The Problem</div>
-        <h2>You're Invisible on Google</h2>
-        <p class="section-desc">When someone searches "painters Adelaide", here's what they see — and where M&K
-            currently sits.</p>
-
-        <div class="ranking-visual">
-            <h3>Google Search Results — "Painters Adelaide"</h3>
-
-            <p
-                style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.3); margin-bottom: 12px; padding-left: 4px;">
-                📍 Google Maps 3-Pack — Gets 45% of clicks</p>
-            <ul class="ranking-list">
-                <li class="ranking-item top3">
-                    <span class="rank">#1</span>
-                    <span class="name">Viva Painters Adelaide</span>
-                    <span class="reviews">⭐ 4.9 • 200+ reviews</span>
-                </li>
-                <li class="ranking-item top3">
-                    <span class="rank">#2</span>
-                    <span class="name">Star Painters Adelaide</span>
-                    <span class="reviews">⭐ 4.8 • 356+ reviews</span>
-                </li>
-                <li class="ranking-item top3">
-                    <span class="rank">#3</span>
-                    <span class="name">All Suburbs Painters</span>
-                    <span class="reviews">⭐ 4.9 • 100+ reviews</span>
-                </li>
-            </ul>
-
-            <p
-                style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.3); margin: 20px 0 12px; padding-left: 4px;">
-                📄 Organic Results — Page 1</p>
-            <ul class="ranking-list">
-                <li class="ranking-item mid">
-                    <span class="rank">#4</span>
-                    <span class="name">vivapaintersadelaide.com.au</span>
-                    <span class="reviews"></span>
-                </li>
-                <li class="ranking-item mid">
-                    <span class="rank">#5</span>
-                    <span class="name">hipages.com.au</span>
-                    <span class="reviews"></span>
-                </li>
-                <li class="ranking-item mid">
-                    <span class="rank">#6</span>
-                    <span class="name">oneflare.com.au</span>
-                    <span class="reviews"></span>
-                </li>
-                <li class="ranking-item mid">
-                    <span class="rank">...</span>
-                    <span class="name" style="color: rgba(255,255,255,0.3);">+ 4 more results on page 1</span>
-                    <span class="reviews"></span>
-                </li>
-            </ul>
-
-            <div class="ranking-gap">• • • PAGES 2 & 3 • • •</div>
-
-            <ul class="ranking-list">
-                <li class="ranking-item mk-current">
-                    <span class="rank">30+</span>
-                    <span class="name">M&K Painting Services 👈 You are here</span>
-                    <span class="reviews">⭐ 5.0 • 28 reviews</span>
-                </li>
-            </ul>
-
-            <p style="text-align: center; margin-top: 20px; font-size: 13px; color: rgba(255,255,255,0.3);">
-                95% of people never go past page 1. Right now, customers can't find you.
-            </p>
-        </div>
-    </div>
-
-    <!-- COMPETITOR COMPARISON -->
-    <div class="section-full page-break">
-        <div class="section-inner">
-            <div class="section-label">Competitive Analysis</div>
-            <h2>M&K vs The Competition</h2>
-            <p class="section-desc">You have a better rating than every competitor — you just need to be seen.</p>
-
-            <table class="comp-table">
-                <thead>
-                    <tr>
-                        <th>Business</th>
-                        <th>Google Rating</th>
-                        <th>Reviews</th>
-                        <th>Blog Posts</th>
-                        <th>Directory Listings</th>
-                        <th>Schema</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Viva Painters</strong></td>
-                        <td>⭐ 4.9</td>
-                        <td>200+</td>
-                        <td>50+</td>
-                        <td>20+</td>
-                        <td><span class="badge badge-green">Yes</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Star Painters</strong></td>
-                        <td>⭐ 4.8</td>
-                        <td>356+</td>
-                        <td>20+</td>
-                        <td>20+</td>
-                        <td><span class="badge badge-green">Yes</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Elite Painting SA</strong></td>
-                        <td>⭐ 4.7</td>
-                        <td>100+</td>
-                        <td>10+</td>
-                        <td>15+</td>
-                        <td><span class="badge badge-green">Yes</span></td>
-                    </tr>
-                    <tr class="mk-row">
-                        <td><strong>M&K Painting ← You</strong></td>
-                        <td>⭐ 5.0 🏆</td>
-                        <td>28</td>
-                        <td>0</td>
-                        <td>1-2</td>
-                        <td><span class="badge badge-red">No</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="highlight-box">
-                <strong>Key Insight:</strong> M&K's 5.0★ rating is the highest of all competitors. The gap isn't quality
-                — it's content, reviews volume, and directory presence. All of these are fixable within 3 months.
-            </div>
-        </div>
-    </div>
-
-    <!-- 3-MONTH PLAN -->
-    <div class="section page-break">
-        <div class="section-label">The Growth Plan</div>
-        <h2>3-Month Action Plan</h2>
-        <p class="section-desc">A clear, month-by-month roadmap to get M&K on Google's first page for local searches.
-        </p>
-
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-dot">
-                    <span>1</span>
-                    Month
-                </div>
-                <div class="timeline-content">
-                    <h4>Foundation & Quick Wins</h4>
-                    <div class="subtitle">Set up the technical foundation and start ranking immediately</div>
-                    <ul>
-                        <li>Full Google Business Profile optimization (photos, categories, description)</li>
-                        <li>Weekly Google Business posts with project photos</li>
-                        <li>Add schema markup (LocalBusiness + Service) to website</li>
-                        <li>Create sitemap.xml and submit to Google Search Console</li>
-                        <li>List on 8 directories: Hipages, TrueLocal, Oneflare, ServiceSeeking, Yellow Pages, Bark,
-                            Airtasker, Word of Mouth</li>
-                        <li>Launch review campaign — target 10 new Google reviews</li>
-                        <li>Write 2 SEO blog posts targeting high-value keywords</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-dot month2">
-                    <span>2</span>
-                    Month
-                </div>
-                <div class="timeline-content">
-                    <h4>Content & Suburb Targeting</h4>
-                    <div class="subtitle">Build authority and start dominating local suburb searches</div>
-                    <ul>
-                        <li>4 SEO-optimized blog posts (cost guides, tips, seasonal advice)</li>
-                        <li>Create 3 suburb landing pages: "Painters Mawson Lakes", "Painters Gawler", "Painters
-                            Craigmore"</li>
-                        <li>On-page SEO audit and optimization</li>
-                        <li>Continue review push — target 40+ total reviews</li>
-                        <li>Monthly performance report with traffic and ranking data</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-dot month3">
-                    <span>3</span>
-                    Month
-                </div>
-                <div class="timeline-content">
-                    <h4>Growth & Authority</h4>
-                    <div class="subtitle">Expand reach and solidify first-page positions</div>
-                    <ul>
-                        <li>4 more blog posts including case studies and before/after features</li>
-                        <li>3 more suburb pages covering surrounding areas: "Painters Parafield Gardens", "Painters
-                            Elizabeth", "Painters Munno Para"</li>
-                        <li>Local backlink building (partnerships, sponsor listings)</li>
-                        <li>Continue review push — target 50+ total reviews</li>
-                        <li>Full 3-month comparison report with ROI analysis</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- AFTER 3 MONTHS -->
-    <div class="section page-break">
-        <div class="section-label">Expected Results</div>
-        <h2>Where M&K Will Be in 3 Months</h2>
-        <p class="section-desc">Realistic ranking targets based on current competition levels and M&K's existing
-            strengths.</p>
-
-        <div class="after-ranking">
-            <h3>🎯 Projected Google Rankings After 3 Months</h3>
-            <div class="after-grid">
-                <div class="after-item">
-                    <span class="after-keyword">"painter mawson lakes"</span>
-                    <span class="after-pos top3">#1-2</span>
-                </div>
-                <div class="after-item">
-                    <span class="after-keyword">"painter gawler"</span>
-                    <span class="after-pos top3">#1-3</span>
-                </div>
-                <div class="after-item">
-                    <span class="after-keyword">"painter golden grove"</span>
-                    <span class="after-pos top3">#1-2</span>
-                </div>
-                <div class="after-item">
-                    <span class="after-keyword">"house painting mawson lakes"</span>
-                    <span class="after-pos top3">#1-3</span>
-                </div>
-                <div class="after-item">
-                    <span class="after-keyword">"painting services gawler"</span>
-                    <span class="after-pos top3">#1-3</span>
-                </div>
-                <div class="after-item">
-                    <span class="after-keyword">"heritage painter adelaide"</span>
-                    <span class="after-pos top10">Page 1</span>
-                </div>
-                <div class="after-item">
-                    <span class="after-keyword">"painter northern suburbs"</span>
-                    <span class="after-pos top10">Page 1-2</span>
-                </div>
-                <div class="after-item">
-                    <span class="after-keyword">"painters adelaide"</span>
-                    <span class="after-pos page1">Top 10-15</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="projection-grid">
-            <div class="projection-card">
-                <h4>Monthly Organic Leads</h4>
-                <div class="bar-chart">
-                    <div class="bar-row">
-                        <span class="bar-label">Now</span>
-                        <div class="bar-track">
-                            <div class="bar-fill blue" style="width: 3%;">~0</div>
-                        </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="trust-badges">
+                        <span>✓ Licensed & Insured</span>
+                        <span>✓ 20+ Years Experience</span>
                     </div>
-                    <div class="bar-row">
-                        <span class="bar-label">M1</span>
-                        <div class="bar-track">
-                            <div class="bar-fill blue" style="width: 15%;">2-4</div>
-                        </div>
+                    <h1>Premium Painting<br>Services Adelaide</h1>
+                    <p>Transform your space with expert craftsmanship. Residential, commercial, and heritage painting by
+                        a trusted family business.</p>
+                    <!-- Star Rating -->
+                    <div class="star-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">5-Star Rated • Based on Verified Reviews</span>
                     </div>
-                    <div class="bar-row">
-                        <span class="bar-label">M2</span>
-                        <div class="bar-track">
-                            <div class="bar-fill teal" style="width: 40%;">5-10</div>
-                        </div>
-                    </div>
-                    <div class="bar-row">
-                        <span class="bar-label">M3</span>
-                        <div class="bar-track">
-                            <div class="bar-fill green" style="width: 70%;">8-15</div>
-                        </div>
+                    <!-- Urgency Message -->
+                    <p class="urgency-text">✅ Genuine Tradesman | White Card, Scissor Lift, Boom Lift | Licensed &
+                        Insured ($20M Public Liability)</p>
+                    <p class="guarantee-text">🛡️ 3 Year Guarantee — Because we Care</p>
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn-primary">Get Free Quote</a>
+                        <a href="tel:0405352932" class="btn-secondary">📞 0405 352 932</a>
+                        <img src="MPA.png" alt="Master Painters Association Member" class="hero-badge">
                     </div>
                 </div>
-            </div>
-
-            <div class="projection-card">
-                <h4>Google Reviews Target</h4>
-                <div class="bar-chart">
-                    <div class="bar-row">
-                        <span class="bar-label">Now</span>
-                        <div class="bar-track">
-                            <div class="bar-fill blue" style="width: 28%;">28</div>
-                        </div>
+                <div class="hero-form">
+                    <div class="form-header">
+                        <h3>Request a Free Quote</h3>
+                        <p>We'll be in touch fast</p>
                     </div>
-                    <div class="bar-row">
-                        <span class="bar-label">M1</span>
-                        <div class="bar-track">
-                            <div class="bar-fill blue" style="width: 38%;">38+</div>
-                        </div>
-                    </div>
-                    <div class="bar-row">
-                        <span class="bar-label">M2</span>
-                        <div class="bar-track">
-                            <div class="bar-fill teal" style="width: 45%;">45+</div>
-                        </div>
-                    </div>
-                    <div class="bar-row">
-                        <span class="bar-label">M3</span>
-                        <div class="bar-track">
-                            <div class="bar-fill green" style="width: 55%;">50+</div>
-                        </div>
+                    <form id="heroQuoteForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="d8e6b356-6e91-428a-85ee-43c7c39df8e9">
+                        <input type="hidden" name="subject" value="New Quote Request from M&K Website">
+                        <input type="hidden" name="from_name" value="M&K Painting Landing Page">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="tel" name="phone" placeholder="Phone Number" required>
+                        <input type="text" name="suburb" placeholder="Suburb" required>
+                        <select name="service" required>
+                            <option value="">Select Service</option>
+                            <option value="interior">Interior Painting</option>
+                            <option value="exterior">Exterior Painting</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="heritage">Heritage/Restoration</option>
+                        </select>
+                        <button type="submit" class="btn-submit">Get Free Quote →</button>
+                    </form>
+                    <div class="form-trust">
+                        <span>✓ Licensed & Insured</span>
+                        <span>✓ No Obligation</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ROI -->
-    <div class="section">
-        <div class="section-label">Return on Investment</div>
-        <h2>The Numbers Speak for Themselves</h2>
-        <p class="section-desc">SEO is the highest-ROI marketing channel for local tradies.</p>
-
-        <div class="roi-box">
-            <h3>Conservative 3-Month ROI</h3>
-            <div class="roi-numbers">
-                <div>
-                    <div class="roi-num cost">$1,200</div>
-                    <div class="roi-label">SEO Investment</div>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Expertise</h2>
+                <p>Professional painting solutions for every project</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>Interior Painting</h3>
+                    <p>Walls, ceilings, feature walls, doors, trims, and spray painting for a flawless finish.</p>
                 </div>
-                <div class="roi-arrow">→</div>
-                <div>
-                    <div class="roi-num revenue">$15K-68K</div>
-                    <div class="roi-label">Estimated Revenue</div>
+                <div class="service-card">
+                    <div class="service-icon">🏡</div>
+                    <h3>Exterior Painting</h3>
+                    <p>Weatherproof coatings, fascias, gutters, decks, and fences to protect and beautify.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Commercial</h3>
+                    <p>Offices, retail, strata properties. Minimal disruption with after-hours options.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏛️</div>
+                    <h3>Heritage & Restoration</h3>
+                    <p>Specialist period home painting. Federation, Edwardian, Colonial expertise.</p>
                 </div>
             </div>
-            <div class="roi-bottom">= 12x to 56x Return</div>
-        </div>
-
-        <table class="comp-table">
-            <thead>
-                <tr>
-                    <th>Metric</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Average Adelaide painting job</td>
-                    <td><strong>$5,000 – $12,000</strong></td>
-                </tr>
-                <tr>
-                    <td>Lead-to-job conversion rate</td>
-                    <td><strong>20 – 30%</strong></td>
-                </tr>
-                <tr>
-                    <td>Monthly SEO investment</td>
-                    <td><strong>$400</strong></td>
-                </tr>
-                <tr>
-                    <td>Jobs needed to break even</td>
-                    <td><strong>1 job per quarter</strong></td>
-                </tr>
-                <tr>
-                    <td>Expected jobs by month 3</td>
-                    <td><strong>2-4 per month</strong></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="highlight-box">
-            <strong>Bottom line:</strong> At $400/month, M&K only needs ONE extra job every 3 months to break even. By
-            month 3, we expect 8-15 leads per month — that's potentially 2-4 jobs at $8K average =
-            <strong>$16K-$32K/month in additional revenue</strong>.
-        </div>
-    </div>
-
-    <!-- PRICING -->
-    <div class="section page-break">
-        <div class="section-label">Investment</div>
-        <h2>What's Included</h2>
-        <p class="section-desc">Everything needed to get M&K ranking and generating leads from Google.</p>
-
-        <div class="pricing-box">
-            <div class="pricing-header">
-                <h3>SEO Growth Package</h3>
-                <div class="pricing-price">$400 <span>/month</span></div>
-            </div>
-            <div class="pricing-body">
-                <ul>
-                    <li>Google Business Profile management (weekly)</li>
-                    <li>4 SEO-optimized blog posts per month</li>
-                    <li>Suburb-specific landing pages</li>
-                    <li>Review generation strategy</li>
-                    <li>Directory listings & citation building</li>
-                    <li>Technical SEO (schema, sitemap, speed)</li>
-                    <li>Monthly performance report</li>
-                    <li>On-page SEO optimization</li>
-                    <li>Google Search Console monitoring</li>
-                    <li>Competitor tracking</li>
-                </ul>
-            </div>
-            <div class="pricing-footer">
-                No lock-in contracts. Cancel anytime. Results typically visible within 4-6 weeks.
+            <!-- CTA after services -->
+            <div class="section-cta">
+                <a href="tel:0405352932" class="btn-primary">📞 Call Now</a>
+                <a href="#contact" class="btn-secondary">Request Quote</a>
             </div>
         </div>
+    </section>
+
+    <!-- Why Trust Us Section -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-wrapper">
+                <div class="trust-content">
+                    <div class="section-header">
+                        <h2>Why Trust MK Painting?</h2>
+                        <p>We're not here to upsell. We're here to do the job right.</p>
+                    </div>
+                    <div class="trust-grid">
+                        <div class="trust-item">
+                            <span class="trust-check">✔</span>
+                            <div>
+                                <h4>We Show Up When We Say</h4>
+                                <p>Punctuality isn't a bonus — it's expected.</p>
+                            </div>
+                        </div>
+                        <div class="trust-item">
+                            <span class="trust-check">✔</span>
+                            <div>
+                                <h4>We Do It Right, First Time</h4>
+                                <p>No shortcuts. No second visits needed.</p>
+                            </div>
+                        </div>
+                        <div class="trust-item">
+                            <span class="trust-check">✔</span>
+                            <div>
+                                <h4>No Hidden Costs</h4>
+                                <p>The price we quote is the price you pay.</p>
+                            </div>
+                        </div>
+                        <div class="trust-item">
+                            <span class="trust-check">✔</span>
+                            <div>
+                                <h4>Local Family Business</h4>
+                                <p>We live here, we work here, and we care.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-cta">
+                        <a href="tel:0405352932" class="btn-primary">📞 Call Now</a>
+                        <a href="#contact" class="btn-secondary">Request Quote</a>
+                    </div>
+                </div>
+                <div class="trust-image-container">
+                    <img src="trust-logo.jpg" alt="M&K Painting Services Logo" class="trust-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Gallery Carousel -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Work</h2>
+                <p>Recent projects showcasing our quality craftsmanship</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="M&K1.jpg" alt="M&K Painting Project 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K2.jpg" alt="M&K Painting Project 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K3.jpg" alt="M&K Painting Project 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K4.jpg" alt="M&K Painting Project 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K5.jpg" alt="M&K Painting Project 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K6.jpg" alt="M&K Painting Project 6">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K7.jpg" alt="M&K Painting Project 7">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K8.jpg" alt="M&K Painting Project 8">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K9.png" alt="M&K Painting Project 9">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K10.webp" alt="M&K Painting Project 10">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K11.webp" alt="M&K Painting Project 11">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K12.webp" alt="M&K Painting Project 12">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K13.webp" alt="M&K Painting Project 13">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K14.jpg" alt="M&K Painting Project 14">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K16.jpg" alt="M&K Painting Project 16 - Modern Home Exterior">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K17.jpg" alt="M&K Painting Project 17">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K18.jpg" alt="M&K Painting Project 18">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K19.jpg" alt="M&K Painting Project 19">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K20.jpg" alt="M&K Painting Project 20">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K21.jpg" alt="M&K Painting Project 21">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K22.jpg" alt="M&K Painting Project 22">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K23.jpg" alt="M&K Painting Project 23">
+                </div>
+                <div class="gallery-item">
+                    <img src="M&K24.jpg" alt="M&K Painting Project 24 - Bathroom Before">
+                </div>
+                <div class="gallery-item">
+                    <img src="MPA.png" alt="Master Painters Association Member Badge">
+                </div>
+            </div>
+            <!-- CTA after gallery -->
+            <div class="section-cta">
+                <a href="tel:0405352932" class="btn-primary">📞 Call Now</a>
+                <a href="#contact" class="btn-secondary">Request Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas Section -->
+    <section class="service-areas">
+        <div class="container">
+            <div class="section-header">
+                <h2>Adelaide-Wide Painting Services</h2>
+                <p>Quality work. Wherever you are in Adelaide.</p>
+            </div>
+            <div class="areas-grid">
+                <div class="area-column">
+                    <h4>Northern Suburbs</h4>
+                    <p>Salisbury, Elizabeth, Mawson Lakes, Golden Grove, Tea Tree Gully, Modbury</p>
+                </div>
+                <div class="area-column">
+                    <h4>Southern Suburbs</h4>
+                    <p>Noarlunga, Morphett Vale, Hallett Cove, Reynella, Christies Beach, Seaford</p>
+                </div>
+                <div class="area-column">
+                    <h4>Eastern Suburbs</h4>
+                    <p>Burnside, Norwood, Magill, Campbelltown, Paradise, Newton, Rostrevor</p>
+                </div>
+                <div class="area-column">
+                    <h4>Western Suburbs</h4>
+                    <p>Henley Beach, West Lakes, Port Adelaide, Semaphore, Grange, Findon</p>
+                </div>
+            </div>
+            <p class="areas-note">Not sure if we cover your area? <a href="tel:0405352932">Call us</a> and we'll confirm
+                in seconds.</p>
+            <div class="section-cta">
+                <a href="tel:0405352932" class="btn-primary">📞 Call Now</a>
+                <a href="#contact" class="btn-secondary">Request Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Professional Process</h2>
+                <p>How we ensure a premium finish every time</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <h4>Quote & Colour</h4>
+                    <p>Detailed on-site inspection and free colour consultation to match your vision.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <h4>Preparation</h4>
+                    <p>The most important step. We sand, fill, and tape to protect your home and ensure a smooth base.
+                    </p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <h4>Expert Painting</h4>
+                    <p>Using premium Dulux or Haymes paints for a durable, flawless finish that lasts.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <h4>Clean & Inspect</h4>
+                    <p>Complete clean-up and a final walkthrough with you to ensure 100% satisfaction.</p>
+                </div>
+            </div>
+            <div class="section-cta">
+                <a href="tel:0405352932" class="btn-primary">📞 Call Now</a>
+                <a href="#contact" class="btn-secondary">Request Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about our painting services</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">How long does a typical interior job take? <span
+                            class="faq-toggle">+</span></div>
+                    <div class="faq-answer">Most residential interior painting projects (3-4 rooms) take between 3 to 5
+                        days, depending on the level of preparation required.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do you move the furniture for us? <span class="faq-toggle">+</span></div>
+                    <div class="faq-answer">Yes! We assist with moving larger items is necessary. We also cover all
+                        furniture and flooring with professional-grade drop sheets to ensure total protection.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What type of paint do you use? <span class="faq-toggle">+</span></div>
+                    <div class="faq-answer">We primarily use premium Australian brands like Dulux, Haymes, and Wattyl.
+                        These provide the best coverage and durability for the Adelaide climate.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Are you insured and licensed? <span class="faq-toggle">+</span></div>
+                    <div class="faq-answer">Absolutely. MK Painting Services is fully licensed and carries comprehensive
+                        public liability insurance for your peace of mind.</div>
+                </div>
+            </div>
+            <div class="section-cta">
+                <a href="tel:0405352932" class="btn-primary">📞 Call Now</a>
+                <a href="#contact" class="btn-secondary">Request Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h2>Get Your Free Quote</h2>
+                    <p>Contact us today for a no-obligation quote. We respond within 24 hours.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="icon">📞</span>
+                            <div>
+                                <strong>Phone</strong>
+                                <a href="tel:0405352932">0405 352 932</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">📍</span>
+                            <div>
+                                <strong>Location</strong>
+                                <span>Gulfview Heights, SA</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">🕐</span>
+                            <div>
+                                <strong>Hours</strong>
+                                <span>Mon-Sat: 7am - 7pm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="quote-form" id="quoteForm" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="d8e6b356-6e91-428a-85ee-43c7c39df8e9">
+                    <input type="hidden" name="subject" value="New Contact Form Submission - M&K Painting">
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="tel" name="phone" placeholder="Phone" required>
+                    </div>
+                    <input type="text" name="suburb" placeholder="Suburb" required>
+                    <select name="service" required>
+                        <option value="">Select Service</option>
+                        <option value="interior">Interior Painting</option>
+                        <option value="exterior">Exterior Painting</option>
+                        <option value="commercial">Commercial</option>
+                        <option value="heritage">Heritage/Restoration</option>
+                    </select>
+                    <textarea name="message" placeholder="Project details (optional)" rows="3"></textarea>
+                    <button type="submit" class="btn-submit">Request Free Quote</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">🎨</span>
+                    <span>M&K Painting Services</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#services">Services</a>
+                    <a href="#contact">Contact</a>
+                    <a href="tel:0405352932">0405 352 932</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 MK Painting Services • Licensed & Insured • BLD251492 • ABN: 25623085946</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Call Button -->
+    <a href="tel:0405352932" class="floating-call">
+        <span class="call-icon">📞</span>
+        <span class="call-text">Call Now</span>
+    </a>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
     </div>
 
-    <!-- CTA -->
-    <div class="cta-section">
-        <h2>Ready to Get Found on Google?</h2>
-        <p>Let's turn your 5-star reputation into a steady stream of new customers.</p>
-        <a href="tel:0405352932" class="cta-btn no-print">Let's Get Started →</a>
-        <p style="margin-top: 40px; font-size: 14px; color: var(--gray-300);">
-            Questions? Contact us anytime to discuss your growth plan.
-        </p>
-    </div>
-
-    <div class="footer">
-        <p>This proposal is confidential and intended solely for M&K Painting Services.</p>
-    </div>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
