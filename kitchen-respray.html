@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Professional kitchen cabinet respraying in Adelaide. Get a brand new kitchen look for a fraction of the cost.">
+    <title>Kitchen Cabinet Respraying Adelaide | M&K Painting Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .kitchen-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('M&K24.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .transformation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .savings-badge {
+            background: #ff4757;
+            color: white;
+            padding: 20px;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            transform: rotate(15deg);
+        }
+
+        .checklist-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid var(--brand-blue);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Simple Landing Nav -->
+    <nav class="navbar">
+        <div class="container" style="justify-content: center;">
+            <div class="logo">
+                <img src="logo.png" alt="M&K Painting" class="logo-img">
+                <span class="logo-text">M&K Painting Services</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="kitchen-hero">
+        <div class="container">
+            <h1 style="font-size: 3.5rem; margin-bottom: 20px;">Your Kitchen, transformed.<br>For 80% Less than a Reno.
+            </h1>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto 40px;">Professional cabinet respraying across
+                Adelaide. Durable, showroom-quality finishes with zero stress.</p>
+            <a href="#quote" class="btn-primary" style="padding: 20px 40px; font-size: 1.25rem;">Get My Instant Quote
+                →</a>
+        </div>
+    </section>
+
+    <section class="container" style="padding: 80px 20px;">
+        <div class="transformation-grid" style="position: relative;">
+            <div class="savings-badge">SAVE UP TO 80%</div>
+            <div class="card">
+                <h3>Before</h3>
+                <p>Dated, yellowed, or dark wood that makes your home feel old.</p>
+            </div>
+            <div class="card">
+                <h3>After M&K</h3>
+                <p>Crisp, modern, factory-smooth finish in any color you choose.</p>
+            </div>
+        </div>
+
+        <div class="grid" style="margin-top: 60px;">
+            <div class="checklist-card">
+                <h4>Why Choose Respraying?</h4>
+                <ul style="margin-top: 20px; list-style: none;">
+                    <li>✅ <strong>No Construction Mess:</strong> We spray in a controlled environment.</li>
+                    <li>✅ <strong>Endless Colors:</strong> Choose any Dulux or Haymes color.</li>
+                    <li>✅ <strong>Fast Turnaround:</strong> Completed in just 3-5 days.</li>
+                    <li>✅ <strong>Increased Value:</strong> Instantly boost your home's equity.</li>
+                </ul>
+            </div>
+            <div id="quote" class="hero-form" style="margin-top: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h3>Request Your Kitchen Quote</h3>
+                <form action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="d8e6b356-6e91-428a-85ee-43c7c39df8e9">
+                    <input type="hidden" name="subject" value="Kitchen Respray Lead - M&K">
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="tel" name="phone" placeholder="Phone Number" required>
+                    <input type="text" name="suburb" placeholder="Suburb (Adelaide)" required>
+                    <button type="submit" class="btn-submit">Get My Quote Now →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 M&K Painting Services • The Kitchen Respray Specialists</p>
+        </div>
+    </footer>
+</body>
+
+</html>

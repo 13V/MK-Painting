@@ -21,7 +21,24 @@ From heritage restoration in Gawler to modern lakeside home transformations in M
 
 ---
 
-## 📝 3. Pre-Written Google Posts (Conversion Boost)
+## 🛠️ 3. Custom Services (The Ranking Secret)
+*Go to "Edit services" > "Add custom service". Add these exactly as written:*
+
+### For Gawler:
+- `Heritage Restoration Gawler`
+- `Period Home Painting Gawler`
+
+### For Mawson Lakes:
+- `Modern Interior Painting Mawson Lakes`
+- `Lakeside Exterior Painting Mawson Lakes`
+
+### For Golden Grove:
+- `Family Home Painting Golden Grove`
+- `Durable Interior Finishes Golden Grove`
+
+---
+
+## 📝 4. Pre-Written Google Posts (Conversion Boost)
 *Google "Posts" expire after a while, so pushing these once a week keeps your profile "fresh" in Google's eyes.*
 
 ### Post 1: Target - Gawler (Heritage Emphasis)
