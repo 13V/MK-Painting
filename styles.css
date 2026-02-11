@@ -12,9 +12,22 @@
     --bg-card: #F8F8F8;
     --bg-light: #F0F0F0;
     --text: #1A1A1A;
-    --text-muted: #666666;
+    --text-muted: #4B4B4B;
+    /* Darker for accessibility contrast */
     --border: #1A1A1A;
     --gradient: linear-gradient(135deg, #B8860B 0%, #DAA520 100%);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 html {
@@ -1024,7 +1037,8 @@ body {
 }
 
 .footer-links a {
-    color: var(--text-muted);
+    color: #4B4B4B;
+    /* Darker for accessibility */
     text-decoration: none;
     font-size: 14px;
     transition: color 0.2s;
@@ -1041,7 +1055,8 @@ body {
 }
 
 .footer-bottom p {
-    color: var(--text-muted);
+    color: #4B4B4B;
+    /* Darker for accessibility */
     font-size: 13px;
 }
 

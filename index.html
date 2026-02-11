@@ -7,12 +7,75 @@
     <meta name="description"
         content="MK Painting Services - Premium residential and commercial painters in Adelaide. Quality workmanship guaranteed.">
     <title>MK Painting Services | Premium Painters Adelaide</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="styles.css">
+    </noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:wght@600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="preload" as="image" href="M&K16.jpg">
+    <style>
+        /* Critical CSS */
+        :root {
+            --primary: #B8860B;
+            --text: #1A1A1A;
+            --bg: #FFFFFF;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E5E5E5;
+            padding: 12px 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero {
+            position: relative;
+            padding: 140px 0 80px;
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.4) 100%), url('M&K16.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #000000;
+        }
+    </style>
 
     <!-- Open Graph / Social Media Preview -->
     <meta property="og:type" content="website">
@@ -103,7 +166,7 @@
         <div class="container">
             <div class="logo">
                 <a href="/">
-                    <img src="logo.png" alt="M&K Painting Services Logo" class="logo-img">
+                    <img src="logo.png" alt="M&K Painting Services Logo" class="logo-img" width="165" height="55">
                     <span class="logo-text">M&K Painting Services</span>
                 </a>
             </div>
@@ -141,7 +204,8 @@
                     <div class="hero-cta">
                         <a href="#contact" class="btn-primary">Get Free Quote</a>
                         <a href="tel:0405352932" class="btn-secondary">📞 0405 352 932</a>
-                        <img src="MPA.png" alt="Master Painters Association Member" class="hero-badge">
+                        <img src="MPA.png" alt="Master Painters Association Member" class="hero-badge" width="60"
+                            height="60">
                     </div>
                 </div>
                 <div class="hero-form">
@@ -156,7 +220,8 @@
                         <input type="text" name="name" placeholder="Your Name" required>
                         <input type="tel" name="phone" placeholder="Phone Number" required>
                         <input type="text" name="suburb" placeholder="Suburb" required>
-                        <select name="service" required>
+                        <label for="hero-service" class="visually-hidden">Select Service</label>
+                        <select name="service" id="hero-service" required title="Please select a service">
                             <option value="">Select Service</option>
                             <option value="interior">Interior Painting</option>
                             <option value="exterior">Exterior Painting</option>
@@ -222,30 +287,30 @@
                     </div>
                     <div class="trust-grid">
                         <div class="trust-item">
-                            <span class="trust-check">✔</span>
+                            <span class="trust-check" aria-hidden="true">✔</span>
                             <div>
-                                <h4>We Show Up When We Say</h4>
+                                <h3>We Show Up When We Say</h3>
                                 <p>Punctuality isn't a bonus — it's expected.</p>
                             </div>
                         </div>
                         <div class="trust-item">
-                            <span class="trust-check">✔</span>
+                            <span class="trust-check" aria-hidden="true">✔</span>
                             <div>
-                                <h4>We Do It Right, First Time</h4>
+                                <h3>We Do It Right, First Time</h3>
                                 <p>No shortcuts. No second visits needed.</p>
                             </div>
                         </div>
                         <div class="trust-item">
-                            <span class="trust-check">✔</span>
+                            <span class="trust-check" aria-hidden="true">✔</span>
                             <div>
-                                <h4>No Hidden Costs</h4>
+                                <h3>No Hidden Costs</h3>
                                 <p>The price we quote is the price you pay.</p>
                             </div>
                         </div>
                         <div class="trust-item">
-                            <span class="trust-check">✔</span>
+                            <span class="trust-check" aria-hidden="true">✔</span>
                             <div>
-                                <h4>Local Family Business</h4>
+                                <h3>Local Family Business</h3>
                                 <p>We live here, we work here, and we care.</p>
                             </div>
                         </div>
@@ -272,76 +337,79 @@
             </div>
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="M&K1.jpg" alt="M&K Painting Project 1" loading="lazy">
+                    <img src="M&K1.jpg" alt="M&K Painting Project 1" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K2.jpg" alt="M&K Painting Project 2" loading="lazy">
+                    <img src="M&K2.jpg" alt="M&K Painting Project 2" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K3.jpg" alt="M&K Painting Project 3" loading="lazy">
+                    <img src="M&K3.jpg" alt="M&K Painting Project 3" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K4.jpg" alt="M&K Painting Project 4" loading="lazy">
+                    <img src="M&K4.jpg" alt="M&K Painting Project 4" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K5.jpg" alt="M&K Painting Project 5" loading="lazy">
+                    <img src="M&K5.jpg" alt="M&K Painting Project 5" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K6.jpg" alt="M&K Painting Project 6" loading="lazy">
+                    <img src="M&K6.jpg" alt="M&K Painting Project 6" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K7.jpg" alt="M&K Painting Project 7" loading="lazy">
+                    <img src="M&K7.jpg" alt="M&K Painting Project 7" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K8.jpg" alt="M&K Painting Project 8" loading="lazy">
+                    <img src="M&K8.jpg" alt="M&K Painting Project 8" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K9.png" alt="M&K Painting Project 9" loading="lazy">
+                    <img src="M&K9.png" alt="M&K Painting Project 9" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K10.webp" alt="M&K Painting Project 10" loading="lazy">
+                    <img src="M&K10.webp" alt="M&K Painting Project 10" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K11.webp" alt="M&K Painting Project 11" loading="lazy">
+                    <img src="M&K11.webp" alt="M&K Painting Project 11" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K12.webp" alt="M&K Painting Project 12" loading="lazy">
+                    <img src="M&K12.webp" alt="M&K Painting Project 12" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K13.webp" alt="M&K Painting Project 13" loading="lazy">
+                    <img src="M&K13.webp" alt="M&K Painting Project 13" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K14.jpg" alt="M&K Painting Project 14" loading="lazy">
+                    <img src="M&K14.jpg" alt="M&K Painting Project 14" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K16.jpg" alt="M&K Painting Project 16 - Modern Home Exterior" loading="lazy">
+                    <img src="M&K16.jpg" alt="M&K Painting Project 16 - Modern Home Exterior" loading="lazy" width="400"
+                        height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K17.jpg" alt="M&K Painting Project 17" loading="lazy">
+                    <img src="M&K17.jpg" alt="M&K Painting Project 17" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K18.jpg" alt="M&K Painting Project 18" loading="lazy">
+                    <img src="M&K18.jpg" alt="M&K Painting Project 18" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K19.jpg" alt="M&K Painting Project 19" loading="lazy">
+                    <img src="M&K19.jpg" alt="M&K Painting Project 19" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K20.jpg" alt="M&K Painting Project 20" loading="lazy">
+                    <img src="M&K20.jpg" alt="M&K Painting Project 20" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K21.jpg" alt="M&K Painting Project 21" loading="lazy">
+                    <img src="M&K21.jpg" alt="M&K Painting Project 21" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K22.jpg" alt="M&K Painting Project 22" loading="lazy">
+                    <img src="M&K22.jpg" alt="M&K Painting Project 22" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K23.jpg" alt="M&K Painting Project 23" loading="lazy">
+                    <img src="M&K23.jpg" alt="M&K Painting Project 23" loading="lazy" width="400" height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="M&K24.jpg" alt="M&K Painting Project 24 - Bathroom Before" loading="lazy">
+                    <img src="M&K24.jpg" alt="M&K Painting Project 24 - Bathroom Before" loading="lazy" width="400"
+                        height="300">
                 </div>
                 <div class="gallery-item">
-                    <img src="MPA.png" alt="Master Painters Association Member Badge" loading="lazy">
+                    <img src="MPA.png" alt="Master Painters Association Member Badge" loading="lazy" width="400"
+                        height="300">
                 </div>
             </div>
             <!-- CTA after gallery -->
@@ -361,7 +429,7 @@
             </div>
             <div class="areas-grid">
                 <div class="area-column">
-                    <h4>Northern Suburbs</h4>
+                    <h3>Northern Suburbs</h3>
                     <p>
                         <a href="mawson-lakes.html"
                             style="color: var(--brand-light); text-decoration: underline;">Mawson Lakes</a>,
@@ -372,15 +440,15 @@
                     </p>
                 </div>
                 <div class="area-column">
-                    <h4>Southern Suburbs</h4>
+                    <h3>Southern Suburbs</h3>
                     <p>Noarlunga, Morphett Vale, Hallett Cove, Reynella, Christies Beach, Seaford</p>
                 </div>
                 <div class="area-column">
-                    <h4>Eastern Suburbs</h4>
+                    <h3>Eastern Suburbs</h3>
                     <p>Burnside, Norwood, Magill, Campbelltown, Paradise, Newton, Rostrevor</p>
                 </div>
                 <div class="area-column">
-                    <h4>Western Suburbs</h4>
+                    <h3>Western Suburbs</h3>
                     <p>Henley Beach, West Lakes, Port Adelaide, Semaphore, Grange, Findon</p>
                 </div>
             </div>
@@ -509,14 +577,17 @@
                         <input type="tel" name="phone" placeholder="Phone" required>
                     </div>
                     <input type="text" name="suburb" placeholder="Suburb" required>
-                    <select name="service" required>
+                    <label for="contact-service" class="visually-hidden">Select Service</label>
+                    <select name="service" id="contact-service" required title="Please select a service">
                         <option value="">Select Service</option>
                         <option value="interior">Interior Painting</option>
                         <option value="exterior">Exterior Painting</option>
                         <option value="commercial">Commercial</option>
                         <option value="heritage">Heritage/Restoration</option>
                     </select>
-                    <textarea name="message" placeholder="Project details (optional)" rows="3"></textarea>
+                    <label for="contact-message" class="visually-hidden">Project details (optional)</label>
+                    <textarea name="message" id="contact-message" placeholder="Project details (optional)"
+                        rows="3"></textarea>
                     <button type="submit" class="btn-submit">Request Free Quote</button>
                 </form>
             </div>
@@ -534,21 +605,21 @@
             <div class="areas-grid">
                 <div class="area-column"
                     style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    <h4>Choosing Colors for Mawson Lakes</h4>
+                    <h3>Choosing Colors for Mawson Lakes</h3>
                     <p>Discover the palette that works best for modern lakeside architecture.</p>
                     <a href="choosing-colors-mawson-lakes.html" style="color: var(--brand-blue); font-weight: 600;">Read
                         More →</a>
                 </div>
                 <div class="area-column"
                     style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    <h4>Gawler Heritage Guide</h4>
+                    <h3>Gawler Heritage Guide</h3>
                     <p>Why painting a historic home requires a specialized heritage touch.</p>
                     <a href="heritage-painting-gawler.html" style="color: var(--brand-blue); font-weight: 600;">Read
                         More →</a>
                 </div>
                 <div class="area-column"
                     style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    <h4>Golden Grove Families</h4>
+                    <h3>Golden Grove Families</h3>
                     <p>Best durable paints for busy homes in the Golden Grove foothills.</p>
                     <a href="golden-grove-painting-guide.html" style="color: var(--brand-blue); font-weight: 600;">Read
                         More →</a>
