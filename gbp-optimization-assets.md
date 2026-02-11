@@ -43,7 +43,7 @@ From heritage restoration in Gawler to modern lakeside home transformations in M
 
 ### Post 1: Target - Gawler (Heritage Emphasis)
 *   **Photo:** Use a photo of a heritage or classic house project.
-*   **Text:** "Preserving Gawler's History 🏛️ - We specialize in heritage restoration and premium exterior painting for historic Gawler homes. Our 3-year guarantee ensures your restoration stands the test of time. Is your home ready for a refresh? [Link to Gawler Page]"
+*   **Text:** "Preserving Gawler's History 🏛️ - We specialize in heritage restoration and premium exterior painting for historic homes. From **Murray St** to the stone cottages near **Gawler Cinema**, our 3-year guarantee ensures your restoration stands the test of time. Is your home ready for a refresh? [Link to Gawler Page]"
 
 ### Post 2: Target - Mawson Lakes (Modern Emphasis)
 *   **Photo:** Use a photo of a modern interior or lakeside exterior.
@@ -51,7 +51,7 @@ From heritage restoration in Gawler to modern lakeside home transformations in M
 
 ### Post 3: Target - Golden Grove (Family Emphasis)
 *   **Photo:** Use a photo of a bright family kitchen or living room.
-*   **Text:** "Golden Grove Family Home Experts 🏡 - Using 'Wash-and-Wear' premium paints to withstand the rigors of busy family life in Golden Grove. Durable, beautiful, and kid-friendly finishes that last. Get your family-home quote now! [Link to Golden Grove Page]"
+*   **Text:** "Golden Grove Family Home Experts 🏡 - Using 'Wash-and-Wear' premium paints near **Golden Fields** and **The Grove**. Durable, beautiful, and kid-friendly finishes that last. We know **The Golden Way** neighborhoods well. Get your family-home quote now! [Link to Golden Grove Page]"
 
 ---
 
