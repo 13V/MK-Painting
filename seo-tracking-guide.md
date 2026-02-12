@@ -44,7 +44,18 @@ Third-party tools can be 1-2 weeks behind. The fastest way to check a specific k
 
 ---
 
-## 🔥 5. PageSpeed Insights
+## ⚡ 5. Vercel Web Analytics — The "Speedometer"
+If you are hosting on Vercel, this is the easiest way to see your traffic without dealing with complex Google reports.
+
+*   **Setup:** Enable "Web Analytics" in your Vercel Project Dashboard.
+*   **What to Check:**
+    *   **Visitors & Views:** A clean, accurate count of real humans visiting your site.
+    *   **Web Vitals:** Tells you exactly how "fast" your site feels to customers.
+    *   **Top Pages:** See which suburb page is getting the most attention this week.
+
+---
+
+## 🔥 6. PageSpeed Insights
 Google prioritizes fast websites. Use this to ensure our "Performance Polish" is holding up as you add more project photos.
 
 *   **Link:** [pagespeed.web.dev](https://pagespeed.web.dev/)
