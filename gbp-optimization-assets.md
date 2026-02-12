@@ -55,6 +55,28 @@ From heritage restoration in Gawler to modern lakeside home transformations in M
 
 ---
 
-## 📸 4. The "Photo Trick"
-*   **Action:** When you finish a job in Gawler, take a photo and upload it to your GBP *while you are still at the job site*. 
-*   **Why:** Google records the "GPS Location" of the photo upload. This proves to Google that you *actually work in Gawler*, which is the fastest way to jump into the Top 3 Map Pack!
+## 📸 5. Advanced Photo Naming (SEO Hack)
+Before uploading photos, rename the files on your computer/phone. Google scans the file names for keywords.
+- *Instead of:* `IMG_1234.jpg`
+- *Use:* `heritage-painter-gawler-murray-st.jpg`
+- *Use:* `exterior-painting-golden-grove-foothills.jpg`
+- *Use:* `modern-interior-mawson-lakes-lakeside.jpg`
+
+---
+
+## 🙋 6. GBP "Questions & Answers" (Self-Trigger)
+You are allowed to ask and answer your own questions on your profile. This helps Google's AI understand your services even better.
+
+**Q1:** "Do you specialize in heritage restoration for older Gawler homes?"
+**A:** "Yes! We specialize in heritage restoration across Gawler and Gawler East. We use specialized masonry coatings and period-correct color schemes to preserve the history of local Gawler cottages."
+
+**Q2:** "Do you provide free painting quotes for homes in Golden Grove?"
+**A:** "Absolutely. We provide free on-site quotes for all Golden Grove and foothills residences. We can also provide rough estimates via photos for faster service."
+
+---
+
+## ✅ 7. Business Attributes
+*Go to "Edit Profile" > "More" > "Service Options". Ensure these are checked:*
+- [x] **Online estimates**
+- [x] **On-site services**
+- [x] **Language assistance: Punjabi / Hindi** (This targets a specific niche in Mawson Lakes/Salisbury)
