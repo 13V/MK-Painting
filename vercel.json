@@ -1,0 +1,15 @@
+{
+    "redirects": [
+        {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "mandkpaintingservices.com.au"
+                }
+            ],
+            "destination": "https://www.mandkpaintingservices.com.au/:path*",
+            "permanent": true
+        }
+    ]
+}
