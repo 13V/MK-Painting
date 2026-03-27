@@ -31,10 +31,7 @@ def _get_credentials():
     creds_info = json.loads(creds_json)
     return service_account.Credentials.from_service_account_info(
         creds_info,
-        scopes=[
-            "https://www.googleapis.com/auth/webmasters.readonly",
-            "https://www.googleapis.com/auth/indexing",
-        ],
+        scopes=["https://www.googleapis.com/auth/webmasters.readonly"],
     )
 
 
@@ -44,12 +41,6 @@ def get_gsc_service():
 
     return build("searchconsole", "v1", credentials=_get_credentials())
 
-
-def get_indexing_service():
-    """Authenticate and return a Google Indexing API service object."""
-    from googleapiclient.discovery import build
-
-    return build("indexing", "v3", credentials=_get_credentials())
 
 
 def fetch_query_data(service=None, days=LOOKBACK_DAYS):
@@ -199,30 +190,27 @@ def inspect_url(url, service=None):
     }
 
 
-def request_indexing(url):
+def ping_sitemap():
     """
-    Submit a URL for crawling/indexing via the Google Indexing API.
+    Ping Google to re-crawl the sitemap.
+    This is the most reliable way to get new pages discovered.
+    """
+    import urllib.request
 
-    Returns the API response or error message.
-    """
-    service = get_indexing_service()
+    sitemap_url = f"{SITE_URL}sitemap.xml"
+    ping_url = f"https://www.google.com/ping?sitemap={sitemap_url}"
 
     try:
-        result = service.urlNotifications().publish(
-            body={
-                "url": url,
-                "type": "URL_UPDATED",
-            }
-        ).execute()
-        return {"url": url, "status": "submitted", "response": result}
+        req = urllib.request.Request(ping_url)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return {"status": "success", "code": resp.status}
     except Exception as e:
-        return {"url": url, "status": "error", "error": str(e)}
+        return {"status": "error", "error": str(e)}
 
 
 def inspect_and_submit_new_pages(pages_to_check=None):
     """
-    Inspect all site pages (or a given list) and submit any
-    that are not yet indexed for crawling.
+    Inspect all site pages and ping sitemap if any are unindexed.
 
     Returns dict with inspection results and submission results.
     """
@@ -242,14 +230,19 @@ def inspect_and_submit_new_pages(pages_to_check=None):
             results["inspected"].append(inspection)
 
             if inspection["indexing_state"] not in ("INDEXING_ALLOWED", "INDEXED"):
-                print(f"   → Not indexed — submitting for crawl")
-                submit_result = request_indexing(url)
-                results["submitted"].append(submit_result)
+                results["submitted"].append({"url": url, "status": "unindexed"})
             else:
                 results["already_indexed"].append(url)
         except Exception as e:
             print(f"   → Error: {e}")
             results["errors"].append({"url": url, "error": str(e)})
+
+    # If any pages are unindexed, ping the sitemap to prompt re-crawl
+    if results["submitted"]:
+        print(f"   → {len(results['submitted'])} unindexed pages found — pinging sitemap")
+        ping_result = ping_sitemap()
+        for item in results["submitted"]:
+            item["status"] = f"sitemap pinged ({ping_result['status']})"
 
     return results
 
