@@ -1,0 +1,46 @@
+name: SEO Agent — Daily Report
+
+on:
+  schedule:
+    - cron: "0 6 * * *"  # 6:00 AM UTC = 4:30 PM ACDT (Adelaide)
+  workflow_dispatch:       # Manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  seo-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: seo-agent/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r seo-agent/requirements.txt
+
+      - name: Run SEO Agent
+        working-directory: seo-agent
+        env:
+          GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python agent.py
+
+      - name: Commit report
+        run: |
+          git config user.name "MK Painting SEO Agent"
+          git config user.email "seo-agent@mandkpaintingservices.com.au"
+          git add reports/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: daily SEO report $(date +%Y-%m-%d)"
+            git push
+          fi

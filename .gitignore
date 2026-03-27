@@ -1,0 +1,20 @@
+# API credentials — NEVER commit these
+credentials.json
+*.json.bak
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# Reports (committed by the agent workflow, but ignore locally)
+# reports/*.md
+
+# OS
+.DS_Store
+Thumbs.db
