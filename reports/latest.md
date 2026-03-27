@@ -119,113 +119,147 @@ Tier-2 suburbs with search demand but no dedicated landing page.
 
 ## AI Recommendations
 
-Based on this GSC analysis, M&K Painting Services has massive untapped potential with zero clicks despite strong rankings. Here's your action plan:
+## Analysis for M&K Painting Services
+
+Your performance shows clear opportunities with 2,577 impressions but only 1 click. The data reveals strong positioning for West Lakes and Golden Grove keywords, plus critical gaps in your landing page coverage.
 
 ## 1. Top 3 Wins This Week
 
-**Win #1: Fix the `/west-lakes.html` page immediately**
-- You're ranking #4.2 for "commercial painters west lakes" with 83 impressions but 0 clicks
-- This page is also underperforming for "painters west lakes" (pos 12.9) and "interior painting west lakes" (pos 12.4)
-- **Action**: Completely rewrite title tag and meta description (see below)
+**WIN 1: Fix West Lakes Commercial Page Title**
+- "Commercial painters west lakes" is ranking #4 with 83 impressions but 0 clicks
+- Your current `/west-lakes.html` page is targeting residential, not commercial
+- **Action**: Update title to capture commercial intent or create dedicated commercial West Lakes page
 
-**Win #2: Optimize `/golden-grove.html` for commercial intent**
-- "painter golden grove" is at position 8.0 with 41 impressions, 0 clicks
-- Multiple commercial + residential keywords are striking distance
-- **Action**: Add commercial painting content section and update title tag
+**WIN 2: Optimize Golden Grove Page for Multiple Keywords** 
+- You have 4 striking distance keywords for Golden Grove (positions 8-13)
+- 93 combined impressions across "painter golden grove", "interior painting golden grove", "residential painting golden grove"
+- **Action**: Rewrite `/golden-grove.html` title and content to capture all variants
 
-**Win #3: Create `/commercial-painting-findon.html` landing page**
-- "commercial painters findon" is at position 9.0 with 22 impressions
-- Multiple Findon commercial queries (45 total impressions)
-- **Action**: Build dedicated commercial painters Findon page this week
+**WIN 3: Create General Adelaide Painters Page**
+- "General × adelaide" has 799 impressions with only 1 click
+- No dedicated page optimized for broad "painters adelaide" searches
+- **Action**: Optimize your homepage `/` for general Adelaide painter searches
 
 ## 2. Title Tag Rewrites
 
-**Current `/west-lakes.html`** (assumed generic):
+**Current `/west-lakes.html`:**
 ```html
-<title>Commercial & Residential Painters West Lakes | M&K Painting Services Adelaide</title>
+<title>House Painters West Lakes | Interior & Exterior Painting | M&K Painting Services</title>
 ```
 
-**Current `/golden-grove.html`** (assumed generic):
+**Current `/golden-grove.html`:**
 ```html
-<title>Professional Painters Golden Grove | Interior & Exterior Painting Adelaide</title>
+<title>Painters Golden Grove | Residential & Commercial Painting | M&K Painting Services</title>
 ```
 
-**Current `/gawler.html`** (0 clicks despite 148 impressions):
+**Current `/` (homepage):**
 ```html
-<title>House Painters Gawler | Local Residential & Commercial Painting Adelaide</title>
-```
-
-**Current `/commercial-painting.html`** (0 clicks despite 146 impressions):
-```html
-<title>Adelaide Commercial Painters | Office & Warehouse Painting Services</title>
+<title>Professional House Painters Adelaide | Residential & Commercial | M&K Painting Services</title>
 ```
 
 ## 3. Meta Description Rewrites
 
 **For `/west-lakes.html`:**
 ```html
-<meta name="description" content="Expert commercial & residential painters in West Lakes. Interior painting, exterior house painting, and commercial building services. Free quotes. Licensed painters serving West Lakes SA.">
+<meta name="description" content="Expert painters in West Lakes specializing in residential, commercial & interior painting. Local Adelaide painters with 15+ years experience. Free quotes. Call M&K Painting Services today.">
 ```
 
 **For `/golden-grove.html`:**
 ```html
-<meta name="description" content="Professional painters Golden Grove specialising in residential & commercial painting. Interior painting, exterior house painting, free quotes. Trusted local painters Golden Grove SA.">
+<meta name="description" content="Professional painters Golden Grove for interior, exterior & residential painting projects. Trusted local Adelaide painters. Quality guaranteed. Get your free quote from M&K Painting Services.">
 ```
 
-**For `/gawler.html`:**
+**For `/` (homepage):**
 ```html
-<meta name="description" content="Experienced house painters in Gawler. Residential & commercial painting services including interior, exterior & roof painting. Free quotes from licensed Gawler painters.">
-```
-
-**For `/commercial-painting.html`:**
-```html
-<meta name="description" content="Adelaide's trusted commercial painters for offices, warehouses & retail spaces. Professional commercial painting services across Adelaide. Free commercial painting quotes.">
+<meta name="description" content="Adelaide's trusted house painters for residential & commercial projects. Interior, exterior & specialty painting across all Adelaide suburbs. 15+ years experience. Free quotes from M&K Painting.">
 ```
 
 ## 4. Content Priorities
 
-**Priority 1: `/west-lakes.html` content expansion**
-- Add dedicated "Commercial Painters West Lakes" H2 section
-- Include "Interior Painting West Lakes" service section
-- Add local West Lakes landmarks/suburbs served
-- Target: "french wash painting west lakes" with specialty technique section
+**Priority 1: `/golden-grove.html`** 
+- Add sections for "Interior Painting Golden Grove" and "Residential Painting Golden Grove"
+- Include FAQ about painter services vs painters (targeting "painter golden grove")
+- Add before/after gallery specific to Golden Grove projects
 
-**Priority 2: `/golden-grove.html` commercial focus**
-- Add "Commercial Painting Golden Grove" section
-- Include "Residential Painting Golden Grove" and "Interior Painting Golden Grove" H2s
-- Add Golden Grove shopping center, schools as local references
+**Priority 2: `/west-lakes.html`**
+- Add commercial painting section to capture "commercial painters west lakes" 
+- Include interior painting subsection for "interior painting west lakes"
+- Add local area knowledge content about West Lakes properties
 
-**Priority 3: Homepage general painter optimization**
-- Current homepage missing "house painter" optimization despite #1 ranking
-- Add "House Painter Adelaide" H2 section to capture 138 impressions
-- Include "painter near me" content for local SEO
+**Priority 3: `/commercial-painting.html`**
+- Currently getting 146 impressions for "commercial painters adelaide" but 0 clicks
+- Add suburb-specific sections mentioning Findon, Wynn Vale, Banksia Park
+- Include commercial building painters section for specialized queries
 
 ## 5. New Page Recommendations
 
-**Immediate Priority: `/commercial-painting-findon.html`**
-- Target: "commercial painters findon", "residential painting findon"
-- 45 total impressions across Findon queries
-- Expected impact: 3-5 new monthly clicks
+**PRIORITY 1: `/findon.html` - "Painters Findon"**
+- Target: "commercial painters findon", "residential painting findon"  
+- 45 impressions, multiple commercial queries
+- Template: Copy `/west-lakes.html` structure, customize for Findon
 
-**Week 2: `/heritage-painting.html`**
-- Target: heritage restoration keywords (139 impressions)
-- Adelaide has many heritage homes - untapped market
-- Expected impact: 15-20 new monthly clicks
+**PRIORITY 2: `/heritage-painting.html` - "Heritage Painters Adelaide"**
+- Target: 139 impressions for heritage painting queries
+- Focus on specialized heritage restoration techniques
+- Mention heritage suburbs like Norwood, Unley, Burnside
 
-**Week 3: `/semaphore.html`**
-- Target: "painters semaphore" (37 impressions)
-- Coastal suburb with painting needs
-- Expected impact: 5-8 new monthly clicks
+**PRIORITY 3: `/exterior-painting.html` - "Exterior Painters Adelaide"**
+- Target: 32 impressions for exterior painting
+- Weather-specific content for Adelaide conditions
+- Link to existing suburb pages for local exterior projects
 
-**Week 4: `/exterior-painting.html`**
-- Target: "exterior painting adelaide" and variants (32+ impressions)
-- Service-specific page to capture exterior-only searches
-- Expected impact: 10-15 new monthly clicks
+**PRIORITY 4: `/semaphore.html` - "Painters Semaphore"**
+- Target: 37 impressions for Semaphore
+- Coastal painting considerations
+- Template existing suburb page structure
 
-**Bonus Quick Win**: Add schema markup to all suburb pages for local business SEO - you're getting "near me" searches but may not be optimized for local intent.
-
-These changes should move you from 1 click to 50+ clicks within 4 weeks, focusing first on your strongest performing keywords with zero CTR.
+The West Lakes commercial optimization and Golden Grove multi-keyword targeting should be implemented immediately - these represent your quickest path to converting existing impressions into clicks.
 
 
 ---
 *Generated 2026-03-27 by MK Painting SEO Agent*
+
+## URL Indexing Status
+
+### Indexed (9)
+
+- /
+- /mawson-lakes.html
+- /gawler.html
+- /golden-grove.html
+- /salisbury.html
+- /northern-suburbs.html
+- /west-lakes.html
+- /commercial-painting.html
+- /kitchen-respray.html
+
+### Submitted for Crawling (7)
+
+- /norwood.html — error
+- /unley.html — error
+- /burnside.html — error
+- /wingfield.html — error
+- /regency-park.html — error
+- /edwardstown.html — error
+- /strata-painting.html — error
+
+### Inspection Details
+
+| Page | Verdict | Index State | Last Crawl | Fetch State |
+|---|---|---|---|---|
+| / | PASS | INDEXING_ALLOWED | 2026-03-27T02:36:21Z | SUCCESSFUL |
+| /mawson-lakes.html | PASS | INDEXING_ALLOWED | 2026-03-22T03:58:35Z | SUCCESSFUL |
+| /gawler.html | PASS | INDEXING_ALLOWED | 2026-03-12T00:22:23Z | SUCCESSFUL |
+| /golden-grove.html | PASS | INDEXING_ALLOWED | 2026-03-14T04:22:46Z | SUCCESSFUL |
+| /salisbury.html | PASS | INDEXING_ALLOWED | 2026-03-23T19:10:56Z | SUCCESSFUL |
+| /northern-suburbs.html | PASS | INDEXING_ALLOWED | 2026-03-21T05:21:01Z | SUCCESSFUL |
+| /west-lakes.html | PASS | INDEXING_ALLOWED | 2026-03-22T16:39:47Z | SUCCESSFUL |
+| /norwood.html | NEUTRAL | INDEXING_STATE_UNSPECIFIED | Never | PAGE_FETCH_STATE_UNSPECIFIED |
+| /unley.html | NEUTRAL | INDEXING_STATE_UNSPECIFIED | Never | PAGE_FETCH_STATE_UNSPECIFIED |
+| /burnside.html | NEUTRAL | INDEXING_STATE_UNSPECIFIED | Never | PAGE_FETCH_STATE_UNSPECIFIED |
+| /wingfield.html | NEUTRAL | INDEXING_STATE_UNSPECIFIED | Never | PAGE_FETCH_STATE_UNSPECIFIED |
+| /regency-park.html | NEUTRAL | INDEXING_STATE_UNSPECIFIED | Never | PAGE_FETCH_STATE_UNSPECIFIED |
+| /edwardstown.html | NEUTRAL | INDEXING_STATE_UNSPECIFIED | Never | PAGE_FETCH_STATE_UNSPECIFIED |
+| /commercial-painting.html | PASS | INDEXING_ALLOWED | 2026-03-21T08:31:03Z | SUCCESSFUL |
+| /kitchen-respray.html | PASS | INDEXING_ALLOWED | 2026-03-10T16:17:15Z | SUCCESSFUL |
+| /strata-painting.html | NEUTRAL | INDEXING_STATE_UNSPECIFIED | Never | PAGE_FETCH_STATE_UNSPECIFIED |
