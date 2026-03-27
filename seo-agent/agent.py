@@ -18,7 +18,12 @@ from pathlib import Path
 
 from analyzer import run_full_analysis
 from config import LOOKBACK_DAYS
-from gsc_client import fetch_page_data, fetch_query_data, load_from_csv
+from gsc_client import (
+    fetch_page_data,
+    fetch_query_data,
+    inspect_and_submit_new_pages,
+    load_from_csv,
+)
 from reporter import generate_report
 
 
@@ -78,6 +83,25 @@ def main():
     latest_path = REPORTS_DIR / "latest.md"
     latest_path.write_text(report, encoding="utf-8")
     print(f"   → Also saved as: {latest_path}")
+
+    # ── 5. URL inspection & indexing ─────────────────────────────────────────
+    if not args.csv and not args.no_index:
+        print("\n🔎 Checking indexing status of all pages...")
+        try:
+            index_results = inspect_and_submit_new_pages()
+            print(f"   → {len(index_results['already_indexed'])} pages already indexed")
+            print(f"   → {len(index_results['submitted'])} pages submitted for crawling")
+            if index_results["errors"]:
+                print(f"   → {len(index_results['errors'])} errors (see report)")
+
+            # Append indexing section to report
+            index_section = _format_indexing_results(index_results)
+            report += index_section
+            report_path.write_text(report, encoding="utf-8")
+            latest_path.write_text(report, encoding="utf-8")
+        except Exception as e:
+            print(f"   → Indexing check failed: {e}")
+            print("     (Enable Indexing API in Google Cloud Console if not done)")
 
     print("\n" + "=" * 60)
     print("  Done!")
@@ -139,7 +163,51 @@ def parse_args():
         default=None,
         help="Path to directory containing GSC CSV exports",
     )
+    parser.add_argument(
+        "--no-index",
+        action="store_true",
+        help="Skip URL inspection and indexing submission",
+    )
     return parser.parse_args()
+
+
+def _format_indexing_results(results):
+    """Format indexing results as a markdown section."""
+    lines = [
+        "\n## URL Indexing Status\n",
+    ]
+
+    if results["already_indexed"]:
+        lines.append(f"### Indexed ({len(results['already_indexed'])})\n")
+        for url in results["already_indexed"]:
+            short = url.replace("https://www.mandkpaintingservices.com.au", "")
+            lines.append(f"- {short}")
+
+    if results["submitted"]:
+        lines.append(f"\n### Submitted for Crawling ({len(results['submitted'])})\n")
+        for item in results["submitted"]:
+            short = item["url"].replace("https://www.mandkpaintingservices.com.au", "")
+            lines.append(f"- {short} — {item['status']}")
+
+    if results["errors"]:
+        lines.append(f"\n### Errors ({len(results['errors'])})\n")
+        for item in results["errors"]:
+            short = item["url"].replace("https://www.mandkpaintingservices.com.au", "")
+            lines.append(f"- {short} — {item['error']}")
+
+    if results["inspected"]:
+        lines.append(f"\n### Inspection Details\n")
+        lines.append("| Page | Verdict | Index State | Last Crawl | Fetch State |")
+        lines.append("|---|---|---|---|---|")
+        for insp in results["inspected"]:
+            short = insp["url"].replace("https://www.mandkpaintingservices.com.au", "")
+            crawl = insp["last_crawl_time"] or "Never"
+            lines.append(
+                f"| {short} | {insp['verdict']} | {insp['indexing_state']} | "
+                f"{crawl} | {insp['page_fetch_state']} |"
+            )
+
+    return "\n".join(lines) + "\n"
 
 
 if __name__ == "__main__":

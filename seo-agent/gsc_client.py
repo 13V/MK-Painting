@@ -11,13 +11,12 @@ import os
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from config import GSC_PROPERTY, LOOKBACK_DAYS, MIN_IMPRESSIONS
+from config import GSC_PROPERTY, LOOKBACK_DAYS, MIN_IMPRESSIONS, SITE_URL
 
 
-def get_gsc_service():
-    """Authenticate and return a GSC API service object."""
+def _get_credentials():
+    """Load service account credentials from env or file."""
     from google.oauth2 import service_account
-    from googleapiclient.discovery import build
 
     creds_json = os.environ.get("GSC_CREDENTIALS_JSON")
     if not creds_json:
@@ -30,11 +29,27 @@ def get_gsc_service():
         creds_json = Path(creds_path).read_text()
 
     creds_info = json.loads(creds_json)
-    credentials = service_account.Credentials.from_service_account_info(
+    return service_account.Credentials.from_service_account_info(
         creds_info,
-        scopes=["https://www.googleapis.com/auth/webmasters.readonly"],
+        scopes=[
+            "https://www.googleapis.com/auth/webmasters.readonly",
+            "https://www.googleapis.com/auth/indexing",
+        ],
     )
-    return build("searchconsole", "v1", credentials=credentials)
+
+
+def get_gsc_service():
+    """Authenticate and return a GSC API service object."""
+    from googleapiclient.discovery import build
+
+    return build("searchconsole", "v1", credentials=_get_credentials())
+
+
+def get_indexing_service():
+    """Authenticate and return a Google Indexing API service object."""
+    from googleapiclient.discovery import build
+
+    return build("indexing", "v3", credentials=_get_credentials())
 
 
 def fetch_query_data(service=None, days=LOOKBACK_DAYS):
@@ -148,6 +163,95 @@ def fetch_query_page_data(service=None, days=LOOKBACK_DAYS):
         })
 
     return rows
+
+
+# ── URL Inspection & Indexing ────────────────────────────────────────────────
+
+def inspect_url(url, service=None):
+    """
+    Inspect a URL via the GSC URL Inspection API.
+
+    Returns dict with:
+        verdict, indexing_state, crawl_time, sitemap, referring_urls
+    """
+    if service is None:
+        service = get_gsc_service()
+
+    result = service.urlInspection().index().inspect(
+        body={
+            "inspectionUrl": url,
+            "siteUrl": GSC_PROPERTY,
+        }
+    ).execute()
+
+    inspection = result.get("inspectionResult", {})
+    index_status = inspection.get("indexStatusResult", {})
+
+    return {
+        "url": url,
+        "verdict": index_status.get("verdict", "UNKNOWN"),
+        "indexing_state": index_status.get("indexingState", "UNKNOWN"),
+        "last_crawl_time": index_status.get("lastCrawlTime"),
+        "page_fetch_state": index_status.get("pageFetchState", "UNKNOWN"),
+        "robots_txt_state": index_status.get("robotsTxtState", "UNKNOWN"),
+        "sitemap": index_status.get("sitemap", []),
+        "referring_urls": index_status.get("referringUrls", []),
+    }
+
+
+def request_indexing(url):
+    """
+    Submit a URL for crawling/indexing via the Google Indexing API.
+
+    Returns the API response or error message.
+    """
+    service = get_indexing_service()
+
+    try:
+        result = service.urlNotifications().publish(
+            body={
+                "url": url,
+                "type": "URL_UPDATED",
+            }
+        ).execute()
+        return {"url": url, "status": "submitted", "response": result}
+    except Exception as e:
+        return {"url": url, "status": "error", "error": str(e)}
+
+
+def inspect_and_submit_new_pages(pages_to_check=None):
+    """
+    Inspect all site pages (or a given list) and submit any
+    that are not yet indexed for crawling.
+
+    Returns dict with inspection results and submission results.
+    """
+    if pages_to_check is None:
+        from config import EXISTING_PAGES
+        pages_to_check = [
+            f"{SITE_URL.rstrip('/')}{slug}" for slug in EXISTING_PAGES.keys()
+        ]
+
+    service = get_gsc_service()
+    results = {"inspected": [], "submitted": [], "already_indexed": [], "errors": []}
+
+    for url in pages_to_check:
+        print(f"   Inspecting: {url}")
+        try:
+            inspection = inspect_url(url, service=service)
+            results["inspected"].append(inspection)
+
+            if inspection["indexing_state"] not in ("INDEXING_ALLOWED", "INDEXED"):
+                print(f"   → Not indexed — submitting for crawl")
+                submit_result = request_indexing(url)
+                results["submitted"].append(submit_result)
+            else:
+                results["already_indexed"].append(url)
+        except Exception as e:
+            print(f"   → Error: {e}")
+            results["errors"].append({"url": url, "error": str(e)})
+
+    return results
 
 
 # ── CSV fallback for manual imports ──────────────────────────────────────────
