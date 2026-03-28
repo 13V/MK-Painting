@@ -2,11 +2,13 @@
 MK Painting SEO Agent — Main entry point.
 
 Connects to Google Search Console, runs the analysis pipeline,
-generates a markdown report, and saves it to the reports directory.
+generates a markdown report, optionally implements changes via PR,
+and sends Telegram notifications.
 
 Usage:
-    python agent.py              # Full run with Claude AI recommendations
+    python agent.py              # Full run with AI + implementation + Telegram
     python agent.py --no-ai      # Data-only report (no Claude API call)
+    python agent.py --no-impl    # Report only, no code changes
     python agent.py --csv data/  # Load from CSV exports instead of API
 """
 
@@ -24,7 +26,9 @@ from gsc_client import (
     inspect_and_submit_new_pages,
     load_from_csv,
 )
+from implementer import apply_changes, create_pr, generate_changes
 from reporter import generate_report
+from telegram_notifier import send_daily_report, send_indexing_update, send_pr_notification
 
 
 REPORTS_DIR = Path(__file__).parent.parent / "reports"
@@ -99,9 +103,61 @@ def main():
             report += index_section
             report_path.write_text(report, encoding="utf-8")
             latest_path.write_text(report, encoding="utf-8")
+
+            # Telegram: notify about unindexed pages
+            if index_results["submitted"]:
+                send_indexing_update(
+                    len(index_results["already_indexed"]),
+                    index_results["submitted"],
+                )
         except Exception as e:
             print(f"   → Indexing check failed: {e}")
-            print("     (Enable Indexing API in Google Cloud Console if not done)")
+
+    # ── 6. Telegram: daily report summary ────────────────────────────────────
+    print("\n📱 Sending Telegram notification...")
+    report_github_url = (
+        "https://github.com/13V/MK-Painting/blob/main/reports/"
+        f"seo-report-{date_str}.md"
+    )
+    send_daily_report(analysis["summary"], report_url=report_github_url)
+
+    # ── 7. Implement changes via PR ──────────────────────────────────────────
+    if use_claude and not args.no_impl and not args.csv:
+        has_opportunities = (
+            analysis["ctr_gaps"] or analysis["striking_distance"] or analysis["zero_click"]
+        )
+        if has_opportunities:
+            print("\n🔧 Generating SEO changes...")
+            repo_root = str(Path(__file__).parent.parent)
+            changes = generate_changes(analysis)
+
+            if changes:
+                print(f"   → {len(changes)} changes proposed")
+                applied = apply_changes(changes, repo_root)
+
+                if applied:
+                    print(f"\n📦 Creating pull request...")
+                    pr_url, pr_number = create_pr(applied, repo_root)
+
+                    if pr_url:
+                        print(f"   → PR #{pr_number}: {pr_url}")
+
+                        # Telegram: send PR notification with approve button
+                        changes_summary = [
+                            {
+                                "file": c["file"],
+                                "change_type": c["change_type"],
+                                "description": c["description"],
+                            }
+                            for c in applied
+                        ]
+                        send_pr_notification(pr_url, pr_number, changes_summary)
+                    else:
+                        print("   → PR creation failed")
+            else:
+                print("   → No actionable changes generated")
+        else:
+            print("\n   → No CTR gaps or striking distance keywords — skipping implementation")
 
     print("\n" + "=" * 60)
     print("  Done!")
@@ -167,6 +223,11 @@ def parse_args():
         "--no-index",
         action="store_true",
         help="Skip URL inspection and indexing submission",
+    )
+    parser.add_argument(
+        "--no-impl",
+        action="store_true",
+        help="Skip auto-implementation of changes (report only)",
     )
     return parser.parse_args()
 
