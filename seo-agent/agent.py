@@ -129,7 +129,7 @@ def main():
         if has_opportunities:
             print("\n🔧 Generating SEO changes...")
             repo_root = str(Path(__file__).parent.parent)
-            changes = generate_changes(analysis)
+            changes = generate_changes(analysis, repo_root=repo_root)
 
             if changes:
                 print(f"   → {len(changes)} changes proposed")

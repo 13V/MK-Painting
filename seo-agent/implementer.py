@@ -15,7 +15,7 @@ import anthropic
 from config import CLAUDE_MODEL, EXISTING_PAGES, MAX_TOKENS, SITE_URL
 
 
-def generate_changes(analysis):
+def generate_changes(analysis, repo_root=None):
     """
     Send analysis to Claude and get back structured changes to implement.
 
@@ -27,9 +27,12 @@ def generate_changes(analysis):
         print("   ⚠ ANTHROPIC_API_KEY not set — skipping implementation")
         return []
 
+    # Read current title/meta from HTML files so Claude knows exact values
+    current_tags = _read_current_tags(repo_root) if repo_root else {}
+
     client = anthropic.Anthropic(api_key=api_key)
 
-    system_prompt = _build_system_prompt()
+    system_prompt = _build_system_prompt(current_tags)
     user_prompt = _build_change_request(analysis)
 
     message = client.messages.create(
@@ -173,27 +176,77 @@ def _run_git(repo_root, *args):
     return result.stdout.strip()
 
 
-def _build_system_prompt():
-    pages = "\n".join(f"- `{slug}` → target: \"{kw}\"" for slug, kw in EXISTING_PAGES.items())
+def _read_current_tags(repo_root):
+    """Read the current <title> and <meta description> from each HTML page."""
+    tags = {}
+
+    for slug in EXISTING_PAGES:
+        file_rel = slug.lstrip("/")
+        if not file_rel:
+            file_rel = "index.html"
+        if not file_rel.endswith(".html"):
+            continue
+
+        filepath = os.path.join(repo_root, file_rel)
+        if not os.path.isfile(filepath):
+            continue
+
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Extract <title>...</title>
+        title_match = re.search(r"<title>(.*?)</title>", content, re.IGNORECASE | re.DOTALL)
+        # Extract <meta name="description" content="...">
+        meta_match = re.search(
+            r'<meta\s+name=["\']description["\']\s+content=["\']([^"\']*)["\']',
+            content, re.IGNORECASE,
+        )
+
+        tags[slug] = {
+            "file": file_rel,
+            "title": title_match.group(0) if title_match else None,
+            "title_text": title_match.group(1).strip() if title_match else None,
+            "meta": meta_match.group(0) if meta_match else None,
+            "meta_text": meta_match.group(1).strip() if meta_match else None,
+        }
+
+    return tags
+
+
+def _build_system_prompt(current_tags=None):
+    pages_info = []
+    for slug, kw in EXISTING_PAGES.items():
+        line = f"- `{slug}` → target: \"{kw}\""
+        if current_tags and slug in current_tags:
+            t = current_tags[slug]
+            if t["title"]:
+                line += f"\n  Current title: `{t['title']}`"
+            if t["meta"]:
+                line += f"\n  Current meta: `{t['meta']}`"
+        pages_info.append(line)
+
+    pages_str = "\n".join(pages_info)
 
     return f"""You are an SEO implementation agent for M&K Painting Services ({SITE_URL}).
 
-Existing pages and their target keywords:
-{pages}
+Existing pages, their target keywords, and CURRENT HTML tags:
+{pages_str}
 
 Your job is to output SPECIFIC changes to HTML files based on GSC performance data.
 
-RULES:
-- Only suggest title tag and meta description changes (these are safe, high-impact, low-risk)
+CRITICAL RULES:
+- Only suggest title tag and meta description changes (safe, high-impact, low-risk)
 - Output valid JSON array — no markdown, no explanation, just the JSON
 - Each change must have: file, change_type, old_value, new_value, description
-- old_value must be the EXACT current HTML string to find and replace
+- old_value must be the EXACT current HTML string copied from above — character for character
 - new_value must be the replacement HTML string
+- For title changes: old_value = `<title>Current Title</title>`, new_value = `<title>New Title</title>`
+- For meta changes: old_value = the full `<meta name="description" content="...">` tag, new_value = the new full tag
 - Title tags must be under 60 characters
 - Meta descriptions must be 120-155 characters
 - Only suggest changes where CTR data shows a clear problem
 - Maximum 5 changes per run — focus on highest impact only
-- Do NOT change page content, only <title> and <meta name="description"> tags"""
+- The "file" field must be the HTML filename like "west-lakes.html" (not a slug like "/west-lakes.html")"""
 
 
 def _build_change_request(analysis):
