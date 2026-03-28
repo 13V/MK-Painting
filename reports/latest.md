@@ -116,103 +116,106 @@ Tier-2 suburbs with search demand but no dedicated landing page.
 
 ## AI Recommendations
 
-Based on your GSC data, here are my specific recommendations to rapidly increase organic traffic:
+Based on your GSC data, here are my specific recommendations for M&K Painting Services:
 
 ## 1. Top 3 Wins This Week
 
-### Win #1: Fix "House Painter" Title Tag (Highest Priority)
-Your homepage is ranking #1 for "house painter" (138 impressions) but getting 0% CTR vs expected 28%. This is a massive 38 potential clicks sitting on the table. The current title likely doesn't contain "house painter" - rewrite immediately.
+**Win #1: Fix "house painter" ranking #1 with 0% CTR (138 impressions)**
+- Your homepage is ranking #1 but getting zero clicks - massive opportunity
+- Rewrite homepage title and meta to target this high-volume term
 
-### Win #2: Optimize West Lakes Page for Commercial Intent
-Your `/west-lakes.html` page is missing commercial painter traffic. "Commercial painters west lakes" is at position 4.3 with 87 impressions but 0 clicks. Add commercial painting content to this page and update title/meta to capture this traffic.
+**Win #2: Optimize West Lakes page for commercial painters (pos 4.3, 87 impressions)**
+- `/west-lakes.html` is already ranking well but getting no clicks
+- Add commercial painting content section and update title tag
 
-### Win #3: Create Findon Landing Page
-You have 45 impressions across Findon queries with 0 clicks. "Commercial painters findon" is at position 9.0 - create `/findon.html` this week to capture this ready-to-rank opportunity.
+**Win #3: Create dedicated Findon landing page**
+- 45 impressions across multiple Findon queries with no dedicated page
+- Quick page creation can capture "commercial painters findon" (pos 9.0)
 
 ## 2. Title Tag Rewrites
 
-**Homepage (/):**
-Current issue: Not capturing "house painter" at position #1
+**Homepage (`/`):**
 ```html
-<title>House Painter Adelaide | Professional Painters | M&K Painting Services</title>
+<title>House Painters Adelaide | Professional Residential & Commercial Painting | M&K Painting Services</title>
 ```
 
-**West Lakes page (/west-lakes.html):**
-Current issue: Missing commercial intent for position 4.3 ranking
+**West Lakes (`/west-lakes.html`):**
 ```html
-<title>Commercial & Residential Painters West Lakes | M&K Painting Services Adelaide</title>
+<title>Commercial Painters West Lakes | Interior & Exterior Painting Services | M&K Painting</title>
 ```
 
-**Golden Grove page (/golden-grove.html):**
-Current issue: "Painter golden grove" at position 8 with 0 clicks
+**Golden Grove (`/golden-grove.html`):**
 ```html
-<title>Painter Golden Grove | Interior & Exterior Painting Services Adelaide</title>
+<title>Painters Golden Grove | Interior & Residential Painting Services | M&K Painting</title>
 ```
 
-**Commercial Painting page (/commercial-painting.html):**
-Current issue: "Commercial painters adelaide" getting 144 impressions, 0 clicks
+**Commercial page (`/commercial-painting.html`):**
 ```html
-<title>Commercial Painters Adelaide | Office & Building Painting | M&K Painting</title>
+<title>Commercial Building Painters Adelaide | Office & Warehouse Painting | M&K Painting</title>
 ```
 
 ## 3. Meta Description Rewrites
 
-**Homepage (/):**
+**Homepage:**
 ```html
-<meta name="description" content="Professional house painter in Adelaide. Expert residential & commercial painting services. Free quotes, quality guaranteed. Call M&K Painting Services today!">
+<meta name="description" content="Professional house painters in Adelaide. Expert residential & commercial painting services. Free quotes, quality workmanship, fully insured. Call M&K Painting Services today.">
 ```
 
-**West Lakes (/west-lakes.html):**
+**West Lakes:**
 ```html
-<meta name="description" content="Commercial & residential painters West Lakes. Interior, exterior & specialty painting. Local Adelaide painters with 15+ years experience. Free quotes available.">
+<meta name="description" content="Commercial painters in West Lakes specialising in office buildings, warehouses & retail spaces. Professional interior & exterior painting. Free commercial quotes.">
 ```
 
-**Golden Grove (/golden-grove.html):**
+**Golden Grove:**
 ```html
-<meta name="description" content="Professional painter Golden Grove specialising in interior & residential painting. Quality workmanship, competitive prices. Book your free quote today!">
+<meta name="description" content="Local painters in Golden Grove for interior painting, exterior house painting & residential projects. Quality workmanship, competitive prices. Get your free quote today.">
 ```
 
 ## 4. Content Priorities
 
-### Immediate Updates (This Week):
+**West Lakes page (`/west-lakes.html`) - URGENT**
+- Add 300-word "Commercial Painting West Lakes" section
+- Include: office buildings, retail spaces, warehouses, strata painting
+- Target: "commercial painters west lakes", "commercial building painters"
 
-**West Lakes page (/west-lakes.html):**
-- Add commercial painting section targeting "commercial painters west lakes"
-- Include interior painting services for "interior painting west lakes" (position 12.1)
-- Add local West Lakes landmarks and project examples
-
-**Golden Grove page (/golden-grove.html):**
-- Expand interior painting content for "interior painting golden grove" (position 10.6)
-- Add residential painting section for "residential painting golden grove" (position 12.7)
+**Golden Grove page (`/golden-grove.html`)**
+- Expand interior painting section (currently thin content)
+- Add dedicated paragraphs for "interior painting golden grove" and "residential painting golden grove"
 - Include before/after photos of Golden Grove projects
 
-**Homepage (/):**
-- Add prominent "House Painter" heading and content
-- Include "painter near me" optimization with Adelaide suburbs list
-- Add trust signals for commercial building painters content
+**Homepage (`/`)**
+- Add prominent "House Painter" section above fold
+- Include service area map highlighting Adelaide suburbs
+- Add FAQ section targeting "house painter near me" queries
 
 ## 5. New Page Recommendations
 
-### Create This Week:
-**1. `/findon.html` — Priority #1**
-Target keywords: "commercial painters findon" (pos 9.0), "residential painting findon" (pos 9.5)
-Content: Commercial and residential painting services in Findon, local project gallery
+**Priority 1: `/findon.html` - Painters Findon**
+Target keywords: "commercial painters findon", "residential painting findon"
+- 45 total impressions with no dedicated page
+- Several commercial queries already ranking 9-10
 
-### Create Next Week:
-**2. `/semaphore.html`**
-Target: 39 impressions for Semaphore painting queries
-Content: Coastal painting specialists, weather-resistant coatings
+**Priority 2: `/heritage-painting.html` - Heritage Painting Adelaide**
+Target keywords: "heritage painters adelaide", "heritage painting services"
+- 133 impressions with no current page
+- High-value specialized service with less competition
 
-**3. `/grange.html`**
-Target: "commercial painters grange" (position 10.2, 21 impressions)
-Content: Heritage and modern commercial painting in Grange
+**Priority 3: `/semaphore.html` - Painters Semaphore**
+Target keywords: "painters semaphore", "house painters semaphore"
+- 39 impressions, coastal suburb with good search volume
 
-### Create This Month:
-**4. `/heritage-painting.html`**
-Target: "heritage adelaide" queries (133 impressions)
-Content: Specialist heritage building restoration and painting services
+**Priority 4: `/grange.html` - Painters Grange**
+Target keywords: "commercial painters grange", "painters grange"
+- 21 impressions, connects well with existing West Lakes market
 
-The "house painter" title fix alone should generate 30+ additional clicks within days. Focus on these quick wins before expanding to new pages.
+**Quick Implementation Plan:**
+- Week 1: Update homepage title/meta for "house painter" 
+- Week 1: Add commercial section to West Lakes page
+- Week 2: Create Findon landing page
+- Week 3: Optimize Golden Grove content
+- Week 4: Create heritage painting page
+
+Focus on the homepage "house painter" fix first - it's ranking #1 with 138 impressions and 0 clicks, representing your biggest immediate opportunity.
 
 
 ---
