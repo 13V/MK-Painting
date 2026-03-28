@@ -120,3 +120,34 @@ def send_indexing_update(indexed_count, unindexed_pages):
 
     text += "\n_Sitemap pinged — Google should crawl within a few days._"
     return send_message(text)
+
+
+def send_new_page_notification(pr_url, pr_number, opportunity):
+    """Send notification about a new landing page PR."""
+    suburb = opportunity["suburb"].title()
+    text = (
+        "🆕 *MK Painting — New Landing Page Ready*\n\n"
+        f"The SEO agent detected search demand for *{suburb}* "
+        f"({opportunity['impressions']} impressions) and generated a new landing page.\n\n"
+        f"📄 `{opportunity['filename']}`\n"
+        f"🎯 Target: _{opportunity['keyword']}_\n"
+    )
+
+    queries = opportunity.get("top_queries", [])[:3]
+    if queries:
+        text += "\n*Top queries:*\n"
+        for q in queries:
+            text += f"  • _{q}_\n"
+
+    text += f"\n*PR #{pr_number}* is ready for review."
+
+    reply_markup = {
+        "inline_keyboard": [
+            [
+                {"text": "✅ Review & Approve", "url": pr_url},
+                {"text": "📋 View Page", "url": f"{pr_url}/files"},
+            ]
+        ]
+    }
+
+    return send_message(text, reply_markup=reply_markup)

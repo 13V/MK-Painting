@@ -26,9 +26,22 @@ from gsc_client import (
     inspect_and_submit_new_pages,
     load_from_csv,
 )
-from implementer import apply_changes, create_pr, generate_changes
+from implementer import (
+    apply_changes,
+    create_pr,
+    create_new_page_pr,
+    generate_changes,
+    generate_new_page,
+    pick_best_new_page,
+    write_new_page,
+)
 from reporter import generate_report
-from telegram_notifier import send_daily_report, send_indexing_update, send_pr_notification
+from telegram_notifier import (
+    send_daily_report,
+    send_indexing_update,
+    send_new_page_notification,
+    send_pr_notification,
+)
 
 
 REPORTS_DIR = Path(__file__).parent.parent / "reports"
@@ -158,6 +171,34 @@ def main():
                 print("   → No actionable changes generated")
         else:
             print("\n   → No CTR gaps or striking distance keywords — skipping implementation")
+
+    # ── 8. Generate new landing page ──────────────────────────────────────────
+    if use_claude and not args.no_impl and not args.csv:
+        repo_root = str(Path(__file__).parent.parent)
+        opportunity = pick_best_new_page(analysis, repo_root)
+
+        if opportunity:
+            print(f"\n🆕 New page opportunity: {opportunity['suburb'].title()} "
+                  f"({opportunity['impressions']} impressions)")
+            print(f"   Target keyword: \"{opportunity['keyword']}\"")
+            print(f"   Generating {opportunity['filename']}...")
+
+            html = generate_new_page(opportunity, repo_root)
+
+            if html:
+                changed_files = write_new_page(html, opportunity, repo_root)
+                print(f"\n📦 Creating pull request for new page...")
+                pr_url, pr_number = create_new_page_pr(opportunity, changed_files, repo_root)
+
+                if pr_url:
+                    print(f"   → PR #{pr_number}: {pr_url}")
+                    send_new_page_notification(pr_url, pr_number, opportunity)
+                else:
+                    print("   → PR creation failed")
+            else:
+                print("   → Page generation failed")
+        else:
+            print("\n   → No new page opportunities detected")
 
     print("\n" + "=" * 60)
     print("  Done!")

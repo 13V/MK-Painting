@@ -12,7 +12,7 @@ import subprocess
 
 import anthropic
 
-from config import CLAUDE_MODEL, EXISTING_PAGES, MAX_TOKENS, SITE_URL
+from config import CLAUDE_MODEL, EXISTING_PAGES, MAX_TOKENS, SITE_URL, SUBURBS_TIER1, SUBURBS_TIER2
 
 
 def generate_changes(analysis, repo_root=None):
@@ -323,6 +323,277 @@ def _parse_changes(text):
     except json.JSONDecodeError:
         print(f"   ⚠ Could not parse Claude's response as JSON")
         return []
+
+
+
+# ── New page generation ──────────────────────────────────────────────────────
+
+
+def pick_best_new_page(analysis, repo_root):
+    """
+    Pick the best new page opportunity from the analysis.
+
+    Returns dict with suburb, keyword, filename, template_type or None.
+    """
+    existing_slugs = set(EXISTING_PAGES.keys())
+
+    # Merge suburb opportunities and missing pages into candidates
+    candidates = []
+
+    for opp in analysis.get("suburb_opportunities", []):
+        suburb = opp["suburb"]
+        slug = f"/{suburb.replace(' ', '-')}.html"
+        if slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, slug.lstrip("/"))):
+            # Determine if commercial or residential based on queries
+            queries_text = " ".join(opp.get("top_queries", []))
+            is_commercial = any(w in queries_text for w in ["commercial", "industrial", "warehouse", "office"])
+            candidates.append({
+                "suburb": suburb,
+                "impressions": opp["impressions"],
+                "clicks": opp.get("clicks", 0),
+                "top_queries": opp.get("top_queries", []),
+                "keyword": f"{'commercial ' if is_commercial else ''}painters {suburb}",
+                "filename": slug.lstrip("/"),
+                "template_type": "commercial" if is_commercial else "residential",
+            })
+
+    if not candidates:
+        return None
+
+    # Return the highest-impression candidate
+    return sorted(candidates, key=lambda c: c["impressions"], reverse=True)[0]
+
+
+def generate_new_page(opportunity, repo_root):
+    """
+    Generate a complete new landing page using Claude.
+
+    Returns the HTML content string or None on failure.
+    """
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("   ⚠ ANTHROPIC_API_KEY not set — skipping page generation")
+        return None
+
+    # Pick template
+    if opportunity["template_type"] == "commercial":
+        template_file = "wingfield.html"
+    else:
+        template_file = "mawson-lakes.html"
+
+    template_path = os.path.join(repo_root, template_file)
+    if not os.path.isfile(template_path):
+        print(f"   ⚠ Template not found: {template_path}")
+        return None
+
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_html = f.read()
+
+    client = anthropic.Anthropic(api_key=api_key)
+    suburb = opportunity["suburb"].title()
+    filename = opportunity["filename"]
+    keyword = opportunity["keyword"]
+    top_queries = opportunity.get("top_queries", [])
+
+    system_prompt = f"""You are a web developer creating a new landing page for M&K Painting Services ({SITE_URL}).
+
+You will be given an existing page as a template. Your job is to create a NEW page for {suburb} by adapting the template.
+
+CRITICAL RULES:
+- Output ONLY the complete HTML — no explanation, no markdown fences, just the raw HTML
+- Keep the EXACT same HTML structure, CSS classes, nav, footer, scripts, and layout
+- Change ALL content to be specific to {suburb} — do NOT leave any references to the template suburb
+- Update: title tag, meta description, canonical URL, OG tags, JSON-LD schemas (geo coords, areaServed), h1, all body content, FAQ questions/answers, project log entries
+- The canonical URL must be: {SITE_URL}{filename}
+- The page filename is: {filename}
+- Target keyword: "{keyword}"
+- Related search queries: {', '.join(f'"{q}"' for q in top_queries[:5])}
+- JSON-LD geo coordinates must be realistic for {suburb}, South Australia
+- FAQ questions must be specific to {suburb} — not generic
+- Project log entries should reference {suburb} streets/landmarks
+- Include 3-4 internal links to other M&K pages in the "More Areas We Serve" section
+- Keep the same web3forms access key, phone number (0405 352 932), and licence details (BLD251492)
+- BreadcrumbList schema position 2 name should be: "Painters {suburb}" (or "Commercial Painters {suburb}" for commercial)
+- Footer links: Services (/#services), About Us, Contact Us, Privacy Policy"""
+
+    user_prompt = f"""Create a new landing page for {suburb} based on this template.
+
+Target keyword: "{keyword}"
+Related queries people search for: {', '.join(f'"{q}"' for q in top_queries[:5])}
+
+Here is the template HTML to adapt:
+
+{template_html}"""
+
+    try:
+        message = client.messages.create(
+            model=CLAUDE_MODEL,
+            max_tokens=MAX_TOKENS * 4,  # 16384 — full pages need more tokens
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_prompt}],
+        )
+        html = message.content[0].text.strip()
+
+        # Strip markdown fences if Claude wrapped the output
+        if html.startswith("```"):
+            html = re.sub(r"^```(?:html)?\s*", "", html)
+            html = re.sub(r"\s*```$", "", html)
+
+        # Basic validation
+        if "<html" not in html or "</html>" not in html:
+            print("   ⚠ Generated HTML looks invalid — missing <html> tags")
+            return None
+
+        return html
+
+    except Exception as e:
+        print(f"   ⚠ Page generation failed: {e}")
+        return None
+
+
+def write_new_page(html, opportunity, repo_root):
+    """
+    Write the new page HTML and update sitemap.xml + config.py.
+
+    Returns list of changed files (relative paths).
+    """
+    from datetime import datetime
+
+    filename = opportunity["filename"]
+    filepath = os.path.join(repo_root, filename)
+
+    # Write the HTML file
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"   ✓ Created {filename}")
+
+    changed_files = [filename]
+
+    # Update sitemap.xml
+    sitemap_path = os.path.join(repo_root, "sitemap.xml")
+    if os.path.isfile(sitemap_path):
+        with open(sitemap_path, "r", encoding="utf-8") as f:
+            sitemap = f.read()
+
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        new_entry = (
+            f"  <url>\n"
+            f"    <loc>{SITE_URL.rstrip('/')}/{filename}</loc>\n"
+            f"    <lastmod>{date_str}</lastmod>\n"
+            f"    <priority>0.85</priority>\n"
+            f"  </url>\n"
+        )
+        sitemap = sitemap.replace("</urlset>", f"{new_entry}</urlset>")
+
+        with open(sitemap_path, "w", encoding="utf-8") as f:
+            f.write(sitemap)
+        print(f"   ✓ Added {filename} to sitemap.xml")
+        changed_files.append("sitemap.xml")
+
+    # Update config.py EXISTING_PAGES
+    config_path = os.path.join(repo_root, "seo-agent", "config.py")
+    if os.path.isfile(config_path):
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = f.read()
+
+        slug = f"/{filename}"
+        keyword = opportunity["keyword"]
+        # Insert before the closing brace of EXISTING_PAGES
+        new_line = f'    "{slug}": "{keyword}",\n'
+        # Find the last entry before the closing }
+        config = config.replace(
+            '\n}\n\n# ── Analysis thresholds',
+            f'\n{new_line}}}\n\n# ── Analysis thresholds',
+        )
+
+        with open(config_path, "w", encoding="utf-8") as f:
+            f.write(config)
+        print(f"   ✓ Added {slug} to config.py EXISTING_PAGES")
+        changed_files.append("seo-agent/config.py")
+
+    return changed_files
+
+
+def create_new_page_pr(opportunity, changed_files, repo_root):
+    """
+    Create a PR for a new landing page.
+
+    Returns (pr_url, pr_number) or (None, None).
+    """
+    from datetime import datetime
+
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    time_str = datetime.now().strftime("%H%M")
+    suburb_slug = opportunity["suburb"].replace(" ", "-")
+    branch_name = f"new-page-{suburb_slug}-{date_str}-{time_str}"
+
+    try:
+        _run_git(repo_root, "checkout", "-b", branch_name)
+
+        for f in changed_files:
+            _run_git(repo_root, "add", f)
+
+        suburb = opportunity["suburb"].title()
+        commit_msg = (
+            f"Add new landing page: {suburb}\n\n"
+            f"  - Created {opportunity['filename']} targeting \"{opportunity['keyword']}\"\n"
+            f"  - Updated sitemap.xml\n"
+            f"  - Updated config.py EXISTING_PAGES\n"
+            f"  - Based on {opportunity['impressions']} impressions in GSC data\n\n"
+            f"Generated by MK Painting SEO Agent"
+        )
+
+        _run_git(repo_root, "commit", "-m", commit_msg)
+        _run_git(repo_root, "push", "-u", "origin", branch_name)
+
+        pr_title = f"SEO: new {suburb} landing page — {opportunity['impressions']} impressions"
+        pr_body = (
+            f"## New Landing Page: {suburb}\n\n"
+            f"The SEO agent detected search demand for **{suburb}** with no dedicated page:\n\n"
+            f"- **{opportunity['impressions']}** impressions across **{len(opportunity.get('top_queries', []))}** queries\n"
+            f"- Top queries: {', '.join(f'`{q}`' for q in opportunity.get('top_queries', [])[:5])}\n"
+            f"- Target keyword: `{opportunity['keyword']}`\n\n"
+            f"### Files\n"
+            f"- `{opportunity['filename']}` — new landing page\n"
+            f"- `sitemap.xml` — added URL entry\n"
+            f"- `seo-agent/config.py` — added to EXISTING_PAGES\n\n"
+            f"### Review Checklist\n"
+            f"- [ ] Content is accurate for {suburb}\n"
+            f"- [ ] Phone number and licence details correct\n"
+            f"- [ ] JSON-LD schema geo coordinates are realistic\n"
+            f"- [ ] Internal links work\n\n"
+            f"---\n"
+            f"*Generated by MK Painting SEO Agent*"
+        )
+
+        result = subprocess.run(
+            [
+                "gh", "pr", "create",
+                "--title", pr_title,
+                "--body", pr_body,
+                "--base", "main",
+                "--head", branch_name,
+            ],
+            capture_output=True, text=True, cwd=repo_root,
+        )
+
+        if result.returncode == 0:
+            pr_url = result.stdout.strip()
+            pr_number = pr_url.rstrip("/").split("/")[-1]
+            return pr_url, pr_number
+
+        print(f"   ⚠ PR creation failed: {result.stderr}")
+        return None, None
+
+    except Exception as e:
+        print(f"   ⚠ Git/PR error: {e}")
+        return None, None
+
+    finally:
+        try:
+            _run_git(repo_root, "checkout", "main")
+        except Exception:
+            pass
 
 
 def _build_pr_body(changes):
