@@ -16,7 +16,7 @@ LOOKBACK_DAYS = 28
 # ── Services offered ──────────────────────────────────────────────────────────
 SERVICES = {
     "interior":    ["interior painting", "interior painter", "interior repaint", "walls and ceilings"],
-    "exterior":    ["exterior painting", "exterior painter", "exterior repaint", "house painting"],
+    "exterior":    ["exterior painting", "exterior painter", "exterior repaint", "house painting", "house painter"],
     "heritage":    ["heritage painting", "heritage painter", "heritage restoration", "federation", "victorian", "edwardian", "sandstone", "bluestone"],
     "commercial":  ["commercial painting", "commercial painter", "office painting", "warehouse painting", "industrial painting"],
     "strata":      ["strata painting", "strata painter", "body corporate", "body corp"],
@@ -39,7 +39,7 @@ SUBURBS_TIER2 = [
     "prospect", "magill", "campbelltown", "paradise", "newton",
     "henley beach", "semaphore", "grange", "findon", "port adelaide",
     "noarlunga", "morphett vale", "hallett cove", "reynella", "seaford",
-    "plympton", "kurralta park", "glenelg", "clarence park", "hyde park",
+    "plympton", "kurralta park", "glenelg", "clarence park", "hyde park", "ingle farm", "para hills",
     "malvern", "hawthorn", "tusmore", "beaumont", "rostrevor",
     "dry creek", "mansfield park", "enfield", "melrose park",
 ]
@@ -65,6 +65,16 @@ EXISTING_PAGES = {
     "/commercial-painting.html": "commercial painters adelaide",
     "/kitchen-respray.html": "kitchen respray adelaide",
     "/strata-painting.html": "strata painters adelaide",
+    "/about.html": "about mk painting adelaide",
+    "/contact.html": "painters adelaide contact",
+    "/blog.html": "painting tips adelaide",
+    "/choosing-colors-mawson-lakes.html": "choosing paint colours mawson lakes",
+    "/commercial-painting-guide.html": "commercial painting guide adelaide",
+    "/golden-grove-painting-guide.html": "golden grove painting guide",
+    "/heritage-painting-gawler.html": "heritage painting gawler",
+    "/heritage-painting-guide.html": "heritage painting guide adelaide",
+    "/kitchen-respray-guide.html": "kitchen respray guide adelaide",
+    "/western-suburbs-painting-guide.html": "western suburbs painting guide",
 }
 
 # ── Analysis thresholds ───────────────────────────────────────────────────────
@@ -80,6 +90,7 @@ CTR_BENCHMARKS = {
     (3, 3): 0.11,    # Position 3 ~11%
     (4, 5): 0.06,    # Position 4-5 ~6%
     (6, 10): 0.03,   # Position 6-10 ~3%
+    (11, 15): 0.015,  # Position 11-15 ~1.5%
 }
 
 # Minimum impressions to consider a query worth analyzing

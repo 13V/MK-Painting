@@ -9,6 +9,8 @@ import os
 import urllib.request
 import urllib.parse
 
+from config import SITE_URL
+
 
 def get_bot_config():
     """Get Telegram bot token and chat ID from environment."""
@@ -113,7 +115,7 @@ def send_indexing_update(indexed_count, unindexed_pages):
     )
 
     for page in unindexed_pages[:7]:
-        short = page.get("url", "").replace("https://www.mandkpaintingservices.com.au", "")
+        short = page.get("url", "").replace(SITE_URL.rstrip("/"), "")
         text += f"  • `{short}`\n"
 
     text += "\n_Sitemap pinged — Google should crawl within a few days._"

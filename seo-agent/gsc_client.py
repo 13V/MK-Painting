@@ -107,13 +107,14 @@ def fetch_page_data(service=None, days=LOOKBACK_DAYS):
 
     rows = []
     for row in response.get("rows", []):
-        rows.append({
-            "page": row["keys"][0],
-            "clicks": row["clicks"],
-            "impressions": row["impressions"],
-            "ctr": round(row["ctr"], 4),
-            "position": round(row["position"], 1),
-        })
+        if row["impressions"] >= MIN_IMPRESSIONS:
+            rows.append({
+                "page": row["keys"][0],
+                "clicks": row["clicks"],
+                "impressions": row["impressions"],
+                "ctr": round(row["ctr"], 4),
+                "position": round(row["position"], 1),
+            })
 
     return sorted(rows, key=lambda r: r["impressions"], reverse=True)
 

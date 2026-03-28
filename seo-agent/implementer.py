@@ -107,7 +107,8 @@ def create_pr(changes, repo_root):
     from datetime import datetime
 
     date_str = datetime.now().strftime("%Y-%m-%d")
-    branch_name = f"seo-updates-{date_str}"
+    time_str = datetime.now().strftime("%H%M")
+    branch_name = f"seo-updates-{date_str}-{time_str}"
 
     try:
         _run_git(repo_root, "checkout", "-b", branch_name)

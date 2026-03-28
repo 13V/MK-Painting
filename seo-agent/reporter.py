@@ -40,6 +40,14 @@ def generate_report(analysis, use_claude=True):
     return "\n".join(report_parts)
 
 
+# ── Helpers ──────────────────────────────────────────────────────────────────
+
+
+def _esc(text):
+    """Escape pipe characters so they don't break markdown tables."""
+    return str(text).replace("|", "\\|")
+
+
 # ── Section formatters ───────────────────────────────────────────────────────
 
 
@@ -73,7 +81,7 @@ def _format_summary(summary):
     ])
     for q in summary["top_queries"][:10]:
         lines.append(
-            f"| {q['query']} | {q['clicks']} | {q['impressions']} | {q['ctr']:.1%} | {q['position']} |"
+            f"| {_esc(q['query'])} | {q['clicks']} | {q['impressions']} | {q['ctr']:.1%} | {q['position']} |"
         )
 
     return "\n".join(lines) + "\n"
@@ -91,8 +99,8 @@ def _format_striking_distance(keywords):
     ]
     for kw in keywords[:20]:
         lines.append(
-            f"| {kw['query']} | {kw['position']} | {kw['impressions']} | "
-            f"{kw['clicks']} | {kw['ctr']:.1%} | {kw['action']} |"
+            f"| {_esc(kw['query'])} | {kw['position']} | {kw['impressions']} | "
+            f"{kw['clicks']} | {kw['ctr']:.1%} | {_esc(kw['action'])} |"
         )
 
     return "\n".join(lines) + "\n"
@@ -111,9 +119,9 @@ def _format_ctr_gaps(gaps):
     ]
     for g in gaps[:15]:
         lines.append(
-            f"| {g['query']} | {g['position']} | {g['ctr']:.1%} | "
+            f"| {_esc(g['query'])} | {g['position']} | {g['ctr']:.1%} | "
             f"{g['expected_ctr']:.0%} | {g['ctr_gap']:.1%} | "
-            f"+{g['potential_clicks']} | {g['action']} |"
+            f"+{g['potential_clicks']} | {_esc(g['action'])} |"
         )
 
     return "\n".join(lines) + "\n"
@@ -131,8 +139,8 @@ def _format_zero_click(items):
     ]
     for item in items[:15]:
         lines.append(
-            f"| {item['query']} | {item['impressions']} | {item['clicks']} | "
-            f"{item['position']} | {item['action']} |"
+            f"| {_esc(item['query'])} | {item['impressions']} | {item['clicks']} | "
+            f"{item['position']} | {_esc(item['action'])} |"
         )
 
     return "\n".join(lines) + "\n"
@@ -184,10 +192,8 @@ def _get_claude_recommendations(analysis):
     """Send analysis data to Claude for intelligent SEO recommendations."""
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
-        return (
-            "## AI Recommendations\n\n"
-            "⚠ ANTHROPIC_API_KEY not set — skipping AI recommendations.\n"
-        )
+        print("   ⚠ ANTHROPIC_API_KEY not set — skipping AI recommendations")
+        return ""
 
     client = anthropic.Anthropic(api_key=api_key)
 

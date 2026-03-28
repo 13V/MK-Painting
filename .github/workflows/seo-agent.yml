@@ -34,6 +34,8 @@ jobs:
 
       - name: Run SEO Agent
         working-directory: seo-agent
+        continue-on-error: true
+        timeout-minutes: 10
         env:
           GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -43,6 +45,7 @@ jobs:
         run: python agent.py
 
       - name: Commit report
+        if: always()
         run: |
           git checkout main
           git add reports/

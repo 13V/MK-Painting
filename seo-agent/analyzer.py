@@ -265,7 +265,7 @@ def _detect_suburbs(query):
     for suburb in ALL_SUBURBS:
         if suburb in query:
             found.append(suburb)
-    return found if found else ["adelaide"]
+    return found if found else []
 
 
 def _suggest_action(row):

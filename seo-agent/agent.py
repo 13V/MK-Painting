@@ -19,7 +19,7 @@ from datetime import datetime
 from pathlib import Path
 
 from analyzer import run_full_analysis
-from config import LOOKBACK_DAYS
+from config import LOOKBACK_DAYS, SITE_URL
 from gsc_client import (
     fetch_page_data,
     fetch_query_data,
@@ -241,19 +241,19 @@ def _format_indexing_results(results):
     if results["already_indexed"]:
         lines.append(f"### Indexed ({len(results['already_indexed'])})\n")
         for url in results["already_indexed"]:
-            short = url.replace("https://www.mandkpaintingservices.com.au", "")
+            short = url.replace(SITE_URL.rstrip("/"), "")
             lines.append(f"- {short}")
 
     if results["submitted"]:
         lines.append(f"\n### Submitted for Crawling ({len(results['submitted'])})\n")
         for item in results["submitted"]:
-            short = item["url"].replace("https://www.mandkpaintingservices.com.au", "")
+            short = item["url"].replace(SITE_URL.rstrip("/"), "")
             lines.append(f"- {short} — {item['status']}")
 
     if results["errors"]:
         lines.append(f"\n### Errors ({len(results['errors'])})\n")
         for item in results["errors"]:
-            short = item["url"].replace("https://www.mandkpaintingservices.com.au", "")
+            short = item["url"].replace(SITE_URL.rstrip("/"), "")
             lines.append(f"- {short} — {item['error']}")
 
     if results["inspected"]:
@@ -261,7 +261,7 @@ def _format_indexing_results(results):
         lines.append("| Page | Verdict | Index State | Last Crawl | Fetch State |")
         lines.append("|---|---|---|---|---|")
         for insp in results["inspected"]:
-            short = insp["url"].replace("https://www.mandkpaintingservices.com.au", "")
+            short = insp["url"].replace(SITE_URL.rstrip("/"), "")
             crawl = insp["last_crawl_time"] or "Never"
             lines.append(
                 f"| {short} | {insp['verdict']} | {insp['indexing_state']} | "
