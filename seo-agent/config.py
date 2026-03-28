@@ -75,6 +75,7 @@ EXISTING_PAGES = {
     "/heritage-painting-guide.html": "heritage painting guide adelaide",
     "/kitchen-respray-guide.html": "kitchen respray guide adelaide",
     "/western-suburbs-painting-guide.html": "western suburbs painting guide",
+    "/findon.html": "commercial painters findon",
 }
 
 # ── Analysis thresholds ───────────────────────────────────────────────────────
