@@ -51,9 +51,20 @@ def apply_changes(changes, repo_root):
     applied = []
 
     for change in changes:
-        filepath = os.path.join(repo_root, change["file"].lstrip("/"))
+        file_rel = change["file"].lstrip("/")
 
-        if not os.path.exists(filepath):
+        # Handle homepage — "/" maps to index.html
+        if not file_rel or file_rel == "/":
+            file_rel = "index.html"
+
+        # Must be an HTML file
+        if not file_rel.endswith(".html"):
+            print(f"   ⚠ Skipping non-HTML file: {file_rel}")
+            continue
+
+        filepath = os.path.join(repo_root, file_rel)
+
+        if not os.path.isfile(filepath):
             print(f"   ⚠ File not found: {filepath}")
             continue
 
