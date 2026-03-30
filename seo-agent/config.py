@@ -77,6 +77,7 @@ EXISTING_PAGES = {
     "/western-suburbs-painting-guide.html": "western suburbs painting guide",
     "/findon.html": "commercial painters findon",
     "/semaphore.html": "commercial painters semaphore",
+    "/grange.html": "commercial painters grange",
 }
 
 # ── Analysis thresholds ───────────────────────────────────────────────────────
