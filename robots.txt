@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+Disallow: /reports/
+Disallow: /seo-agent/
+Disallow: /data/
+Disallow: /seo-proposal.html
+
 Sitemap: https://www.mandkpaintingservices.com.au/sitemap.xml
