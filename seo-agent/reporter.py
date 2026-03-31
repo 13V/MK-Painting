@@ -206,6 +206,77 @@ def _format_suburb_opportunities(suburbs):
     return "\n".join(lines) + "\n"
 
 
+def format_site_audit(audit_results):
+    """Format the four daily site health audit checks as a markdown section."""
+    if not audit_results:
+        return ""
+
+    coord_fixes = audit_results.get("coord_fixes", [])
+    faq_issues = audit_results.get("faq_issues", [])
+    alt_issues = audit_results.get("alt_issues", [])
+    sitemap = audit_results.get("sitemap_issues", {})
+    missing_sm = sitemap.get("missing", [])
+    orphaned_sm = sitemap.get("orphaned", [])
+
+    total = len(coord_fixes) + len(faq_issues) + len(alt_issues) + len(missing_sm) + len(orphaned_sm)
+    if total == 0:
+        return "\n## Site Health Audit\n\n✅ All checks passed — no issues found.\n"
+
+    lines = ["\n## Site Health Audit\n"]
+
+    # Schema coord fixes
+    if coord_fixes:
+        lines.append(f"### Schema Coordinate Fixes ({len(coord_fixes)} auto-applied)\n")
+        for fix in coord_fixes:
+            lines.append(f"- `{fix['file']}` — {fix['description']}")
+        lines.append("")
+    else:
+        lines.append("### Schema Coordinates\n\n✅ All geo coordinates correct.\n")
+
+    # FAQ quality
+    if faq_issues:
+        lines.append(f"### FAQ Quality Issues ({len(faq_issues)})\n")
+        for issue in faq_issues[:10]:
+            lines.append(f"- {issue}")
+        if len(faq_issues) > 10:
+            lines.append(f"- _...and {len(faq_issues) - 10} more_")
+        lines.append("")
+    else:
+        lines.append("### FAQ Quality\n\n✅ All FAQ sections pass suburb mention and length checks.\n")
+
+    # Image alt text
+    if alt_issues:
+        lines.append(f"### Generic Image Alt Text ({len(alt_issues)} images)\n")
+        lines.append("| File | Image src | Current alt |")
+        lines.append("|---|---|---|")
+        for file_rel, src, alt in alt_issues[:10]:
+            src_short = src.split("/")[-1] if "/" in src else src
+            lines.append(f"| `{file_rel}` | `{src_short}` | `{alt}` |")
+        if len(alt_issues) > 10:
+            lines.append(f"\n_...and {len(alt_issues) - 10} more_")
+        lines.append("")
+    else:
+        lines.append("### Image Alt Text\n\n✅ No generic alt text patterns found.\n")
+
+    # Sitemap freshness
+    if missing_sm or orphaned_sm:
+        lines.append(f"### Sitemap Freshness\n")
+        if missing_sm:
+            lines.append(f"**Missing from sitemap ({len(missing_sm)}):**")
+            for slug in missing_sm:
+                lines.append(f"- `{slug}`")
+            lines.append("")
+        if orphaned_sm:
+            lines.append(f"**Orphaned sitemap entries ({len(orphaned_sm)}):**")
+            for slug in orphaned_sm:
+                lines.append(f"- `{slug}` — file not found")
+            lines.append("")
+    else:
+        lines.append("### Sitemap Freshness\n\n✅ Sitemap matches all HTML files.\n")
+
+    return "\n".join(lines)
+
+
 # ── Claude AI recommendations ───────────────────────────────────────────────
 
 

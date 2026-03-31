@@ -19,7 +19,7 @@ from datetime import datetime
 from pathlib import Path
 
 from analyzer import run_full_analysis
-from config import LOOKBACK_DAYS, SITE_URL
+from config import GITHUB_REPO_URL, LOOKBACK_DAYS, SITE_URL
 from gsc_client import (
     fetch_page_data,
     fetch_query_data,
@@ -35,7 +35,7 @@ from implementer import (
     pick_best_new_page,
     write_new_page,
 )
-from reporter import generate_report
+from reporter import generate_report, format_site_audit
 from telegram_notifier import (
     send_daily_report,
     send_indexing_update,
@@ -129,11 +129,8 @@ def main():
 
     # ── 6. Telegram: daily report summary ────────────────────────────────────
     print("\n📱 Sending Telegram notification...")
-    report_github_url = (
-        "https://github.com/13V/MK-Painting/blob/main/reports/"
-        f"seo-report-{date_str}.md"
-    )
-    send_daily_report(analysis["summary"], report_url=report_github_url)
+    report_github_url = f"{GITHUB_REPO_URL}/blob/main/reports/seo-report-{date_str}.md"
+    send_daily_report(analysis, report_url=report_github_url)
 
     # ── 7. Implement changes via PR ──────────────────────────────────────────
     if use_claude and not args.no_impl and not args.csv:
@@ -228,6 +225,41 @@ def main():
             publish_gbp_post(repo_root)
         except Exception as e:
             print(f"   ⚠ Map Pack update failed: {e}")
+
+    # ── 9b. Site health audit ─────────────────────────────────────────────────
+    if not args.csv:
+        print("\n🏥 Running site health audit...")
+        try:
+            from site_auditor import run_all_audits
+            audit_root = str(Path(__file__).parent.parent)
+            audit_results = run_all_audits(audit_root)
+
+            coord_fixes = audit_results.get("coord_fixes", [])
+            faq_issues = audit_results.get("faq_issues", [])
+            alt_issues = audit_results.get("alt_issues", [])
+            sitemap_issues = audit_results.get("sitemap_issues", {})
+            print(
+                f"   → {len(coord_fixes)} coord fix(es), "
+                f"{len(faq_issues)} FAQ issue(s), "
+                f"{len(alt_issues)} alt issue(s), "
+                f"sitemap: {len(sitemap_issues.get('missing', []))} missing / "
+                f"{len(sitemap_issues.get('orphaned', []))} orphaned"
+            )
+
+            # Auto-apply coord fixes (safe, mechanical — no AI needed)
+            if coord_fixes:
+                print(f"   → Auto-applying {len(coord_fixes)} coord fix(es)...")
+                apply_changes(coord_fixes, audit_root)
+
+            # Append audit section to the saved report
+            audit_section = format_site_audit(audit_results)
+            if audit_section:
+                report += audit_section
+                report_path.write_text(report, encoding="utf-8")
+                latest_path.write_text(report, encoding="utf-8")
+
+        except Exception as e:
+            print(f"   ⚠ Site health audit failed: {e}")
 
     print("\n" + "=" * 60)
     print("  Done!")
