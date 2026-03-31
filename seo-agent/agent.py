@@ -55,13 +55,12 @@ def main():
     print(f"  {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print("=" * 60)
 
-    # ── 1. Fetch data ────────────────────────────────────────────────────────
     if args.csv:
         print(f"\n📂 Loading data from CSV directory: {args.csv}")
-        query_data, page_data = load_csv_data(args.csv)
+        query_data, page_data, query_page_data = load_csv_data(args.csv)
     else:
         print(f"\n🔗 Connecting to Google Search Console ({LOOKBACK_DAYS}-day lookback)...")
-        query_data, page_data = fetch_api_data()
+        query_data, page_data, query_page_data = fetch_api_data()
 
     if not query_data:
         print("❌ No query data found. Check your credentials or CSV files.")
@@ -71,13 +70,15 @@ def main():
 
     # ── 2. Analyze ───────────────────────────────────────────────────────────
     print("\n🔍 Running analysis pipeline...")
-    analysis = run_full_analysis(query_data, page_data)
+    analysis = run_full_analysis(query_data, page_data, query_page_data)
 
     print(f"   → {len(analysis['striking_distance'])} striking distance keywords")
     print(f"   → {len(analysis['ctr_gaps'])} CTR gaps")
     print(f"   → {len(analysis['zero_click'])} zero-click queries")
     print(f"   → {len(analysis['missing_pages'])} missing landing pages")
     print(f"   → {len(analysis['suburb_opportunities'])} suburb opportunities")
+    if analysis.get("cannibalization"):
+        print(f"   → {len(analysis['cannibalization'])} cannibalization alerts")
 
     # ── 3. Generate report ───────────────────────────────────────────────────
     use_claude = not args.no_ai
@@ -144,6 +145,26 @@ def main():
             repo_root = str(Path(__file__).parent.parent)
             changes = generate_changes(analysis, repo_root=repo_root)
 
+            print("\n🔗 Analyzing internal links for weak anchor text...")
+            try:
+                from linker import analyze_and_optimize_anchors
+                linker_changes = analyze_and_optimize_anchors(repo_root)
+                if linker_changes:
+                    changes.extend(linker_changes)
+            except Exception as e:
+                print(f"   ⚠ Anchor optimization error: {e}")
+
+            print("\n🧠 Initiating Generative Engine Optimization (GEO)...")
+            try:
+                from geo import generate_llm_txt, get_local_business_schema_change
+                geo_changes = []
+                geo_changes.extend(generate_llm_txt(repo_root))
+                geo_changes.extend(get_local_business_schema_change(repo_root))
+                if geo_changes:
+                    changes.extend(geo_changes)
+            except Exception as e:
+                print(f"   ⚠ GEO optimization error: {e}")
+
             if changes:
                 print(f"   → {len(changes)} changes proposed")
                 applied = apply_changes(changes, repo_root)
@@ -200,6 +221,14 @@ def main():
         else:
             print("\n   → No new page opportunities detected")
 
+    # ── 9. Map Pack Update ───────────────────────────────────────────────────
+    if use_claude and not args.no_impl and not args.csv:
+        try:
+            from gbp_agent import publish_gbp_post
+            publish_gbp_post(repo_root)
+        except Exception as e:
+            print(f"   ⚠ Map Pack update failed: {e}")
+
     print("\n" + "=" * 60)
     print("  Done!")
     print("=" * 60)
@@ -207,12 +236,13 @@ def main():
 
 def fetch_api_data():
     """Fetch data from the GSC API."""
-    from gsc_client import get_gsc_service
+    from gsc_client import get_gsc_service, fetch_query_page_data
 
     service = get_gsc_service()
     query_data = fetch_query_data(service=service)
     page_data = fetch_page_data(service=service)
-    return query_data, page_data
+    query_page_data = fetch_query_page_data(service=service)
+    return query_data, page_data, query_page_data
 
 
 def load_csv_data(csv_dir):
@@ -244,7 +274,7 @@ def load_csv_data(csv_dir):
             query_data = load_from_csv(str(csvs[0]))
             print(f"   → Loaded data from {csvs[0].name}")
 
-    return query_data, page_data
+    return query_data, page_data, []
 
 
 def parse_args():

@@ -221,7 +221,43 @@ def generate_summary_stats(query_data, page_data):
     }
 
 
-def run_full_analysis(query_data, page_data):
+def detect_cannibalization(query_page_data):
+    """
+    Find queries where impressions are split across multiple pages.
+    Google gets confused when two pages compete for the exact same term.
+    """
+    if not query_page_data:
+        return []
+        
+    query_map = {}
+    for row in query_page_data:
+        q = row["query"]
+        if q not in query_map:
+            query_map[q] = []
+        query_map[q].append(row)
+        
+    results = []
+    for q, rows in query_map.items():
+        valid_pages = [r for r in rows if r["impressions"] >= 15]
+        if len(valid_pages) > 1:
+            total_imp = sum(r["impressions"] for r in valid_pages)
+            if total_imp >= 50:
+                valid_pages.sort(key=lambda x: (x["clicks"], x["impressions"]), reverse=True)
+                winner = valid_pages[0]
+                losers = valid_pages[1:]
+                results.append({
+                    "query": q,
+                    "total_impressions": total_imp,
+                    "competing_pages": len(valid_pages),
+                    "winner_page": winner["page"],
+                    "loser_pages": [l["page"] for l in losers],
+                    "action": f"De-optimize or canonicalize {len(losers)} competing page(s) pointing to {winner['page']}."
+                })
+                
+    return sorted(results, key=lambda x: x["total_impressions"], reverse=True)
+
+
+def run_full_analysis(query_data, page_data, query_page_data=None):
     """
     Run the complete analysis pipeline and return all findings.
     """
@@ -234,6 +270,7 @@ def run_full_analysis(query_data, page_data):
         "clusters": clusters,
         "missing_pages": find_missing_pages(clusters),
         "suburb_opportunities": find_suburb_opportunities(query_data),
+        "cannibalization": detect_cannibalization(query_page_data),
     }
 
 

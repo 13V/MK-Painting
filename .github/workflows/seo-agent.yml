@@ -35,12 +35,14 @@ jobs:
       - name: Run SEO Agent
         working-directory: seo-agent
         continue-on-error: true
-        timeout-minutes: 10
+        timeout-minutes: 15
         env:
           GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
+          GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
           GH_TOKEN: ${{ github.token }}
         run: python agent.py
 
@@ -48,7 +50,7 @@ jobs:
         if: always()
         run: |
           git checkout main
-          git add reports/
+          git add reports/ data/ llm.txt 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else

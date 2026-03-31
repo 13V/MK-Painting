@@ -60,12 +60,21 @@ def apply_changes(changes, repo_root):
         if not file_rel or file_rel == "/":
             file_rel = "index.html"
 
-        # Must be an HTML file
+        filepath = os.path.join(repo_root, file_rel)
+
+        # Handle new_file type — file already written to disk by caller, just stage it
+        if change.get("change_type") == "new_file":
+            if os.path.isfile(filepath):
+                applied.append(change)
+                print(f"   ✓ new_file: {file_rel}")
+            else:
+                print(f"   ⚠ new_file declared but not found: {filepath}")
+            continue
+
+        # Must be an HTML file for all other change types
         if not file_rel.endswith(".html"):
             print(f"   ⚠ Skipping non-HTML file: {file_rel}")
             continue
-
-        filepath = os.path.join(repo_root, file_rel)
 
         if not os.path.isfile(filepath):
             print(f"   ⚠ File not found: {filepath}")
@@ -236,16 +245,18 @@ Existing pages, their target keywords, and CURRENT HTML tags:
 Your job is to output SPECIFIC changes to HTML files based on GSC performance data.
 
 CRITICAL RULES:
-- Only suggest title tag and meta description changes (safe, high-impact, low-risk)
+- Only suggest title tag, meta description changes, and FAQ schema JSON-LD injection
 - Output valid JSON array — no markdown, no explanation, just the JSON
 - Each change must have: file, change_type, old_value, new_value, description
 - old_value must be the EXACT current HTML string copied from above — character for character
 - new_value must be the replacement HTML string
 - For title changes: old_value = `<title>Current Title</title>`, new_value = `<title>New Title</title>`
 - For meta changes: old_value = the full `<meta name="description" content="...">` tag, new_value = the new full tag
+- For FAQ schema: change_type = "faq_schema", old_value = `</head>`, new_value = `<script type="application/ld+json">...valid schema...</script>\n</head>`.
+- For Conversational Q&A (GEO): change_type = "conversational_qa", old_value = `</footer>`, new_value = `<div class="geo-qa" style="padding: 2rem 0; background: #f9f9f9; text-align: center;"><h2>Frequently Asked Questions</h2>...Q&A text formatted clearly for LLMs...</div>\n</footer>`
 - Title tags must be under 60 characters
 - Meta descriptions must be 120-155 characters
-- Only suggest changes where CTR data shows a clear problem
+- Only suggest changes where CTR data shows a clear problem or Striking Distance keywords need rich snippets
 - Maximum 5 changes per run — focus on highest impact only
 - The "file" field must be the HTML filename like "west-lakes.html" (not a slug like "/west-lakes.html")"""
 
@@ -281,10 +292,18 @@ def _build_change_request(analysis):
 
     parts.append(
         '\n\nOutput format — JSON array only, no markdown:\n'
-        '[{"file": "/page.html", "change_type": "title", '
+        '[{"file": "page.html", "change_type": "title", '
         '"old_value": "<title>Old Title</title>", '
         '"new_value": "<title>New Title</title>", '
-        '"description": "Why this change helps"}]'
+        '"description": "Why this change helps"}, '
+        '{"file": "page.html", "change_type": "faq_schema", '
+        '"old_value": "</head>", '
+        '"new_value": "<script type=\\"application/ld+json\\">...</script>\\n</head>", '
+        '"description": "Added FAQ schema to boost CTR for striking distance keyword"}, '
+        '{"file": "page.html", "change_type": "conversational_qa", '
+        '"old_value": "</footer>", '
+        '"new_value": "<div class=\\"geo-qa\\">...</div>\\n</footer>", '
+        '"description": "Added conversational structured answers for LLM AI ingestion"}]'
     )
 
     return "\n".join(parts)

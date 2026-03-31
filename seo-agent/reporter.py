@@ -29,6 +29,7 @@ def generate_report(analysis, use_claude=True):
         _format_zero_click(analysis["zero_click"]),
         _format_missing_pages(analysis["missing_pages"]),
         _format_suburb_opportunities(analysis["suburb_opportunities"]),
+        _format_cannibalization(analysis.get("cannibalization", [])),
     ]
 
     if use_claude:
@@ -141,6 +142,26 @@ def _format_zero_click(items):
         lines.append(
             f"| {_esc(item['query'])} | {item['impressions']} | {item['clicks']} | "
             f"{item['position']} | {_esc(item['action'])} |"
+        )
+
+    return "\n".join(lines) + "\n"
+
+
+def _format_cannibalization(cannibalizations):
+    if not cannibalizations:
+        return ""
+
+    lines = [
+        "## ⚠️ Keyword Cannibalization Alerts\n",
+        "When multiple pages rank for the same exact term, Google splits your authority. Point the 'Loser Pages' canonical tag to the 'Winner', or de-optimize the loser.\n",
+        "| Query | Competing Pages | Total Imp. | Winner Page | Loser Pages |",
+        "|---|---|---|---|---|",
+    ]
+    for c in cannibalizations[:10]:
+        losers = "<br>".join(f"`{p.replace(SITE_URL, '/')}`" for p in c["loser_pages"])
+        lines.append(
+            f"| {_esc(c['query'])} | {c['competing_pages']} | {c['total_impressions']} | "
+            f"`{c['winner_page'].replace(SITE_URL, '/')}` | {losers} |"
         )
 
     return "\n".join(lines) + "\n"
@@ -272,6 +293,13 @@ def _build_analysis_prompt(analysis):
         for sub in so:
             parts.append(f"- {sub['suburb'].title()} — {sub['impressions']} imp, {sub['clicks']} clicks")
 
-    parts.append("\n---\nProvide your analysis as:\n1. **Top 3 Wins This Week** — the highest-impact actions to take immediately\n2. **Title Tag Rewrites** — specific <title> suggestions for underperforming pages\n3. **Meta Description Rewrites** — specific meta description text for CTR improvement\n4. **Content Priorities** — which pages need content updates and what to add\n5. **New Page Recommendations** — which landing pages to create next, with target keywords")
+    # Cannibalization
+    can = analysis.get("cannibalization", [])[:5]
+    if can:
+        parts.append(f"\n**Keyword Cannibalization Alerts** ({len(analysis.get('cannibalization', []))} total):")
+        for c in can:
+            parts.append(f"- \"{c['query']}\" has {c['competing_pages']} competing pages. Winner: {c['winner_page']}")
+
+    parts.append("\n---\nProvide your analysis as:\n1. **Top 3 Wins This Week** — the highest-impact actions to take immediately\n2. **Title Tag Rewrites** — specific <title> suggestions for underperforming pages\n3. **Map Pack Strategy** — quick tips for local map ranking based on current data\n4. **Cannibalization Fixes** — how to resolve any detected URL competition\n5. **New Page Recommendations** — which landing pages to create next")
 
     return "\n".join(parts)

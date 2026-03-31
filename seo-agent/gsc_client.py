@@ -31,7 +31,10 @@ def _get_credentials():
     creds_info = json.loads(creds_json)
     return service_account.Credentials.from_service_account_info(
         creds_info,
-        scopes=["https://www.googleapis.com/auth/webmasters.readonly"],
+        scopes=[
+            "https://www.googleapis.com/auth/webmasters.readonly",
+            "https://www.googleapis.com/auth/indexing",
+        ],
     )
 
 
@@ -40,6 +43,13 @@ def get_gsc_service():
     from googleapiclient.discovery import build
 
     return build("searchconsole", "v1", credentials=_get_credentials())
+
+
+def get_indexing_service():
+    """Authenticate and return an Indexing API service object."""
+    from googleapiclient.discovery import build
+
+    return build("indexing", "v3", credentials=_get_credentials())
 
 
 
@@ -209,6 +219,25 @@ def ping_sitemap():
         return {"status": "error", "error": str(e)}
 
 
+def notify_indexing_api(url, action="URL_UPDATED"):
+    """
+    Push a direct notification to the Google Indexing API.
+    Action can be "URL_UPDATED" (new or changed) or "URL_DELETED".
+    """
+    service = get_indexing_service()
+
+    try:
+        response = service.urlNotifications().publish(
+            body={
+                "url": url,
+                "type": action,
+            }
+        ).execute()
+        return {"status": "success", "metadata": response.get("urlNotificationMetadata", {})}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+
 def inspect_and_submit_new_pages(pages_to_check=None):
     """
     Inspect all site pages and ping sitemap if any are unindexed.
@@ -238,12 +267,17 @@ def inspect_and_submit_new_pages(pages_to_check=None):
             print(f"   → Error: {e}")
             results["errors"].append({"url": url, "error": str(e)})
 
-    # If any pages are unindexed, ping the sitemap to prompt re-crawl
+    # If any pages are unindexed, notify the Indexing API directly for immediate crawl
     if results["submitted"]:
-        print(f"   → {len(results['submitted'])} unindexed pages found — pinging sitemap")
-        ping_result = ping_sitemap()
+        print(f"   → {len(results['submitted'])} unindexed pages found — notifying Indexing API")
         for item in results["submitted"]:
-            item["status"] = f"sitemap pinged ({ping_result['status']})"
+            api_resp = notify_indexing_api(item["url"])
+            if api_resp["status"] == "success":
+                item["status"] = "indexing API notified"
+            else:
+                # Fallback to sitemap ping if API fails (e.g., quota or not enabled)
+                ping_result = ping_sitemap()
+                item["status"] = f"indexing API error, sitemap pinged ({ping_result['status']})"
 
     return results
 
