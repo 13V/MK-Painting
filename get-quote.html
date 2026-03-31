@@ -544,6 +544,18 @@
                 btn.disabled = false;
             });
         });
+
+        // ── Phone call click tracking — GA4 ──────────────────────────
+        document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'phone_call_click', {
+                        event_category: 'contact',
+                        event_label: link.href.replace('tel:', '')
+                    });
+                }
+            });
+        });
     </script>
 
 </body>
