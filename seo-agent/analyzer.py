@@ -8,10 +8,13 @@ Takes raw GSC data and produces structured opportunity findings:
 - Missing landing page gaps
 """
 
+import re
+
 from config import (
     ALL_SUBURBS,
     CTR_BENCHMARKS,
     EXISTING_PAGES,
+    MISSING_PAGE_MIN_IMPRESSIONS,
     SERVICES,
     SITE_URL,
     STRIKING_DISTANCE_MAX,
@@ -20,6 +23,16 @@ from config import (
     SUBURBS_TIER1,
     SUBURBS_TIER2,
 )
+
+# Pre-compile word-boundary patterns for all suburbs and service keywords
+_SUBURB_PATTERNS = {
+    suburb: re.compile(r"\b" + re.escape(suburb) + r"\b", re.IGNORECASE)
+    for suburb in ALL_SUBURBS
+}
+_SERVICE_PATTERNS = {
+    service: [re.compile(r"\b" + re.escape(kw) + r"\b", re.IGNORECASE) for kw in kws]
+    for service, kws in SERVICES.items()
+}
 
 
 def find_striking_distance(query_data):
@@ -145,7 +158,7 @@ def find_missing_pages(clusters):
                 has_page = True
                 break
 
-        if not has_page and total_impressions >= 30:
+        if not has_page and total_impressions >= MISSING_PAGE_MIN_IMPRESSIONS:
             gaps.append({
                 "service": service,
                 "suburb": suburb,
@@ -170,7 +183,7 @@ def find_suburb_opportunities(query_data):
     for row in query_data:
         query = row["query"].lower()
         for suburb in SUBURBS_TIER2:  # Only check tier 2 (no page yet)
-            if suburb in query:
+            if _SUBURB_PATTERNS[suburb].search(query):
                 if suburb not in suburb_impressions:
                     suburb_impressions[suburb] = {
                         "impressions": 0,
@@ -285,32 +298,43 @@ def _get_expected_ctr(position):
 
 
 def _detect_services(query):
-    """Detect which services a query relates to."""
+    """Detect which services a query relates to (word-boundary safe)."""
     found = []
-    for service, keywords in SERVICES.items():
-        if any(kw in query for kw in keywords):
+    for service, patterns in _SERVICE_PATTERNS.items():
+        if any(p.search(query) for p in patterns):
             found.append(service)
     # If nothing specific detected, mark as general "painting"
-    if not found and ("paint" in query or "painter" in query):
+    if not found and re.search(r"\bpaint(er|ing|s)?\b", query, re.IGNORECASE):
         found.append("general")
     return found if found else ["unknown"]
 
 
 def _detect_suburbs(query):
-    """Detect which suburbs are mentioned in a query."""
+    """Detect which suburbs are mentioned in a query (word-boundary safe)."""
     found = []
-    for suburb in ALL_SUBURBS:
-        if suburb in query:
+    for suburb, pattern in _SUBURB_PATTERNS.items():
+        if pattern.search(query):
             found.append(suburb)
     return found if found else []
 
 
 def _suggest_action(row):
-    """Suggest an action for a striking distance keyword."""
+    """Suggest a specific action for a striking distance keyword."""
     pos = row["position"]
+    query = row["query"]
+    imp = row["impressions"]
     if pos <= 5:
-        return f"Almost top 3 — strengthen on-page content and build 1-2 internal links"
+        return (
+            f'"{query}" at pos {pos:.1f} ({imp} imp) — almost top 3: '
+            f"strengthen on-page content and add 1-2 internal links from related pages"
+        )
     elif pos <= 10:
-        return f"Page 1 but below fold — add FAQ schema, improve content depth, get a backlink"
+        return (
+            f'"{query}" at pos {pos:.1f} ({imp} imp) — page 1 but below fold: '
+            f"add FAQ schema targeting this query, deepen content, earn a local backlink"
+        )
     else:
-        return f"Page 2 — needs dedicated content section or new landing page"
+        return (
+            f'"{query}" at pos {pos:.1f} ({imp} imp) — page 2: '
+            f"needs a dedicated landing page or major content expansion"
+        )

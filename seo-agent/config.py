@@ -6,6 +6,7 @@ Site details, known services, target suburbs, and existing landing pages.
 
 SITE_URL = "https://www.mandkpaintingservices.com.au/"
 SITE_DOMAIN = "mandkpaintingservices.com.au"
+GITHUB_REPO_URL = "https://github.com/13V/MK-Painting"
 
 # Google Search Console property (sc-domain or URL prefix)
 GSC_PROPERTY = "sc-domain:mandkpaintingservices.com.au"
@@ -86,18 +87,22 @@ STRIKING_DISTANCE_MIN = 4
 STRIKING_DISTANCE_MAX = 15
 STRIKING_DISTANCE_MIN_IMPRESSIONS = 20
 
-# CTR benchmarks by position range (expected CTR for well-optimized snippet)
+# CTR benchmarks by position range — calibrated for local home services
+# (map pack and featured snippets reduce organic CTR vs. generic benchmarks)
 CTR_BENCHMARKS = {
-    (1, 1): 0.28,    # Position 1 should get ~28% CTR
-    (2, 2): 0.16,    # Position 2 ~16%
-    (3, 3): 0.11,    # Position 3 ~11%
-    (4, 5): 0.06,    # Position 4-5 ~6%
-    (6, 10): 0.03,   # Position 6-10 ~3%
-    (11, 15): 0.015,  # Position 11-15 ~1.5%
+    (1, 1): 0.08,    # Position 1 — local services avg 5-8% (map pack steals clicks)
+    (2, 2): 0.06,    # Position 2 ~6%
+    (3, 3): 0.05,    # Position 3 ~5%
+    (4, 5): 0.04,    # Position 4-5 ~4%
+    (6, 10): 0.025,  # Position 6-10 ~2.5%
+    (11, 15): 0.012, # Position 11-15 ~1.2%
 }
 
 # Minimum impressions to consider a query worth analyzing
 MIN_IMPRESSIONS = 10
+
+# Minimum impressions for a service×suburb cluster to be flagged as a missing page
+MISSING_PAGE_MIN_IMPRESSIONS = 15
 
 # ── Claude API ────────────────────────────────────────────────────────────────
 CLAUDE_MODEL = "claude-sonnet-4-20250514"
