@@ -254,10 +254,13 @@ CRITICAL RULES:
 - For meta changes: old_value = the full `<meta name="description" content="...">` tag, new_value = the new full tag
 - For FAQ schema: change_type = "faq_schema", old_value = `</head>`, new_value = `<script type="application/ld+json">...valid schema...</script>\n</head>`.
 - For Conversational Q&A (GEO): change_type = "conversational_qa", old_value = `</footer>`, new_value = `<div class="geo-qa" style="padding: 2rem 0; background: #f9f9f9; text-align: center;"><h2>Frequently Asked Questions</h2>...Q&A text formatted clearly for LLMs...</div>\n</footer>`
+- For H1 changes: change_type = "h1", old_value = the exact `<h1>...</h1>` tag, new_value = the new `<h1>...</h1>` tag with better keyword targeting
+- For internal links: change_type = "internal_link", old_value = an existing `<p>` or `<a>` tag, new_value = same element with an added or improved internal link
+- For meta_fix (too-long tags): change_type = "meta_fix", old_value = the current too-long tag, new_value = trimmed version within character limits
 - Title tags must be under 60 characters
 - Meta descriptions must be 120-155 characters
-- Only suggest changes where CTR data shows a clear problem or Striking Distance keywords need rich snippets
-- Maximum 5 changes per run — focus on highest impact only
+- Suggest changes for CTR problems, Striking Distance keywords, AND any too-long meta tags listed
+- Maximum 10 changes per run — focus on highest impact first
 - The "file" field must be the HTML filename like "west-lakes.html" (not a slug like "/west-lakes.html")"""
 
 
@@ -337,7 +340,7 @@ def _parse_changes(text):
             if all(k in c for k in ("file", "change_type", "old_value", "new_value", "description")):
                 valid.append(c)
 
-        return valid[:5]  # Max 5 changes per run
+        return valid[:10]  # Max 10 changes per run
 
     except json.JSONDecodeError:
         print(f"   ⚠ Could not parse Claude's response as JSON")
