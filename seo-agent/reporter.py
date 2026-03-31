@@ -30,6 +30,8 @@ def generate_report(analysis, use_claude=True):
         _format_missing_pages(analysis["missing_pages"]),
         _format_suburb_opportunities(analysis["suburb_opportunities"]),
         _format_cannibalization(analysis.get("cannibalization", [])),
+        _format_trends(analysis.get("trends")),
+        _format_map_pack(analysis.get("map_pack_queries", [])),
     ]
 
     if use_claude:
@@ -201,6 +203,83 @@ def _format_suburb_opportunities(suburbs):
         lines.append(
             f"| {s['suburb'].title()} | {s['impressions']} | {s['clicks']} | "
             f"{s['query_count']} | {top} |"
+        )
+
+    return "\n".join(lines) + "\n"
+
+
+def _format_trends(trends):
+    if not trends or not trends.get("previous_date"):
+        return ""
+
+    lines = [
+        f"## Trends (vs {trends['previous_date']})\n",
+    ]
+
+    # Summary delta
+    delta = trends.get("summary_delta")
+    if delta:
+        lines.append(
+            f"**Period change:** Clicks {delta['clicks_delta']:+d} | "
+            f"Impressions {delta['impressions_delta']:+d}\n"
+        )
+
+    # Position changes
+    changes = trends.get("position_changes", [])
+    if changes:
+        improved = [c for c in changes if c["direction"] == "up"]
+        declined = [c for c in changes if c["direction"] == "down"]
+
+        if improved:
+            lines.append("### Improved Positions\n")
+            lines.append("| Query | Position | Change | Impressions |")
+            lines.append("|---|---|---|---|")
+            for c in improved[:10]:
+                lines.append(
+                    f"| {_esc(c['query'])} | {c['position']} | "
+                    f"{c['prev_position']} → {c['position']} (+{c['position_delta']:.1f}) | "
+                    f"{c['impressions']} |"
+                )
+            lines.append("")
+
+        if declined:
+            lines.append("### Declined Positions\n")
+            lines.append("| Query | Position | Change | Impressions |")
+            lines.append("|---|---|---|---|")
+            for c in declined[:10]:
+                lines.append(
+                    f"| {_esc(c['query'])} | {c['position']} | "
+                    f"{c['prev_position']} → {c['position']} ({c['position_delta']:.1f}) | "
+                    f"{c['impressions']} |"
+                )
+            lines.append("")
+
+    # New keywords
+    new_kws = trends.get("new_keywords", [])
+    if new_kws:
+        lines.append(f"### New Keywords ({len(new_kws)})\n")
+        for kw in new_kws[:10]:
+            lines.append(f"- \"{kw['query']}\" — pos {kw['position']}, {kw['impressions']} imp")
+        lines.append("")
+
+    return "\n".join(lines) + "\n"
+
+
+def _format_map_pack(map_pack_queries):
+    if not map_pack_queries:
+        return ""
+
+    lines = [
+        "## Map Pack Dominated Queries\n",
+        "These queries rank position 1-3 organically but get 0 clicks because the Google Maps "
+        "3-Pack absorbs all traffic. Title/meta optimization won't help — focus on Google Business "
+        "Profile instead (reviews, posts, photos).\n",
+        "| Query | Position | Impressions | Note |",
+        "|---|---|---|---|",
+    ]
+    for q in map_pack_queries[:10]:
+        lines.append(
+            f"| {_esc(q['query'])} | {q['position']} | {q['impressions']} | GBP focus |"
         )
 
     return "\n".join(lines) + "\n"

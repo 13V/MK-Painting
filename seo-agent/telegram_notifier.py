@@ -78,6 +78,52 @@ def send_daily_report(analysis, report_url=None):
             text += f"  • {opp}\n"
         text += "\n"
 
+    # ── Trends ──────────────────────────────────────────────────────────────
+    if isinstance(analysis, dict) and analysis.get("trends"):
+        trends = analysis["trends"]
+        if trends.get("previous_date"):
+            trend_parts = []
+            delta = trends.get("summary_delta")
+            if delta:
+                c_sign = "+" if delta["clicks_delta"] >= 0 else ""
+                i_sign = "+" if delta["impressions_delta"] >= 0 else ""
+                trend_parts.append(
+                    f"vs {trends['previous_date']}: "
+                    f"{c_sign}{delta['clicks_delta']} clicks, "
+                    f"{i_sign}{delta['impressions_delta']} impressions"
+                )
+
+            improved = [c for c in trends.get("position_changes", []) if c["direction"] == "up"]
+            declined = [c for c in trends.get("position_changes", []) if c["direction"] == "down"]
+            if improved:
+                best = improved[0]
+                trend_parts.append(
+                    f'Best mover: "{best["query"]}" '
+                    f'{best["prev_position"]}→{best["position"]} (+{best["position_delta"]:.1f})'
+                )
+            if declined:
+                worst = declined[0]
+                trend_parts.append(
+                    f'Biggest drop: "{worst["query"]}" '
+                    f'{worst["prev_position"]}→{worst["position"]} ({worst["position_delta"]:.1f})'
+                )
+
+            nk = len(trends.get("new_keywords", []))
+            if nk:
+                trend_parts.append(f"{nk} new keyword(s) appeared")
+
+            if trend_parts:
+                text += "📉 *Trends:*\n"
+                for tp in trend_parts:
+                    text += f"  • {tp}\n"
+                text += "\n"
+
+    # ── Map Pack note ──────────────────────────────────────────────────────
+    if isinstance(analysis, dict):
+        mp = analysis.get("map_pack_queries", [])
+        if mp:
+            text += f"🗺 _{len(mp)} keyword(s) at pos 1\\-3 with 0 clicks — Map Pack dominated, focus GBP_\n"
+
     # ── Opportunity counts ────────────────────────────────────────────────────
     if isinstance(analysis, dict):
         sd = len(analysis.get("striking_distance", []))

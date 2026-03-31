@@ -270,20 +270,58 @@ def detect_cannibalization(query_page_data):
     return sorted(results, key=lambda x: x["total_impressions"], reverse=True)
 
 
+def classify_map_pack_queries(query_data):
+    """
+    Identify queries dominated by the Google Maps 3-Pack.
+
+    These are queries where we rank position 1-3 organically but get 0 clicks
+    because the local map pack sits above organic results and absorbs all traffic.
+    Optimizing title tags for these queries is futile — GBP optimization is needed instead.
+
+    Returns (map_pack_queries, organic_queries) tuple.
+    """
+    MAP_PACK_PATTERNS = [
+        re.compile(r"\bnear me\b", re.IGNORECASE),
+        re.compile(r"^painters?$", re.IGNORECASE),
+        re.compile(r"^house painters?$", re.IGNORECASE),
+        re.compile(r"^local painters?\b", re.IGNORECASE),
+        re.compile(r"^painting\b", re.IGNORECASE),
+    ]
+
+    map_pack = []
+    organic = []
+
+    for row in query_data:
+        is_map_pack = (
+            row["position"] <= 3
+            and row["clicks"] == 0
+            and row["impressions"] >= 30
+            and any(p.search(row["query"]) for p in MAP_PACK_PATTERNS)
+        )
+        if is_map_pack:
+            map_pack.append({**row, "map_pack_dominated": True})
+        else:
+            organic.append(row)
+
+    return map_pack, organic
+
+
 def run_full_analysis(query_data, page_data, query_page_data=None):
     """
     Run the complete analysis pipeline and return all findings.
     """
+    map_pack, organic_queries = classify_map_pack_queries(query_data)
     clusters = cluster_by_service_suburb(query_data)
     return {
         "summary": generate_summary_stats(query_data, page_data),
         "striking_distance": find_striking_distance(query_data),
-        "ctr_gaps": find_ctr_gaps(query_data),
+        "ctr_gaps": find_ctr_gaps(organic_queries),  # Exclude map-pack queries from CTR gaps
         "zero_click": find_high_impression_zero_click(query_data),
         "clusters": clusters,
         "missing_pages": find_missing_pages(clusters),
         "suburb_opportunities": find_suburb_opportunities(query_data),
         "cannibalization": detect_cannibalization(query_page_data),
+        "map_pack_queries": map_pack,
     }
 
 
