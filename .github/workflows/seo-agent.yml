@@ -44,6 +44,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
           GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
           GH_TOKEN: ${{ github.token }}
         run: python agent.py
 

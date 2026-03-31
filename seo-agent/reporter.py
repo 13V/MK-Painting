@@ -32,6 +32,7 @@ def generate_report(analysis, use_claude=True):
         _format_cannibalization(analysis.get("cannibalization", [])),
         _format_trends(analysis.get("trends")),
         _format_map_pack(analysis.get("map_pack_queries", [])),
+        _format_ga4(analysis.get("ga4")),
     ]
 
     if use_claude:
@@ -281,6 +282,47 @@ def _format_map_pack(map_pack_queries):
         lines.append(
             f"| {_esc(q['query'])} | {q['position']} | {q['impressions']} | GBP focus |"
         )
+
+    return "\n".join(lines) + "\n"
+
+
+def _format_ga4(ga4_data):
+    if not ga4_data:
+        return ""
+
+    lines = [
+        f"## GA4 Engagement & Conversions (Last {ga4_data['period_days']} Days)\n",
+        "| Metric | Value |",
+        "|---|---|",
+        f"| Total Sessions | {ga4_data['total_sessions']:,} |",
+        f"| Total Users | {ga4_data['total_users']:,} |",
+        f"| Organic Sessions | {ga4_data['organic_sessions']:,} |",
+        f"| Phone Call Clicks | {ga4_data['phone_clicks']} |",
+    ]
+
+    # Traffic sources
+    sources = ga4_data.get("traffic_sources", [])
+    if sources:
+        lines.extend([
+            "",
+            "### Traffic Sources\n",
+            "| Channel | Sessions | Phone Clicks |",
+            "|---|---|---|",
+        ])
+        for s in sources:
+            lines.append(f"| {s['channel']} | {s['sessions']} | {s['key_events']} |")
+
+    # Top pages
+    pages = ga4_data.get("top_pages", [])
+    if pages:
+        lines.extend([
+            "",
+            "### Top Pages by Sessions\n",
+            "| Page | Sessions | Users | Phone Clicks |",
+            "|---|---|---|---|",
+        ])
+        for p in pages:
+            lines.append(f"| {p['page']} | {p['sessions']} | {p['users']} | {p['key_events']} |")
 
     return "\n".join(lines) + "\n"
 

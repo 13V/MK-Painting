@@ -116,6 +116,22 @@ def main():
         print(f"   ⚠ Trend tracking failed: {e}")
         analysis["trends"] = None
 
+    # ── 2c. GA4 conversion data ──────────────────────────────────────────────
+    print("\n📊 Fetching GA4 conversion data...")
+    try:
+        from ga4_client import fetch_ga4_summary
+        ga4_data = fetch_ga4_summary(days=7)
+        if ga4_data:
+            analysis["ga4"] = ga4_data
+            print(f"   → {ga4_data['total_sessions']} sessions ({ga4_data['organic_sessions']} organic)")
+            print(f"   → {ga4_data['phone_clicks']} phone call click(s)")
+        else:
+            print("   → GA4 not configured (set GA4_PROPERTY_ID)")
+            analysis["ga4"] = None
+    except Exception as e:
+        print(f"   ⚠ GA4 fetch failed: {e}")
+        analysis["ga4"] = None
+
     # ── 3. Generate report ───────────────────────────────────────────────────
     use_claude = not args.no_ai
     if use_claude:

@@ -118,6 +118,22 @@ def send_daily_report(analysis, report_url=None):
                     text += f"  • {tp}\n"
                 text += "\n"
 
+    # ── GA4 conversions ──────────────────────────────────────────────────
+    if isinstance(analysis, dict) and analysis.get("ga4"):
+        ga4 = analysis["ga4"]
+        text += (
+            f"📱 *GA4 (last {ga4['period_days']}d):*\n"
+            f"  👥 {ga4['total_users']} users | {ga4['total_sessions']} sessions\n"
+            f"  🔍 {ga4['organic_sessions']} organic sessions\n"
+            f"  📞 {ga4['phone_clicks']} phone call click(s)\n"
+        )
+        # Top converting page
+        pages_with_events = [p for p in ga4.get("top_pages", []) if p["key_events"] > 0]
+        if pages_with_events:
+            top = pages_with_events[0]
+            text += f"  🏆 Top: `{top['page']}` ({top['key_events']} call(s))\n"
+        text += "\n"
+
     # ── Map Pack note ──────────────────────────────────────────────────────
     if isinstance(analysis, dict):
         mp = analysis.get("map_pack_queries", [])
