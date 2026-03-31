@@ -46,22 +46,45 @@ def send_message(text, parse_mode="Markdown", reply_markup=None):
         return None
 
 
-def send_daily_report(summary, report_url=None):
-    """Send a concise daily SEO performance summary."""
-    text = (
-        "📊 *MK Painting — Daily SEO Report*\n\n"
-        f"🔍 *{summary['total_queries']}* tracked queries\n"
-        f"👆 *{summary['total_clicks']:,}* clicks\n"
-        f"👁 *{summary['total_impressions']:,}* impressions\n"
-        f"📈 *{summary['avg_ctr']:.1%}* avg CTR\n"
-        f"📍 *{summary['avg_position']}* avg position\n"
+def send_daily_report(analysis, report_url=None):
+    """Send an actionable daily SEO summary with alerts and top opportunities."""
+    summary = analysis["summary"] if isinstance(analysis, dict) and "summary" in analysis else analysis
+
+    date_str = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
+    text = f"📊 *MK Painting — Daily SEO Report* ({date_str})\n\n"
+
+    # ── Alerts ────────────────────────────────────────────────────────────────
+    alerts = _build_alerts(summary, analysis if isinstance(analysis, dict) else {})
+    if alerts:
+        text += "⚠️ *Alerts:*\n"
+        for alert in alerts:
+            text += f"  • {alert}\n"
+        text += "\n"
+
+    # ── Core stats ────────────────────────────────────────────────────────────
+    text += (
+        f"📈 *Today's Data:*\n"
+        f"  🔍 {summary['total_queries']} tracked queries\n"
+        f"  👆 {summary['total_clicks']:,} click{'s' if summary['total_clicks'] != 1 else ''}"
+        f"  |  👁 {summary['total_impressions']:,} impressions\n"
+        f"  📍 Avg position {summary['avg_position']} | CTR {summary['avg_ctr']:.2%}\n\n"
     )
 
-    if summary.get("top_queries"):
-        top = summary["top_queries"][:3]
-        text += "\n*Top queries:*\n"
-        for q in top:
-            text += f"  • _{q['query']}_ — {q['clicks']} clicks, pos {q['position']}\n"
+    # ── Top opportunities ─────────────────────────────────────────────────────
+    opps = _build_top_opportunities(analysis if isinstance(analysis, dict) else {})
+    if opps:
+        text += "🎯 *Top Opportunities:*\n"
+        for opp in opps[:3]:
+            text += f"  • {opp}\n"
+        text += "\n"
+
+    # ── Opportunity counts ────────────────────────────────────────────────────
+    if isinstance(analysis, dict):
+        sd = len(analysis.get("striking_distance", []))
+        cg = len(analysis.get("ctr_gaps", []))
+        zc = len(analysis.get("zero_click", []))
+        if sd or cg or zc:
+            text += f"_{sd} striking distance | {cg} CTR gaps | {zc} zero\\-click_\n"
 
     buttons = []
     if report_url:
@@ -69,6 +92,61 @@ def send_daily_report(summary, report_url=None):
 
     reply_markup = {"inline_keyboard": buttons} if buttons else None
     return send_message(text, reply_markup=reply_markup)
+
+
+def _build_alerts(summary, analysis):
+    """Return list of alert strings for abnormal conditions."""
+    alerts = []
+
+    # CTR well below healthy threshold
+    if summary.get("avg_ctr", 1) < 0.003:
+        alerts.append(f"Avg CTR {summary['avg_ctr']:.2%} — critically low")
+
+    # Multiple position-1 keywords with 0% CTR
+    zero_ctr_top = [
+        q for q in summary.get("top_queries", [])
+        if q.get("position", 99) <= 3 and q.get("clicks", 0) == 0 and q.get("impressions", 0) >= 30
+    ]
+    if zero_ctr_top:
+        alerts.append(
+            f"{len(zero_ctr_top)} keyword(s) rank top 3 with 0 clicks — title/meta needs work"
+        )
+
+    # Cannibalization detected
+    cannibal = analysis.get("cannibalization", [])
+    if cannibal:
+        alerts.append(f"{len(cannibal)} keyword cannibalization issue(s) detected")
+
+    return alerts
+
+
+def _build_top_opportunities(analysis):
+    """Return top 3 opportunity strings ranked by potential impact."""
+    opps = []
+
+    # CTR gaps — highest potential clicks
+    for gap in sorted(analysis.get("ctr_gaps", []), key=lambda x: x.get("potential_clicks", 0), reverse=True)[:2]:
+        opps.append(
+            f'"{gap["query"]}" — pos {gap["position"]:.1f}, '
+            f'+{gap["potential_clicks"]} potential clicks'
+        )
+
+    # Missing pages with most impressions
+    for mp in analysis.get("missing_pages", [])[:1]:
+        opps.append(
+            f'"{mp["suburb"]} {mp["service"]}" — {mp["total_impressions"]} imp, no landing page'
+        )
+
+    # Highest striking distance keyword not already in CTR gaps
+    ctr_gap_queries = {g["query"] for g in analysis.get("ctr_gaps", [])}
+    for kw in analysis.get("striking_distance", []):
+        if kw["query"] not in ctr_gap_queries:
+            opps.append(
+                f'"{kw["query"]}" — pos {kw["position"]:.1f}, {kw["impressions"]} imp'
+            )
+            break
+
+    return opps[:3]
 
 
 def send_pr_notification(pr_url, pr_number, changes_summary):
