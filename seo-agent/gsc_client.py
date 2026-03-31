@@ -32,8 +32,7 @@ def _get_credentials():
     return service_account.Credentials.from_service_account_info(
         creds_info,
         scopes=[
-            "https://www.googleapis.com/auth/webmasters.readonly",
-            "https://www.googleapis.com/auth/indexing",
+            "https://www.googleapis.com/auth/webmasters",  # read-write (needed for sitemaps API)
         ],
     )
 
@@ -43,14 +42,6 @@ def get_gsc_service():
     from googleapiclient.discovery import build
 
     return build("searchconsole", "v1", credentials=_get_credentials())
-
-
-def get_indexing_service():
-    """Authenticate and return an Indexing API service object."""
-    from googleapiclient.discovery import build
-
-    return build("indexing", "v3", credentials=_get_credentials())
-
 
 
 def fetch_query_data(service=None, days=LOOKBACK_DAYS):
@@ -202,46 +193,33 @@ def inspect_url(url, service=None):
     }
 
 
-def ping_sitemap():
+def resubmit_sitemap(service=None):
     """
-    Ping Google to re-crawl the sitemap.
-    This is the most reliable way to get new pages discovered.
+    Submit sitemap via the GSC Sitemaps API.
+
+    This is the only reliable programmatic method to trigger re-crawl for
+    general websites. The Google Indexing API is restricted to JobPosting
+    and BroadcastEvent structured data types only.
     """
-    import urllib.request
+    if service is None:
+        service = get_gsc_service()
 
     sitemap_url = f"{SITE_URL}sitemap.xml"
-    ping_url = f"https://www.google.com/ping?sitemap={sitemap_url}"
-
     try:
-        req = urllib.request.Request(ping_url)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            return {"status": "success", "code": resp.status}
-    except Exception as e:
-        return {"status": "error", "error": str(e)}
-
-
-def notify_indexing_api(url, action="URL_UPDATED"):
-    """
-    Push a direct notification to the Google Indexing API.
-    Action can be "URL_UPDATED" (new or changed) or "URL_DELETED".
-    """
-    service = get_indexing_service()
-
-    try:
-        response = service.urlNotifications().publish(
-            body={
-                "url": url,
-                "type": action,
-            }
+        service.sitemaps().submit(
+            siteUrl=GSC_PROPERTY,
+            feedpath=sitemap_url,
         ).execute()
-        return {"status": "success", "metadata": response.get("urlNotificationMetadata", {})}
+        print(f"   ✓ Sitemap resubmitted: {sitemap_url}")
+        return {"status": "success", "sitemap": sitemap_url}
     except Exception as e:
+        print(f"   ⚠ Sitemap submission failed: {e}")
         return {"status": "error", "error": str(e)}
 
 
 def inspect_and_submit_new_pages(pages_to_check=None):
     """
-    Inspect all site pages and ping sitemap if any are unindexed.
+    Inspect all site pages and resubmit sitemap if any are unindexed.
 
     Returns dict with inspection results and submission results.
     """
@@ -268,17 +246,18 @@ def inspect_and_submit_new_pages(pages_to_check=None):
             print(f"   → Error: {e}")
             results["errors"].append({"url": url, "error": str(e)})
 
-    # If any pages are unindexed, notify the Indexing API directly for immediate crawl
+    # If any pages are unindexed, resubmit the sitemap via GSC Sitemaps API
     if results["submitted"]:
-        print(f"   → {len(results['submitted'])} unindexed pages found — notifying Indexing API")
+        unindexed_urls = [item["url"] for item in results["submitted"]]
+        print(f"   → {len(unindexed_urls)} unindexed pages found — resubmitting sitemap")
+        sitemap_result = resubmit_sitemap(service)
+        status_msg = (
+            "sitemap resubmitted"
+            if sitemap_result["status"] == "success"
+            else f"sitemap submission failed: {sitemap_result.get('error', 'unknown')}"
+        )
         for item in results["submitted"]:
-            api_resp = notify_indexing_api(item["url"])
-            if api_resp["status"] == "success":
-                item["status"] = "indexing API notified"
-            else:
-                # Fallback to sitemap ping if API fails (e.g., quota or not enabled)
-                ping_result = ping_sitemap()
-                item["status"] = f"indexing API error, sitemap pinged ({ping_result['status']})"
+            item["status"] = status_msg
 
     return results
 

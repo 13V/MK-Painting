@@ -55,6 +55,16 @@ def main():
     print(f"  {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print("=" * 60)
 
+    # One-time image optimization mode
+    if args.optimize_images:
+        from image_optimizer import run_full_optimization
+        repo_root = str(Path(__file__).parent.parent)
+        run_full_optimization(repo_root)
+        print("\n" + "=" * 60)
+        print("  Image optimization complete!")
+        print("=" * 60)
+        return
+
     if args.csv:
         print(f"\n📂 Loading data from CSV directory: {args.csv}")
         query_data, page_data, query_page_data = load_csv_data(args.csv)
@@ -79,6 +89,32 @@ def main():
     print(f"   → {len(analysis['suburb_opportunities'])} suburb opportunities")
     if analysis.get("cannibalization"):
         print(f"   → {len(analysis['cannibalization'])} cannibalization alerts")
+    if analysis.get("map_pack_queries"):
+        print(f"   → {len(analysis['map_pack_queries'])} map-pack-dominated queries (GBP focus)")
+
+    # ── 2b. Trend tracking ─────────────────────────────────────────────────
+    print("\n📊 Saving daily snapshot & computing trends...")
+    try:
+        from data_store import save_daily_snapshot, load_previous_snapshot, compute_trends
+        snapshot_path = save_daily_snapshot(query_data, page_data, analysis["summary"])
+        print(f"   → Snapshot saved: {snapshot_path}")
+
+        prev = load_previous_snapshot()
+        trends = compute_trends(query_data, prev)
+        analysis["trends"] = trends
+
+        if trends["previous_date"]:
+            pc = len(trends["position_changes"])
+            nk = len(trends["new_keywords"])
+            print(f"   → vs {trends['previous_date']}: {pc} position changes, {nk} new keywords")
+            if trends["summary_delta"]:
+                d = trends["summary_delta"]
+                print(f"   → Clicks {d['clicks_delta']:+d}, Impressions {d['impressions_delta']:+d}")
+        else:
+            print("   → No previous snapshot found (first run)")
+    except Exception as e:
+        print(f"   ⚠ Trend tracking failed: {e}")
+        analysis["trends"] = None
 
     # ── 3. Generate report ───────────────────────────────────────────────────
     use_claude = not args.no_ai
@@ -222,7 +258,7 @@ def main():
     if use_claude and not args.no_impl and not args.csv:
         try:
             from gbp_agent import publish_gbp_post
-            publish_gbp_post(repo_root)
+            publish_gbp_post(repo_root, analysis=analysis)
         except Exception as e:
             print(f"   ⚠ Map Pack update failed: {e}")
 
@@ -230,7 +266,7 @@ def main():
     if not args.csv:
         print("\n🏥 Running site health audit...")
         try:
-            from site_auditor import run_all_audits
+            from site_auditor import run_all_audits, auto_repair_sitemap
             audit_root = str(Path(__file__).parent.parent)
             audit_results = run_all_audits(audit_root)
 
@@ -250,6 +286,20 @@ def main():
             if coord_fixes:
                 print(f"   → Auto-applying {len(coord_fixes)} coord fix(es)...")
                 apply_changes(coord_fixes, audit_root)
+
+            # Auto-repair sitemap (add missing pages, remove orphans, update lastmod)
+            sitemap_fixes = auto_repair_sitemap(audit_root)
+            if sitemap_fixes:
+                print(f"   → Auto-repaired sitemap: {len(sitemap_fixes)} fix(es)")
+                for fix in sitemap_fixes:
+                    print(f"     {fix}")
+
+                # Resubmit sitemap to GSC after repairs
+                try:
+                    from gsc_client import resubmit_sitemap
+                    resubmit_sitemap()
+                except Exception as e:
+                    print(f"   ⚠ Sitemap resubmission failed: {e}")
 
             # Append audit section to the saved report
             audit_section = format_site_audit(audit_results)
@@ -331,6 +381,11 @@ def parse_args():
         "--no-impl",
         action="store_true",
         help="Skip auto-implementation of changes (report only)",
+    )
+    parser.add_argument(
+        "--optimize-images",
+        action="store_true",
+        help="One-time: convert oversized images to WebP and fix favicon",
     )
     return parser.parse_args()
 

@@ -230,6 +230,137 @@ def audit_sitemap_freshness(repo_root):
     return {"missing": missing, "orphaned": orphaned}
 
 
+def auto_repair_sitemap(repo_root):
+    """
+    Fix sitemap.xml: add missing pages, remove orphans, update stale lastmod dates.
+    Returns list of change descriptions.
+    """
+    from datetime import datetime
+
+    sitemap_path = os.path.join(repo_root, "sitemap.xml")
+    if not os.path.isfile(sitemap_path):
+        return []
+
+    issues = audit_sitemap_freshness(repo_root)
+
+    with open(sitemap_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    today = datetime.now().strftime("%Y-%m-%d")
+    changes = []
+    base = SITE_URL.rstrip("/")
+
+    # Pages we intentionally exclude from sitemap
+    EXCLUDE = {"/seo-proposal.html"}
+
+    # Remove orphaned entries
+    for slug in issues["orphaned"]:
+        url = f"{base}{slug}"
+        pattern = re.compile(
+            r"\s*<url>\s*<loc>" + re.escape(url) + r"</loc>.*?</url>",
+            re.DOTALL,
+        )
+        content = pattern.sub("", content)
+        changes.append(f"Removed orphaned: {slug}")
+
+    # Add missing pages
+    for slug in issues["missing"]:
+        if slug in EXCLUDE:
+            continue
+        url = f"{base}{slug}" if slug != "/" else SITE_URL
+        priority = "1.00" if slug == "/" else "0.80"
+        entry = (
+            f"  <url>\n"
+            f"    <loc>{url}</loc>\n"
+            f"    <lastmod>{today}</lastmod>\n"
+            f"    <priority>{priority}</priority>\n"
+            f"  </url>\n"
+        )
+        content = content.replace("</urlset>", f"{entry}</urlset>")
+        changes.append(f"Added missing: {slug}")
+
+    # Update stale lastmod dates based on file modification times
+    for slug in EXISTING_PAGES:
+        file_rel = slug.lstrip("/") or "index.html"
+        filepath = os.path.join(repo_root, file_rel)
+        if not os.path.isfile(filepath):
+            continue
+        mtime = datetime.fromtimestamp(os.path.getmtime(filepath)).strftime("%Y-%m-%d")
+        url = f"{base}{slug}" if slug != "/" else SITE_URL
+        match = re.search(
+            r"<url>\s*<loc>" + re.escape(url) + r"</loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})</lastmod>",
+            content, re.DOTALL,
+        )
+        if match and match.group(1) < mtime:
+            content = content.replace(
+                f"<loc>{url}</loc>\n    <lastmod>{match.group(1)}</lastmod>",
+                f"<loc>{url}</loc>\n    <lastmod>{mtime}</lastmod>",
+            )
+            changes.append(f"Updated lastmod: {slug} ({match.group(1)} → {mtime})")
+
+    if changes:
+        with open(sitemap_path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+    return changes
+
+
+def find_meta_length_issues(repo_root):
+    """
+    Find pages with too-long titles (>60 chars) or meta descriptions (>155 chars).
+    Returns list of dicts with file, type, length, and current tag content.
+    """
+    issues = []
+
+    for slug in EXISTING_PAGES:
+        file_rel = slug.lstrip("/") or "index.html"
+        if not file_rel.endswith(".html"):
+            continue
+
+        filepath = os.path.join(repo_root, file_rel)
+        if not os.path.isfile(filepath):
+            continue
+
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Check title length (decode &amp; → & for accurate char count)
+        title_match = re.search(r"<title>(.*?)</title>", content, re.IGNORECASE | re.DOTALL)
+        if title_match:
+            title_raw = title_match.group(1).strip()
+            title_display = title_raw.replace("&amp;", "&")
+            if len(title_display) > 60:
+                issues.append({
+                    "file": file_rel,
+                    "type": "title_too_long",
+                    "length": len(title_display),
+                    "current": title_match.group(0),
+                })
+
+        # Check meta description length
+        meta_match = re.search(
+            r'<meta\s+name=["\']description["\']\s+content=["\']([^"\']*)["\']',
+            content, re.IGNORECASE,
+        )
+        if not meta_match:
+            # Handle multi-line meta tags
+            meta_match = re.search(
+                r'<meta\s+name=["\']description["\']\s*\n\s*content=["\']([^"\']*)["\']',
+                content, re.IGNORECASE,
+            )
+        if meta_match:
+            meta_text = meta_match.group(1).strip().replace("&amp;", "&")
+            if len(meta_text) > 155:
+                issues.append({
+                    "file": file_rel,
+                    "type": "meta_too_long",
+                    "length": len(meta_text),
+                    "current": meta_text[:80] + "...",
+                })
+
+    return issues
+
+
 def run_all_audits(repo_root):
     """Run all four audits and return combined results dict."""
     return {
