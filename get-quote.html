@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Get a free painting quote from Adelaide's top-rated painters. 84 five-star reviews. Licensed (BLD251492), $20M insured. Call 0405 352 932.">
+    <title>Free Painting Quote Adelaide | M&K Painting Services</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preload" as="image" href="M&K16.webp">
+    <link rel="preload" as="image" href="logo.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-76SJSV4XFM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-76SJSV4XFM');
+    </script>
+
+    <style>
+        :root {
+            --primary: #B8860B;
+            --primary-light: #DAA520;
+            --bg: #FFFFFF;
+            --bg-card: #F8F8F8;
+            --text: #1A1A1A;
+            --text-muted: #4B4B4B;
+            --border: #E5E5E5;
+            --gradient: linear-gradient(135deg, #B8860B 0%, #DAA520 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── Minimal Header (no nav links — reduce distractions) ──────── */
+        .lp-header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: #fff; border-bottom: 1px solid var(--border); padding: 12px 0;
+        }
+        .lp-header .container {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo img { height: 50px; width: auto; }
+        .logo span { font-size: 20px; font-weight: 800; color: var(--text); margin-left: 12px; }
+        .header-phone { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 18px; }
+        .header-phone:hover { color: var(--primary); }
+
+        /* ── Hero ─────────────────────────────────────────────────────── */
+        .hero {
+            position: relative; padding: 120px 0 80px; overflow: hidden; min-height: 600px;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.5) 100%), url('M&K16.webp');
+            background-size: cover; background-position: center;
+        }
+        .hero-content {
+            position: relative; display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: start;
+        }
+        .hero-text h1 {
+            font-family: 'Fraunces', serif; font-size: 46px; font-weight: 800; line-height: 1.15; margin-bottom: 16px; color: #000;
+        }
+        .hero-text h1 span { color: var(--primary); }
+        .hero-text > p { font-size: 18px; color: var(--text-muted); margin-bottom: 20px; font-weight: 500; }
+
+        /* Stars + review count */
+        .star-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .stars { color: #DAA520; font-size: 22px; letter-spacing: 2px; }
+        .star-label { font-size: 15px; font-weight: 700; }
+
+        /* Trust badges */
+        .trust-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+        .trust-pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(184,134,11,0.08); border: 1px solid var(--primary);
+            padding: 8px 16px; border-radius: 24px; font-size: 13px; font-weight: 600; color: var(--text);
+        }
+
+        .hero-bullets { list-style: none; margin-bottom: 28px; }
+        .hero-bullets li { padding: 6px 0; font-size: 16px; font-weight: 500; }
+        .hero-bullets li::before { content: "✓ "; color: var(--primary); font-weight: 800; }
+
+        .hero-phone-cta {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--gradient); color: #fff; padding: 16px 32px; border-radius: 10px;
+            text-decoration: none; font-weight: 700; font-size: 17px;
+            box-shadow: 0 4px 20px rgba(184,134,11,0.3); transition: all 0.2s;
+        }
+        .hero-phone-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(184,134,11,0.5); }
+
+        /* ── Quote Form ───────────────────────────────────────────────── */
+        .quote-card {
+            background: #fff; border: 2px solid #1A1A1A; border-radius: 20px;
+            padding: 32px; box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+        .quote-card-header { text-align: center; margin-bottom: 20px; }
+        .quote-card-header h2 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+        .quote-card-header p { color: var(--text-muted); font-size: 14px; }
+        .quote-card-header .free-badge {
+            display: inline-block; background: var(--gradient); color: #fff;
+            padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+        }
+
+        .quote-card input, .quote-card select, .quote-card textarea {
+            width: 100%; padding: 14px 16px; margin-bottom: 12px;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+            font-size: 15px; font-family: inherit; color: var(--text); transition: border-color 0.2s;
+        }
+        .quote-card input:focus, .quote-card select:focus, .quote-card textarea:focus {
+            outline: none; border-color: var(--primary);
+        }
+        .quote-card textarea { resize: vertical; }
+        .quote-card .btn-submit {
+            width: 100%; background: var(--gradient); color: #fff; padding: 16px; border: none;
+            border-radius: 10px; font-size: 17px; font-weight: 700; cursor: pointer;
+            font-family: inherit; transition: all 0.2s; letter-spacing: 0.3px;
+        }
+        .quote-card .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,134,11,0.4); }
+        .form-trust-row {
+            display: flex; justify-content: center; gap: 16px; margin-top: 14px;
+            padding-top: 14px; border-top: 1px solid var(--border);
+        }
+        .form-trust-row span { font-size: 12px; color: var(--text-muted); }
+
+        .form-message {
+            margin-top: 16px; padding: 16px 20px; border-radius: 10px;
+            font-weight: 600; font-size: 15px; display: none; align-items: center; gap: 10px;
+        }
+        .form-message.success { display: flex; background: rgba(34,197,94,0.12); border: 1px solid #22c55e; color: #15803d; }
+        .form-message.error { display: flex; background: rgba(239,68,68,0.12); border: 1px solid #ef4444; color: #dc2626; }
+
+        /* ── Social Proof ──────────────────────────────────────────────── */
+        .social-proof { padding: 60px 0; background: var(--bg-card); border-top: 1px solid var(--border); }
+        .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+        .proof-item .proof-number { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 700; color: var(--primary); }
+        .proof-item .proof-label { font-size: 14px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+        /* ── Reviews ───────────────────────────────────────────────────── */
+        .reviews { padding: 60px 0; border-top: 1px solid var(--border); }
+        .reviews h2 { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 40px; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .review-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
+        }
+        .review-stars { color: #DAA520; font-size: 18px; margin-bottom: 12px; }
+        .review-text { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
+        .review-author { font-weight: 700; font-size: 14px; }
+        .review-source { font-size: 12px; color: var(--text-muted); }
+
+        /* ── Before/After ──────────────────────────────────────────────── */
+        .before-after { padding: 60px 0; background: var(--bg-card); border-top: 1px solid var(--border); }
+        .before-after h2 { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 40px; }
+        .ba-grid { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0; align-items: center; max-width: 700px; margin: 0 auto; }
+        .ba-img { width: 100%; border-radius: 12px; border: 2px solid var(--border); aspect-ratio: 4/3; object-fit: cover; }
+        .ba-arrow { text-align: center; font-size: 36px; color: var(--primary); font-weight: 800; }
+
+        /* ── Services ──────────────────────────────────────────────────── */
+        .services-strip { padding: 60px 0; border-top: 1px solid var(--border); }
+        .services-strip h2 { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 40px; }
+        .services-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .svc-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 28px; text-align: center; transition: border-color 0.2s;
+        }
+        .svc-card:hover { border-color: var(--primary); }
+        .svc-icon { font-size: 32px; margin-bottom: 12px; display: block; }
+        .svc-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+        .svc-card p { font-size: 13px; color: var(--text-muted); }
+
+        /* ── Mid-page CTA ──────────────────────────────────────────────── */
+        .mid-cta {
+            padding: 60px 0; background: var(--gradient); color: #fff; text-align: center;
+        }
+        .mid-cta h2 { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .mid-cta p { font-size: 18px; opacity: 0.9; margin-bottom: 24px; }
+        .mid-cta .btn-white {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: #fff; color: var(--primary); padding: 16px 32px; border-radius: 10px;
+            text-decoration: none; font-weight: 700; font-size: 17px; transition: all 0.2s;
+        }
+        .mid-cta .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+        /* ── Footer ────────────────────────────────────────────────────── */
+        .lp-footer {
+            background: var(--bg-card); border-top: 1px solid var(--border); padding: 30px 0; text-align: center;
+        }
+        .lp-footer p { color: var(--text-muted); font-size: 13px; }
+        .lp-footer a { color: var(--text-muted); text-decoration: none; }
+        .lp-footer a:hover { color: var(--primary); }
+
+        /* ── Floating Call Button ──────────────────────────────────────── */
+        .floating-call {
+            position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+            display: flex; align-items: center; gap: 10px;
+            background: var(--gradient); color: #fff; padding: 16px 24px;
+            border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px;
+            box-shadow: 0 8px 30px rgba(184,134,11,0.4); transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        .floating-call:hover { transform: scale(1.05); box-shadow: 0 12px 40px rgba(184,134,11,0.6); }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 8px 30px rgba(184,134,11,0.4); }
+            50% { box-shadow: 0 8px 40px rgba(184,134,11,0.7); }
+        }
+
+        .visually-hidden {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+
+        /* ── Responsive ────────────────────────────────────────────────── */
+        @media (max-width: 968px) {
+            .hero-content { grid-template-columns: 1fr; gap: 32px; }
+            .hero-text h1 { font-size: 34px; }
+            .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .services-list { grid-template-columns: 1fr 1fr; }
+            .ba-grid { grid-template-columns: 1fr; gap: 12px; }
+            .ba-arrow { transform: rotate(90deg); }
+            .logo span { display: none; }
+        }
+        @media (max-width: 640px) {
+            .hero { padding: 100px 0 60px; min-height: auto; }
+            .hero-text h1 { font-size: 28px; }
+            .trust-row { gap: 8px; }
+            .trust-pill { font-size: 12px; padding: 6px 12px; }
+            .services-list { grid-template-columns: 1fr; }
+            .proof-grid { grid-template-columns: repeat(2, 1fr); }
+            .floating-call span { display: none; }
+            .floating-call { padding: 16px; border-radius: 50%; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Minimal Header — logo + phone only, no nav distractions -->
+    <header class="lp-header">
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="logo.webp" alt="M&K Painting Services" width="165" height="55">
+                <span>M&K Painting Services</span>
+            </a>
+            <a href="tel:0405352932" class="header-phone">
+                <span>📞</span> 0405 352 932
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- ── Hero + Form ────────────────────────────────────────────── -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <!-- Left: headline + trust -->
+                    <div class="hero-text">
+                        <div class="star-row">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="star-label">84 Five-Star Google Reviews</span>
+                        </div>
+
+                        <h1>Adelaide's <span>Top-Rated</span> Painters</h1>
+
+                        <p>Professional residential and commercial painting across all Adelaide suburbs. Quality prep, premium paints, lasting finish.</p>
+
+                        <div class="trust-row">
+                            <span class="trust-pill">&#9989; Licensed BLD251492</span>
+                            <span class="trust-pill">&#128737; $20M Insured</span>
+                            <span class="trust-pill">&#127942; Master Painters Assoc.</span>
+                        </div>
+
+                        <ul class="hero-bullets">
+                            <li>Free, no-obligation quotes</li>
+                            <li>Interior, exterior & commercial</li>
+                            <li>Premium Dulux & Haymes paints</li>
+                            <li>Clean, professional & on time</li>
+                        </ul>
+
+                        <a href="tel:0405352932" class="hero-phone-cta">
+                            <span>📞</span> Call Now — 0405 352 932
+                        </a>
+                    </div>
+
+                    <!-- Right: quote form -->
+                    <div class="quote-card">
+                        <div class="quote-card-header">
+                            <span class="free-badge">100% Free</span>
+                            <h2>Get Your Free Quote</h2>
+                            <p>We'll get back to you within 24 hours</p>
+                        </div>
+
+                        <form id="quoteForm" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="d8e6b356-6e91-428a-85ee-43c7c39df8e9">
+                            <input type="hidden" name="subject" value="New Google Ads Lead - M&K Painting">
+                            <input type="hidden" name="from_name" value="MK Painting Google Ads">
+                            <!-- Capture UTM source -->
+                            <input type="hidden" name="source" id="utm-source" value="google-ads">
+
+                            <label for="lp-name" class="visually-hidden">Your Name</label>
+                            <input type="text" name="name" id="lp-name" placeholder="Your Name" required>
+
+                            <label for="lp-phone" class="visually-hidden">Phone Number</label>
+                            <input type="tel" name="phone" id="lp-phone" placeholder="Phone Number" required>
+
+                            <label for="lp-email" class="visually-hidden">Email (optional)</label>
+                            <input type="email" name="email" id="lp-email" placeholder="Email (optional)">
+
+                            <label for="lp-suburb" class="visually-hidden">Suburb</label>
+                            <input type="text" name="suburb" id="lp-suburb" placeholder="Your Suburb" required>
+
+                            <label for="lp-service" class="visually-hidden">Service Type</label>
+                            <select name="service" id="lp-service" required>
+                                <option value="">What do you need painted?</option>
+                                <option value="interior">Interior Painting</option>
+                                <option value="exterior">Exterior Painting</option>
+                                <option value="full-house">Full House (Interior + Exterior)</option>
+                                <option value="commercial">Commercial Painting</option>
+                                <option value="heritage">Heritage / Restoration</option>
+                                <option value="kitchen-respray">Kitchen Cabinet Respraying</option>
+                                <option value="strata">Strata / Body Corporate</option>
+                            </select>
+
+                            <label for="lp-details" class="visually-hidden">Project Details</label>
+                            <textarea name="message" id="lp-details" placeholder="Brief project details (optional)" rows="3"></textarea>
+
+                            <button type="submit" class="btn-submit">Get My Free Quote &#10132;</button>
+                        </form>
+
+                        <div class="form-trust-row">
+                            <span>&#128274; No spam, ever</span>
+                            <span>&#9889; Reply within 24h</span>
+                        </div>
+
+                        <div id="formMessage" class="form-message"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Social Proof Numbers ───────────────────────────────────── -->
+        <section class="social-proof">
+            <div class="container">
+                <div class="proof-grid">
+                    <div class="proof-item">
+                        <div class="proof-number">84</div>
+                        <div class="proof-label">5-Star Google Reviews</div>
+                    </div>
+                    <div class="proof-item">
+                        <div class="proof-number">15+</div>
+                        <div class="proof-label">Years Experience</div>
+                    </div>
+                    <div class="proof-item">
+                        <div class="proof-number">$20M</div>
+                        <div class="proof-label">Public Liability</div>
+                    </div>
+                    <div class="proof-item">
+                        <div class="proof-number">500+</div>
+                        <div class="proof-label">Projects Completed</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Customer Reviews ───────────────────────────────────────── -->
+        <section class="reviews">
+            <div class="container">
+                <h2>What Adelaide Homeowners Say</h2>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <p class="review-text">"Mitch and his team did an amazing job on our entire house interior. Professional, clean, and finished ahead of schedule. The quality is outstanding."</p>
+                        <div class="review-author">Sarah M.</div>
+                        <div class="review-source">Google Review — Mawson Lakes</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <p class="review-text">"Best painters we've ever used. They were careful with our heritage home, the prep work was thorough, and the finish is perfect. Highly recommend."</p>
+                        <div class="review-author">James T.</div>
+                        <div class="review-source">Google Review — Norwood</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <p class="review-text">"Got three quotes and M&K were the most professional by far. Fair price, great communication throughout, and the exterior looks brand new."</p>
+                        <div class="review-author">David L.</div>
+                        <div class="review-source">Google Review — Golden Grove</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Before / After ─────────────────────────────────────────── -->
+        <section class="before-after">
+            <div class="container">
+                <h2>See the Difference</h2>
+                <div class="ba-grid">
+                    <div>
+                        <img src="before.webp" alt="Before painting — faded and worn exterior" class="ba-img" loading="lazy" width="600" height="450">
+                        <p style="text-align:center; font-weight:700; margin-top:8px;">Before</p>
+                    </div>
+                    <div class="ba-arrow">&#10132;</div>
+                    <div>
+                        <img src="after.webp" alt="After painting — fresh professional finish" class="ba-img" loading="lazy" width="600" height="450">
+                        <p style="text-align:center; font-weight:700; margin-top:8px;">After</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Services ───────────────────────────────────────────────── -->
+        <section class="services-strip">
+            <div class="container">
+                <h2>Our Painting Services</h2>
+                <div class="services-list">
+                    <div class="svc-card">
+                        <span class="svc-icon">🏠</span>
+                        <h3>Interior Painting</h3>
+                        <p>Walls, ceilings, trims & feature walls. Meticulous prep for a flawless finish.</p>
+                    </div>
+                    <div class="svc-card">
+                        <span class="svc-icon">🏡</span>
+                        <h3>Exterior Painting</h3>
+                        <p>Weatherboards, render, brick & fascia. Built to withstand Adelaide's climate.</p>
+                    </div>
+                    <div class="svc-card">
+                        <span class="svc-icon">🏢</span>
+                        <h3>Commercial Painting</h3>
+                        <p>Offices, retail, strata & industrial. Flexible scheduling, minimal disruption.</p>
+                    </div>
+                    <div class="svc-card">
+                        <span class="svc-icon">🍳</span>
+                        <h3>Kitchen Respraying</h3>
+                        <p>Transform dated cabinets for a fraction of replacement cost. Factory finish.</p>
+                    </div>
+                    <div class="svc-card">
+                        <span class="svc-icon">🏛️</span>
+                        <h3>Heritage Painting</h3>
+                        <p>Specialist restoration of period homes. Authentic colours, modern protection.</p>
+                    </div>
+                    <div class="svc-card">
+                        <span class="svc-icon">🏗️</span>
+                        <h3>Strata Painting</h3>
+                        <p>Body corporate & multi-unit. Detailed scope, competitive strata pricing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Mid-Page CTA ───────────────────────────────────────────── -->
+        <section class="mid-cta">
+            <div class="container">
+                <h2>Ready to Transform Your Space?</h2>
+                <p>Get a free, no-obligation quote today. Most quotes delivered within 24 hours.</p>
+                <a href="tel:0405352932" class="btn-white">
+                    <span>📞</span> Call 0405 352 932
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ── Footer ─────────────────────────────────────────────────────── -->
+    <footer class="lp-footer">
+        <div class="container">
+            <p>&copy; 2026 M&K Painting Services &bull; Licensed &amp; Insured &bull; BLD251492 &bull; ABN 25 623 085 946</p>
+            <p style="margin-top: 8px;">
+                <a href="/">Home</a> &bull;
+                <a href="/privacy.html">Privacy Policy</a> &bull;
+                <a href="tel:0405352932">0405 352 932</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ── Floating Call Button ────────────────────────────────────────── -->
+    <a href="tel:0405352932" class="floating-call" aria-label="Call M&K Painting">
+        <span>📞</span>
+        <span>Call Now</span>
+    </a>
+
+    <script>
+        // ── Capture UTM parameters ─────────────────────────────────────
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var src = params.get('utm_source') || params.get('gclid') ? 'google-ads' : 'direct';
+            var campaign = params.get('utm_campaign') || '';
+            var keyword = params.get('utm_term') || '';
+            document.getElementById('utm-source').value = src + (campaign ? ' | ' + campaign : '') + (keyword ? ' | ' + keyword : '');
+        })();
+
+        // ── Form submission with AJAX ──────────────────────────────────
+        var form = document.getElementById('quoteForm');
+        var msgEl = document.getElementById('formMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var btn = form.querySelector('.btn-submit');
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form)
+            })
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    msgEl.className = 'form-message success';
+                    msgEl.innerHTML = '<span>&#9989;</span> Thanks! We\'ll call you within 24 hours to discuss your project.';
+                    form.reset();
+                    // GA4 conversion event
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'generate_lead', {
+                            event_category: 'form',
+                            event_label: 'google_ads_quote',
+                            value: 1
+                        });
+                    }
+                } else {
+                    msgEl.className = 'form-message error';
+                    msgEl.innerHTML = '<span>&#10060;</span> Something went wrong. Please call us directly at 0405 352 932.';
+                }
+                btn.textContent = 'Get My Free Quote \u2794';
+                btn.disabled = false;
+            })
+            .catch(function() {
+                msgEl.className = 'form-message error';
+                msgEl.innerHTML = '<span>&#10060;</span> Network error. Please call us at 0405 352 932.';
+                btn.textContent = 'Get My Free Quote \u2794';
+                btn.disabled = false;
+            });
+        });
+    </script>
+
+</body>
+</html>
