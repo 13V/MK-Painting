@@ -35,25 +35,36 @@ def _get_gbp_credentials():
     )
 
 
-def generate_gbp_post():
-    """Use Claude to generate a localized, persuasive Map Pack post."""
+def generate_gbp_post(target_suburb=None, target_service=None, target_keyword=None):
+    """Use Claude to generate a localized, persuasive Map Pack post.
+
+    If target_suburb/service/keyword are provided (from GSC data), use them
+    for maximum relevance. Otherwise falls back to random selection.
+    """
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         return None
 
     client = anthropic.Anthropic(api_key=api_key)
 
-    service = random.choice(list(SERVICES.keys()))
-    suburb = random.choice(SUBURBS_TIER1)
+    service = target_service or random.choice(list(SERVICES.keys()))
+    suburb = target_suburb or random.choice(SUBURBS_TIER1)
+
+    # UTM-tracked CTA URL for measuring GBP click-through
+    cta_url = f"{SITE_URL}?utm_source=gbp&utm_medium=post&utm_campaign=seo-agent"
+
+    keyword_hint = ""
+    if target_keyword:
+        keyword_hint = f"\nTarget keyword to naturally include: \"{target_keyword}\""
 
     prompt = f"""Write a highly engaging, SEO-optimized Google Business Profile update post for M&K Painting Services.
 Target Service: {service.title()} Painting
-Target Suburb: {suburb.title()}, Adelaide
+Target Suburb: {suburb.title()}, Adelaide{keyword_hint}
 
 RULES:
 1. Max 1400 characters (strictly).
 2. Write as if you just completed a great project locally. Mention {suburb.title()} specifically to build hyper-local relevance.
-3. Must end with a clear Call to Action: "Call us at 0405 352 932 or visit {SITE_URL} to get a free quote."
+3. Must end with a clear Call to Action: "Call us at 0405 352 932 or visit {cta_url} to get a free quote."
 4. Output ONLY the raw post body text. No markdown formatting, no emojis unless highly relevant, and NO explanation.
 """
 
@@ -69,10 +80,46 @@ RULES:
         return None
 
 
-def publish_gbp_post(repo_root):
+def _pick_gbp_target(analysis):
+    """Pick the best suburb/service/keyword to target based on GSC data.
+
+    Prioritizes: highest-impression zero-click queries for suburbs we serve.
+    """
+    if not analysis or not isinstance(analysis, dict):
+        return None, None, None
+
+    # Look at zero-click queries for suburb-specific targeting
+    zero_click = analysis.get("zero_click", [])
+    map_pack = analysis.get("map_pack_queries", [])
+
+    # Combine map pack + zero click, sort by impressions
+    candidates = sorted(
+        zero_click + map_pack,
+        key=lambda q: q.get("impressions", 0),
+        reverse=True,
+    )
+
+    for q in candidates:
+        query = q["query"].lower()
+        # Find if a tier-1 suburb is mentioned
+        for suburb in SUBURBS_TIER1:
+            if suburb in query:
+                # Try to detect the service
+                for svc, keywords in SERVICES.items():
+                    if any(kw in query for kw in keywords):
+                        return suburb, svc, q["query"]
+                return suburb, None, q["query"]
+
+    return None, None, None
+
+
+def publish_gbp_post(repo_root, analysis=None):
     """Generate and push a post to Google Business Profile."""
     print("\n📍 Preparing Google Business Profile (Map Pack) Update...")
-    post_text = generate_gbp_post()
+    suburb, service, keyword = _pick_gbp_target(analysis)
+    if suburb:
+        print(f"   → Data-driven target: {suburb.title()} / {keyword or 'general'}")
+    post_text = generate_gbp_post(target_suburb=suburb, target_service=service, target_keyword=keyword)
     if not post_text:
         print("   ⚠ Failed to generate GBP post.")
         return False

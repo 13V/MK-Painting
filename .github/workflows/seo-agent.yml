@@ -2,7 +2,7 @@ name: SEO Agent — Daily Report
 
 on:
   schedule:
-    - cron: "0 6 * * *"  # 6:00 AM UTC = 4:30 PM ACDT (Adelaide)
+    - cron: "0 0 * * *"  # 00:00 UTC = 9:30 AM ACST (Adelaide morning)
   workflow_dispatch:       # Manual trigger from GitHub UI
 
 permissions:
@@ -33,9 +33,10 @@ jobs:
           git config user.email "seo-agent@mandkpaintingservices.com.au"
 
       - name: Run SEO Agent
+        id: agent
         working-directory: seo-agent
         continue-on-error: true
-        timeout-minutes: 15
+        timeout-minutes: 20
         env:
           GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -46,11 +47,24 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python agent.py
 
-      - name: Commit report
+      - name: Alert on failure
+        if: steps.agent.outcome == 'failure'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d chat_id="${TELEGRAM_CHAT_ID}" \
+              -d text="⚠️ SEO Agent failed on $(date +%Y-%m-%d). Check: https://github.com/13V/MK-Painting/actions" \
+              -d parse_mode="Markdown" || true
+          fi
+
+      - name: Commit report and data
         if: always()
         run: |
           git checkout main
-          git add reports/ data/ llm.txt 2>/dev/null || true
+          git add reports/ data/ llm.txt sitemap.xml 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
