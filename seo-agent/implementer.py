@@ -355,18 +355,19 @@ def pick_best_new_page(analysis, repo_root):
     """
     Pick the best new page opportunity from the analysis.
 
+    Considers both suburb opportunities (pure geographic) and
+    missing pages (service × suburb combos).
+
     Returns dict with suburb, keyword, filename, template_type or None.
     """
     existing_slugs = set(EXISTING_PAGES.keys())
-
-    # Merge suburb opportunities and missing pages into candidates
     candidates = []
 
+    # 1. Suburb opportunities (geographic pages like /tea-tree-gully.html)
     for opp in analysis.get("suburb_opportunities", []):
         suburb = opp["suburb"]
         slug = f"/{suburb.replace(' ', '-')}.html"
         if slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, slug.lstrip("/"))):
-            # Determine if commercial or residential based on queries
             queries_text = " ".join(opp.get("top_queries", []))
             is_commercial = any(w in queries_text for w in ["commercial", "industrial", "warehouse", "office"])
             candidates.append({
@@ -375,6 +376,24 @@ def pick_best_new_page(analysis, repo_root):
                 "clicks": opp.get("clicks", 0),
                 "top_queries": opp.get("top_queries", []),
                 "keyword": f"{'commercial ' if is_commercial else ''}painters {suburb}",
+                "filename": slug.lstrip("/"),
+                "template_type": "commercial" if is_commercial else "residential",
+            })
+
+    # 2. Missing pages from service × suburb clustering
+    for gap in analysis.get("missing_pages", []):
+        slug = gap.get("suggested_page", "")
+        if slug and slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, slug.lstrip("/"))):
+            suburb = gap["suburb"]
+            service = gap["service"]
+            queries_text = " ".join(gap.get("top_queries", []))
+            is_commercial = any(w in queries_text for w in ["commercial", "industrial", "warehouse", "office"])
+            candidates.append({
+                "suburb": suburb,
+                "impressions": gap["total_impressions"],
+                "clicks": gap.get("total_clicks", 0),
+                "top_queries": gap.get("top_queries", []),
+                "keyword": f"{service} {suburb}",
                 "filename": slug.lstrip("/"),
                 "template_type": "commercial" if is_commercial else "residential",
             })

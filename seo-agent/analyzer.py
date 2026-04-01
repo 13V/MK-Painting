@@ -178,11 +178,22 @@ def find_suburb_opportunities(query_data):
     Find suburbs with high impressions but no dedicated landing page.
     Independent of service — pure geographic opportunity.
     """
+    # Build set of suburbs that already have pages
+    existing_slugs = set(EXISTING_PAGES.keys())
+    suburbs_with_pages = set()
+    for slug in existing_slugs:
+        slug_lower = slug.lower().replace("/", "").replace(".html", "")
+        for suburb in ALL_SUBURBS:
+            if suburb.replace(" ", "-") == slug_lower:
+                suburbs_with_pages.add(suburb)
+
     suburb_impressions = {}
 
     for row in query_data:
         query = row["query"].lower()
-        for suburb in SUBURBS_TIER2:  # Only check tier 2 (no page yet)
+        for suburb in SUBURBS_TIER2:
+            if suburb in suburbs_with_pages:
+                continue  # Skip suburbs that already have a page
             if _SUBURB_PATTERNS[suburb].search(query):
                 if suburb not in suburb_impressions:
                     suburb_impressions[suburb] = {
@@ -196,7 +207,7 @@ def find_suburb_opportunities(query_data):
 
     results = []
     for suburb, data in suburb_impressions.items():
-        if data["impressions"] >= 20:
+        if data["impressions"] >= 15:  # Lowered from 20 to catch emerging suburbs
             results.append({
                 "suburb": suburb,
                 "impressions": data["impressions"],
