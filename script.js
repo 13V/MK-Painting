@@ -46,8 +46,8 @@ quoteForms.forEach(form => {
             let json = await response.json();
             if (response.status == 200) {
                 sendTelegramNotification(object);
-                showFormMessage(form, 'success', "Quote Sent! We'll call you within 24 hours.");
                 form.reset();
+                window.location.href = '/thank-you.html';
             } else {
                 console.log(response);
                 showFormMessage(form, 'error', "Something went wrong. Please call us directly.");
