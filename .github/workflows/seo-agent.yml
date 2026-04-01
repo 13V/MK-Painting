@@ -70,5 +70,7 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore: daily SEO report $(date +%Y-%m-%d)"
+            # Pull with rebase in case main moved during the run
+            git pull --rebase origin main || true
             git push
           fi
