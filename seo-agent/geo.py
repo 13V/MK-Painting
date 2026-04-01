@@ -98,7 +98,7 @@ def get_local_business_schema_change(repo_root):
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5.0",
-            "reviewCount": "84"
+            "reviewCount": "29"
         },
         "sameAs": [
             "https://www.facebook.com/mandkpaintingservices",
