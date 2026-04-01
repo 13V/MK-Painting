@@ -79,6 +79,7 @@ EXISTING_PAGES = {
     "/findon.html": "commercial painters findon",
     "/semaphore.html": "commercial painters semaphore",
     "/grange.html": "commercial painters grange",
+    "/painting-tips.html": "painting tips adelaide",
 }
 
 # ── Analysis thresholds ───────────────────────────────────────────────────────
