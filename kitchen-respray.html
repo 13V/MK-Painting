@@ -27,82 +27,6 @@
     <meta property="og:site_name" content="M&K Painting Services">
     <meta property="og:locale" content="en_AU">
 
-    <style>
-        .kitchen-hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('M&K24.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 120px 0;
-            text-align: center;
-        }
-
-        .transformation-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .savings-badge {
-            background: #ff4757;
-            color: white;
-            padding: 20px;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            transform: rotate(15deg);
-        }
-
-        .checklist-card {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 12px;
-            border-left: 5px solid var(--primary, #B8860B);
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin: 40px 0;
-        }
-
-        .process-step {
-            text-align: center;
-            padding: 24px;
-        }
-
-        .process-step .step-number {
-            background: var(--primary);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid #e0e0e0;
-            padding: 20px 0;
-        }
-
-        .faq-item h3 {
-            font-size: 1.05rem;
-            margin-bottom: 8px;
-        }
-    </style>
     <!-- FAQPage Schema for Kitchen Respray -->
     <script type="application/ld+json">
     {
@@ -170,12 +94,21 @@
 
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <!-- Simple Landing Nav -->
+    <!-- Navigation -->
     <nav class="navbar">
-        <div class="container" style="justify-content: center;">
+        <div class="container">
             <div class="logo">
-                <img src="logo.webp" alt="M&K Painting Services Logo" class="logo-img" width="165" height="55">
-                <span class="logo-text">M&K Painting Services</span>
+                <a href="/">
+                    <img src="logo.webp" alt="M&K Painting Services Logo" class="logo-img" width="165" height="55">
+                    <span class="logo-text">M&K Painting Services</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="/#services" class="nav-link">Services</a>
+                <a href="/blog.html" class="nav-link">Blog</a>
+                <a href="/about.html" class="nav-link">About Us</a>
+                <a href="/contact.html" class="nav-link">Contact Us</a>
+                <a href="/contact.html" class="btn-cta">⚡ Get Quote</a>
             </div>
         </div>
     </nav>
@@ -227,12 +160,12 @@
         </section>
 
         <!-- How It Works -->
-        <section style="background: #f8f9fa; padding: 60px 20px;">
+        <section style="background: var(--bg-card); padding: 60px 20px;">
             <div class="container">
                 <h2 style="text-align: center;">How Our Respraying Process Works</h2>
                 <p style="text-align: center; max-width: 600px; margin: 12px auto 0; color: var(--text-muted);">From
                     quote to completion in as few as three working days.</p>
-                <div class="process-steps">
+                <div class="process-grid">
                     <div class="process-step">
                         <div class="step-number">1</div>
                         <h3>Free Assessment</h3>
@@ -307,32 +240,32 @@
         </section>
 
         <!-- FAQ -->
-        <section style="background: #f8f9fa; padding: 60px 20px;">
+        <section style="background: var(--bg-card); padding: 60px 20px;">
             <div class="container" style="max-width: 800px;">
                 <h2 style="text-align: center; margin-bottom: 32px;">Frequently Asked Questions</h2>
 
-                <div class="faq-item">
+                <div class="kitchen-faq-item">
                     <h3>How much does kitchen cabinet respraying cost in Adelaide?</h3>
                     <p>A typical Adelaide kitchen with 15–20 doors costs between $2,500 and $5,000 — compared with
                         $15,000–$30,000 for full replacement. We provide free, no-obligation quotes so you know the
                         exact price upfront.</p>
                 </div>
 
-                <div class="faq-item">
+                <div class="kitchen-faq-item">
                     <h3>How long does the process take?</h3>
                     <p>Most kitchen resprays are completed within 3–5 working days from door removal to reinstallation.
                         You'll have access to your kitchen throughout — only the doors and drawer fronts are removed.
                     </p>
                 </div>
 
-                <div class="faq-item">
+                <div class="kitchen-faq-item">
                     <h3>Will the finish chip or peel?</h3>
                     <p>Not with our process. We use a two-pack polyurethane system that's chemically hardened and
                         heat-cured, creating a finish that's as durable as factory cabinetry. All work comes with our
                         3-year workmanship guarantee.</p>
                 </div>
 
-                <div class="faq-item">
+                <div class="kitchen-faq-item">
                     <h3>Can I choose any colour?</h3>
                     <p>Absolutely. We can match any colour from the Dulux, Haymes, or Taubmans ranges — including
                         popular choices like Dulux Lexicon Quarter, Surfmist, and Monument. We'll bring colour samples
@@ -355,8 +288,6 @@
                     Painters</a>
             </div>
         </section>
-
-    </main>
 
         <!-- Customer Reviews -->
         <section class="reviews-section">
@@ -385,6 +316,7 @@
             </div>
         </section>
 
+    </main>
 
     <footer class="footer">
         <div class="container">
