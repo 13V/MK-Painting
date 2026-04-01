@@ -234,13 +234,12 @@ def main():
                 applied = apply_changes(changes, repo_root)
 
                 if applied:
-                    print(f"\n📦 Creating pull request...")
-                    pr_url, pr_number = create_pr(applied, repo_root)
+                    print(f"\n📦 Committing to main...")
+                    commit_url, commit_hash = create_pr(applied, repo_root)
 
-                    if pr_url:
-                        print(f"   → PR #{pr_number}: {pr_url}")
+                    if commit_url:
+                        print(f"   → Pushed {commit_hash}: {commit_url}")
 
-                        # Telegram: send PR notification with approve button
                         changes_summary = [
                             {
                                 "file": c["file"],
@@ -249,9 +248,9 @@ def main():
                             }
                             for c in applied
                         ]
-                        send_pr_notification(pr_url, pr_number, changes_summary)
+                        send_pr_notification(commit_url, commit_hash, changes_summary)
                     else:
-                        print("   → PR creation failed")
+                        print("   → Commit failed")
             else:
                 print("   → No actionable changes generated")
         else:
@@ -279,15 +278,15 @@ def main():
 
             if html:
                 changed_files = write_new_page(html, opportunity, repo_root)
-                print(f"   📦 Creating pull request...")
-                pr_url, pr_number = create_new_page_pr(opportunity, changed_files, repo_root)
+                print(f"   📦 Committing to main...")
+                commit_url, commit_hash = create_new_page_pr(opportunity, changed_files, repo_root)
 
-                if pr_url:
-                    print(f"   → PR #{pr_number}: {pr_url}")
-                    send_new_page_notification(pr_url, pr_number, opportunity)
+                if commit_url:
+                    print(f"   → Pushed {commit_hash}: {commit_url}")
+                    send_new_page_notification(commit_url, commit_hash, opportunity)
                     pages_created += 1
                 else:
-                    print("   → PR creation failed")
+                    print("   → Commit failed")
             else:
                 print("   → Page generation failed")
 
@@ -318,15 +317,15 @@ def main():
 
             if blog_html:
                 blog_changed = write_blog_article(blog_html, blog_opp, repo_root)
-                print(f"   📦 Creating pull request...")
-                blog_pr_url, blog_pr_number = create_blog_pr(blog_opp, blog_changed, repo_root)
+                print(f"   📦 Committing to main...")
+                blog_url, blog_hash = create_blog_pr(blog_opp, blog_changed, repo_root)
 
-                if blog_pr_url:
-                    print(f"   → PR #{blog_pr_number}: {blog_pr_url}")
-                    send_blog_notification(blog_pr_url, blog_pr_number, blog_opp)
+                if blog_url:
+                    print(f"   → Pushed {blog_hash}: {blog_url}")
+                    send_blog_notification(blog_url, blog_hash, blog_opp)
                     blogs_created += 1
                 else:
-                    print("   → PR creation failed")
+                    print("   → Commit failed")
             else:
                 print("   → Blog generation failed")
 

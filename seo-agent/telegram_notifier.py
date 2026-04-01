@@ -211,15 +211,15 @@ def _build_top_opportunities(analysis):
     return opps[:3]
 
 
-def send_pr_notification(pr_url, pr_number, changes_summary):
+def send_pr_notification(commit_url, commit_hash, changes_summary):
     """
-    Send a PR notification with approve button.
+    Send notification that SEO changes have been pushed to main.
 
     changes_summary: list of dicts with 'file', 'change_type', 'description'
     """
     text = (
-        "🔧 *MK Painting — SEO Changes Ready*\n\n"
-        "The SEO agent has prepared changes based on today's analysis:\n\n"
+        "🔧 *MK Painting — SEO Changes Deployed*\n\n"
+        "The SEO agent pushed optimizations directly to main:\n\n"
     )
 
     for change in changes_summary[:10]:
@@ -229,14 +229,11 @@ def send_pr_notification(pr_url, pr_number, changes_summary):
     if len(changes_summary) > 10:
         text += f"\n_...and {len(changes_summary) - 10} more changes_\n"
 
-    text += f"\n*PR #{pr_number}* is ready for review."
+    text += f"\n✅ Commit `{commit_hash}` is live."
 
     reply_markup = {
         "inline_keyboard": [
-            [
-                {"text": "✅ Review & Approve", "url": pr_url},
-                {"text": "📋 View Diff", "url": f"{pr_url}/files"},
-            ]
+            [{"text": "📋 View Changes", "url": commit_url}]
         ]
     }
 
@@ -262,13 +259,14 @@ def send_indexing_update(indexed_count, unindexed_pages):
     return send_message(text)
 
 
-def send_new_page_notification(pr_url, pr_number, opportunity):
-    """Send notification about a new landing page PR."""
+def send_new_page_notification(commit_url, commit_hash, opportunity):
+    """Send notification that a new landing page has been deployed."""
     suburb = opportunity["suburb"].title()
+    page_url = f"{SITE_URL}{opportunity['filename']}"
     text = (
-        "🆕 *MK Painting — New Landing Page Ready*\n\n"
+        "🆕 *MK Painting — New Landing Page Live*\n\n"
         f"The SEO agent detected search demand for *{suburb}* "
-        f"({opportunity['impressions']} impressions) and generated a new landing page.\n\n"
+        f"({opportunity['impressions']} impressions) and deployed a new landing page.\n\n"
         f"📄 `{opportunity['filename']}`\n"
         f"🎯 Target: _{opportunity['keyword']}_\n"
     )
@@ -279,13 +277,13 @@ def send_new_page_notification(pr_url, pr_number, opportunity):
         for q in queries:
             text += f"  • _{q}_\n"
 
-    text += f"\n*PR #{pr_number}* is ready for review."
+    text += f"\n✅ Commit `{commit_hash}` is live."
 
     reply_markup = {
         "inline_keyboard": [
             [
-                {"text": "✅ Review & Approve", "url": pr_url},
-                {"text": "📋 View Page", "url": f"{pr_url}/files"},
+                {"text": "🌐 View Page", "url": page_url},
+                {"text": "📋 View Commit", "url": commit_url},
             ]
         ]
     }
@@ -293,13 +291,14 @@ def send_new_page_notification(pr_url, pr_number, opportunity):
     return send_message(text, reply_markup=reply_markup)
 
 
-def send_blog_notification(pr_url, pr_number, opportunity):
-    """Send notification about a new blog article PR."""
+def send_blog_notification(commit_url, commit_hash, opportunity):
+    """Send notification that a new blog article has been deployed."""
     topic_title = opportunity["topic"].title()
+    page_url = f"{SITE_URL}{opportunity['filename']}"
     text = (
-        "📝 *MK Painting — New Blog Article Ready*\n\n"
+        "📝 *MK Painting — New Blog Article Live*\n\n"
         f"The SEO agent detected informational search demand for *{topic_title}* "
-        f"({opportunity['impressions']} impressions) and generated a blog article.\n\n"
+        f"({opportunity['impressions']} impressions) and deployed a blog article.\n\n"
         f"📄 `{opportunity['filename']}`\n"
         f"🎯 Target: _{opportunity['keyword']}_\n"
     )
@@ -310,13 +309,13 @@ def send_blog_notification(pr_url, pr_number, opportunity):
         for q in queries:
             text += f"  • _{q}_\n"
 
-    text += f"\n*PR #{pr_number}* is ready for review."
+    text += f"\n✅ Commit `{commit_hash}` is live."
 
     reply_markup = {
         "inline_keyboard": [
             [
-                {"text": "✅ Review & Approve", "url": pr_url},
-                {"text": "📋 View Article", "url": f"{pr_url}/files"},
+                {"text": "🌐 View Article", "url": page_url},
+                {"text": "📋 View Commit", "url": commit_url},
             ]
         ]
     }
