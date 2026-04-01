@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heritage Painting Adelaide | M&K Painting Services</title>
+    <meta name="description" content="Professional heritage painting services in Adelaide. Expert restoration and maintenance of historic buildings with authentic techniques and heritage-approved materials.">
+    <link rel="canonical" href="https://www.mandkpaintingservices.com.au/heritage-painting.html">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Heritage Painting Adelaide | M&K Painting Services">
+    <meta property="og:description" content="Professional heritage painting services in Adelaide. Expert restoration and maintenance of historic buildings with authentic techniques and heritage-approved materials.">
+    <meta property="og:url" content="https://www.mandkpaintingservices.com.au/heritage-painting.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.mandkpaintingservices.com.au/images/heritage-painting-adelaide.jpg">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Heritage Painting Adelaide | M&K Painting Services">
+    <meta name="twitter:description" content="Professional heritage painting services in Adelaide. Expert restoration and maintenance of historic buildings with authentic techniques and heritage-approved materials.">
+    <meta name="twitter:image" content="https://www.mandkpaintingservices.com.au/images/heritage-painting-adelaide.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c5530;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #2c5530;
+        }
+        
+        .cta-button {
+            background: #2c5530;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: #1e3a21;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #2c5530;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #2c5530;
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background: #f8f9fa;
+            padding: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumbs a {
+            color: #2c5530;
+            text-decoration: none;
+        }
+        
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 4rem 0;
+        }
+        
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #2c5530;
+            text-align: center;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .content-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .content-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .content-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2c5530;
+            font-weight: bold;
+        }
+        
+        /* Process Steps */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #2c5530;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 1rem;
+            color: #2c5530;
+        }
+        
+        /* Why Choose Us */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #2c5530;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: #2c5530;
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            width: 100%;
+            background: #2c5530;
+            color: white;
+            border: none;
+            padding: 1.5rem;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question:hover {
+            background: #1e3a21;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #2c5530;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+            text-align: center;
+            color: #ccc;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                padding: 1rem 0;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                padding: 0.8rem 1.5rem;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "PaintingService",
+        "name": "M&K Painting Services - Heritage Painting Adelaide",
+        "image": "https://www.mandkpaintingservices.com.au/images/heritage-painting-adelaide.jpg",
+        "description": "Professional heritage painting services in Adelaide. Expert restoration and maintenance of historic buildings with authentic techniques and heritage-approved materials.",
+        "url": "https://www.mandkpaintingservices.com.au/heritage-painting.html",
+        "telephone": "0405352932",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Adelaide",
+            "addressRegion": "SA",
+            "addressCountry": "AU"
+        },
+        "areaServed": [
+            {
+                "@type": "City",
+                "name": "Adelaide",
+                "addressRegion": "SA",
+                "addressCountry": "AU"
+            },
+            {
+                "@type": "Place",
+                "name": "North Adelaide"
+            },
+            {
+                "@type": "Place",
+                "name": "Unley"
+            },
+            {
+                "@type": "Place",
+                "name": "Burnside"
+            },
+            {
+                "@type": "Place",
+                "name": "Prospect"
+            }
+        ],
+        "serviceType": "Heritage Painting",
+        "provider": {
+            "@type": "PaintingContractor",
+            "name": "M&K Painting Services",
+            "license": "BLD251492"
+        },
+        "offers": {
+            "@type": "Offer",
+            "availability": "InStock",
+            "priceCurrency": "AUD",
+            "description": "Professional heritage painting services"
+        }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.mandkpaintingservices.com.au/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Heritage Adelaide",
+                "item": "https://www.mandkpaintingservices.com.au/heritage-painting.html"
+            }
+        ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What makes heritage painting different from regular painting in Adelaide?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Heritage painting requires specialized knowledge of historic building techniques, heritage-approved materials, and restoration methods. Our Adelaide heritage painters understand the unique requirements for preserving historic buildings while ensuring compliance with heritage regulations."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you use heritage-approved paints for historic buildings in Adelaide?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, we exclusively use heritage-approved paints and materials that are authentic to the period and comply with Adelaide City Council heritage requirements. We work with specialized suppliers to ensure historically accurate color matching and period-appropriate finishes."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can you help with heritage color scheme consultation in Adelaide?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely. Our heritage painting specialists provide expert color consultation services, researching original color schemes and advising on period-appropriate palettes that comply with heritage guidelines while enhancing your Adelaide property's historic character."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does heritage painting restoration take in Adelaide?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Heritage painting projects typically take longer than standard painting due to careful preparation, specialized techniques, and multiple authentic coating applications. Most Adelaide heritage painting projects take 2-6 weeks depending on the building's size and complexity."
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">M&K Painting</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#services">Services</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+            <a href="tel:0405352932" class="cta-button">Call Now</a>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Heritage Painting Adelaide</h1>
+                <p>Expert restoration and maintenance of historic buildings with authentic techniques and heritage-approved materials</p>
+                <div class="hero-cta">
+                    <a href="tel:0405352932" class="btn-primary">Get Free Quote</a>
+                    <a href="#heritage-services" class="btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Breadcrumbs -->
+        <section class="breadcrumbs">
+            <div class="container">
+                <a href="/">Home</a> > <span>Heritage Painting Adelaide</span>
+            </div>
+        </section>
+
+        <!-- Heritage Services Section -->
+        <section id="heritage-services" class="section">
+            <div class="container">
+                <h2>Professional Heritage Painting Services</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>What Our Heritage Painting Includes</h3>
+                        <ul class="content-list">
+                            <li>Historic building assessment and color analysis</li>
+                            <li>Heritage-approved paint selection and sourcing</li>
+                            <li>Traditional preparation techniques for period surfaces</li>
+                            <li>Authentic restoration of original paint schemes</li>
+                            <li>Specialized coatings for historic materials</li>
+                            <li>Period-appropriate decorative finishes</li>
+                            <li>Heritage compliance documentation</li>
+                            <li>Conservation-grade protective treatments</li>
+                            <li>Restoration of heritage windows and doors</li>
+                            <li>Traditional lime wash and mineral paint applications</li>
+                            <li>Historic masonry and render painting</li>
+                            <li>Ongoing heritage maintenance programs</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Why Heritage Painting Matters</h3>
+                        <p>Adelaide's historic buildings are architectural treasures that require specialized care to preserve their character and comply with heritage regulations. Our heritage painting services combine traditional techniques with modern conservation science.</p>
+                        
+                        <p>We understand the unique challenges of working with historic buildings, from lead paint safety to period-accurate color matching. Our team has extensive experience with Adelaide's heritage requirements and works closely with heritage consultants.</p>
+                        
+                        <p>Whether you're restoring a <a href="/north-adelaide-painting">North Adelaide</a> heritage home or maintaining a historic commercial building, our expertise ensures authentic results that honor your property's history.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="section">
+            <div class="container">
+                <h2>Our Heritage Painting Process</h2>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Heritage Assessment</h3>
+                        <p>Comprehensive evaluation of your historic building, including paint analysis, heritage requirements review, and condition assessment.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Research & Planning</h3>
+                        <p>Historical research, original color scheme investigation, and development of conservation-appropriate restoration plan.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Material Sourcing</h3>
+                        <p>Selection and procurement of heritage-approved paints, primers, and specialty materials suited to your building's period.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Expert Restoration</h3>
+                        <p>Careful application using traditional techniques, multiple authentic coats, and period-appropriate finishes for lasting heritage preservation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose M&K Section -->
+        <section class="section">
+            <div class="container">
+                <h2>Why Choose M&K for Heritage Painting in Adelaide</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🏛️</div>
+                        <h3>Heritage Specialists</h3>
+                        <p>Extensive experience with Adelaide's historic buildings and deep understanding of heritage conservation requirements and traditional painting techniques.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Authentic Materials</h3>
+                        <p>Exclusive use of heritage-approved paints and traditional materials sourced from specialized suppliers for authentic, period-accurate restoration results.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📜</div>
+                        <h3>Compliance Expertise</h3>
+                        <p>Thorough knowledge of Adelaide City Council heritage guidelines and State Heritage requirements, ensuring your project meets all regulatory standards.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Detailed Research</h3>
+                        <p>Comprehensive historical research and paint analysis to uncover original color schemes and ensure historically accurate restoration outcomes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Traditional Techniques</h3>
+                        <p>Master craftsmen skilled in traditional painting methods, from lime wash application to decorative finishes, preserving authentic heritage character.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Long-term Protection</h3>
+                        <p>Conservation-grade treatments and protective coatings that safeguard your heritage building against Adelaide's climate while maintaining historic integrity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="container">
+                <h2>Heritage Painting Adelaide FAQ</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What makes heritage painting different from regular painting in Adelaide?
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Heritage painting requires specialized knowledge of historic building techniques, heritage-approved materials, and restoration methods. Our Adelaide heritage painters understand the unique requirements for preserving historic buildings while ensuring compliance with heritage regulations. We use traditional preparation methods, authentic paint formulations, and period-appropriate application techniques that differ significantly from modern painting practices.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Do you use heritage-approved paints for historic buildings in Adelaide?
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, we exclusively use heritage-approved paints and materials that are authentic to the period and comply with Adelaide City Council heritage requirements. We work with specialized suppliers to ensure historically accurate color matching and period-appropriate finishes. This includes traditional lime washes, mineral paints, and linseed oil-based formulations that were used in your building's original construction era.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Can you help with heritage color scheme consultation in Adelaide?
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely. Our heritage painting specialists provide expert color consultation services, researching original color schemes and advising on period-appropriate palettes that comply with heritage guidelines while enhancing your Adelaide property's historic character. We conduct paint analysis, historical research, and work with heritage consultants to ensure authenticity. We also provide assistance with <a href="/unley-painting">Unley heritage properties</a> and other Adelaide suburbs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How long does heritage painting restoration take in Adelaide?
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Heritage painting projects typically take longer than standard painting due to careful preparation, specialized techniques, and multiple authentic coating applications. Most Adelaide heritage painting projects take 2-6 weeks depending on the building's size and complexity. The extended timeframe allows for proper surface preparation, lead paint safety procedures, custom color matching, and the careful application of multiple traditional coats required for authentic restoration.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What heritage areas in Adelaide do you service?
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We provide heritage painting services throughout Adelaide, with particular expertise in heritage-rich areas like North Adelaide, Unley, Burnside, and Prospect. Our team is familiar with the specific heritage requirements and architectural styles found in different Adelaide suburbs. We also offer specialized services for <a href="/commercial-painting">commercial heritage buildings</a> and work with heritage consultants across the metropolitan area.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Restore Your Heritage Building?</h2>
+                <p>Contact Adelaide's heritage painting specialists for authentic restoration with heritage-approved materials and traditional techniques</p>
+                <div class="hero-cta">
+                    <a href="tel:0405352932" class="btn-primary">Call 0405 352 932</a>
+                    <a href="/contact" class="btn-secondary">Get Free Quote</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>M&K Painting Services</h3>
+                    <p>Professional heritage painting services in Adelaide. Expert restoration of historic buildings with authentic techniques and heritage-approved materials.</p>
+                    <p><strong>Licence:</strong> BLD251492</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="/#services">All Services</a></li>
+                        <li><a href="/heritage-painting.html">Heritage Painting</a></li>
+                        <li><a href="/commercial-painting">Commercial Painting</a></li>
+                        <li><a href="/residential-painting">Residential Painting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Areas We Serve</h3>
+                    <ul>
+                        <li><a href="/north-adelaide-painting">North Adelaide</a></li>
+                        <li><a href="/unley-painting">Unley</a></li>
+                        <li><a href="/burnside-painting">Burnside</a></li>
+                        <li><a href="/prospect-painting">Prospect</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>📞 <a href="tel:0405352932">0405 352 932</a></li>
+                        <li>📧 <a href="mailto:info@mandkpaintingservices.com.au">info@mandkpaintingservices.com.au</a></li>
+                        <li>📍 Adelaide, SA</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="/about">About Us</a> |
+                    <a href="/contact">Contact Us</a> |
+                    <a href="/privacy-policy">Privacy Policy</a>
+                </div>
+                <p>&copy; 2024 M&K Painting Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileToggle && navLinks) {
+                mobileToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+        });
+
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isActive = answer.classList.contains('active');
+                    
+                    // Close all FAQ items
+                    document.querySelectorAll('.faq-answer').forEach(ans => ans.classList.remove('active'));
+                    document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        answer.classList.add('active');
+                        this.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
