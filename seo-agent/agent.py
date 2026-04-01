@@ -19,7 +19,13 @@ from datetime import datetime
 from pathlib import Path
 
 from analyzer import run_full_analysis
-from config import GITHUB_REPO_URL, LOOKBACK_DAYS, SITE_URL
+from config import (
+    GITHUB_REPO_URL,
+    LOOKBACK_DAYS,
+    MAX_BLOG_ARTICLES_PER_RUN,
+    MAX_NEW_PAGES_PER_RUN,
+    SITE_URL,
+)
 from gsc_client import (
     fetch_page_data,
     fetch_query_data,
@@ -251,13 +257,20 @@ def main():
         else:
             print("\n   → No CTR gaps or striking distance keywords — skipping implementation")
 
-    # ── 8. Generate new landing page ──────────────────────────────────────────
+    # ── 8. Generate new landing pages (up to MAX_NEW_PAGES_PER_RUN) ─────────
     if use_claude and not args.no_impl and not args.csv:
         repo_root = str(Path(__file__).parent.parent)
-        opportunity = pick_best_new_page(analysis, repo_root)
+        created_pages = set()
+        pages_created = 0
 
-        if opportunity:
-            print(f"\n🆕 New page opportunity: {opportunity['suburb'].title()} "
+        for i in range(MAX_NEW_PAGES_PER_RUN):
+            opportunity = pick_best_new_page(analysis, repo_root, exclude=created_pages)
+            if not opportunity:
+                if i == 0:
+                    print("\n   → No new page opportunities detected")
+                break
+
+            print(f"\n🆕 New page [{i+1}/{MAX_NEW_PAGES_PER_RUN}]: {opportunity['suburb'].title()} "
                   f"({opportunity['impressions']} impressions)")
             print(f"   Target keyword: \"{opportunity['keyword']}\"")
             print(f"   Generating {opportunity['filename']}...")
@@ -266,26 +279,37 @@ def main():
 
             if html:
                 changed_files = write_new_page(html, opportunity, repo_root)
-                print(f"\n📦 Creating pull request for new page...")
+                print(f"   📦 Creating pull request...")
                 pr_url, pr_number = create_new_page_pr(opportunity, changed_files, repo_root)
 
                 if pr_url:
                     print(f"   → PR #{pr_number}: {pr_url}")
                     send_new_page_notification(pr_url, pr_number, opportunity)
+                    pages_created += 1
                 else:
                     print("   → PR creation failed")
             else:
                 print("   → Page generation failed")
-        else:
-            print("\n   → No new page opportunities detected")
 
-    # ── 8b. Generate blog article ─────────────────────────────────────────────
+            created_pages.add(opportunity["filename"])
+
+        if pages_created > 0:
+            print(f"\n   → {pages_created} new page(s) created this run")
+
+    # ── 8b. Generate blog articles (up to MAX_BLOG_ARTICLES_PER_RUN) ──────────
     if use_claude and not args.no_impl and not args.csv:
         repo_root = str(Path(__file__).parent.parent)
-        blog_opp = pick_best_blog(analysis, repo_root)
+        created_blogs = set()
+        blogs_created = 0
 
-        if blog_opp:
-            print(f"\n📝 Blog opportunity: \"{blog_opp['topic']}\" "
+        for i in range(MAX_BLOG_ARTICLES_PER_RUN):
+            blog_opp = pick_best_blog(analysis, repo_root, exclude=created_blogs)
+            if not blog_opp:
+                if i == 0:
+                    print("\n   → No blog opportunities detected")
+                break
+
+            print(f"\n📝 Blog [{i+1}/{MAX_BLOG_ARTICLES_PER_RUN}]: \"{blog_opp['topic']}\" "
                   f"({blog_opp['impressions']} impressions)")
             print(f"   Target keyword: \"{blog_opp['keyword']}\"")
             print(f"   Generating {blog_opp['filename']}...")
@@ -294,18 +318,22 @@ def main():
 
             if blog_html:
                 blog_changed = write_blog_article(blog_html, blog_opp, repo_root)
-                print(f"\n📦 Creating pull request for blog article...")
+                print(f"   📦 Creating pull request...")
                 blog_pr_url, blog_pr_number = create_blog_pr(blog_opp, blog_changed, repo_root)
 
                 if blog_pr_url:
                     print(f"   → PR #{blog_pr_number}: {blog_pr_url}")
                     send_blog_notification(blog_pr_url, blog_pr_number, blog_opp)
+                    blogs_created += 1
                 else:
                     print("   → PR creation failed")
             else:
                 print("   → Blog generation failed")
-        else:
-            print("\n   → No blog opportunities detected")
+
+            created_blogs.add(blog_opp["filename"])
+
+        if blogs_created > 0:
+            print(f"\n   → {blogs_created} blog article(s) created this run")
 
     # ── 9. Map Pack Update ───────────────────────────────────────────────────
     if use_claude and not args.no_impl and not args.csv:

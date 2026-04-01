@@ -351,23 +351,27 @@ def _parse_changes(text):
 # ── New page generation ──────────────────────────────────────────────────────
 
 
-def pick_best_new_page(analysis, repo_root):
+def pick_best_new_page(analysis, repo_root, exclude=None):
     """
     Pick the best new page opportunity from the analysis.
 
-    Considers both suburb opportunities (pure geographic) and
-    missing pages (service × suburb combos).
+    Considers suburb opportunities, service × suburb combos, and missing service pages.
+    Pass `exclude` set of filenames to skip (for multi-page runs).
 
     Returns dict with suburb, keyword, filename, template_type or None.
     """
     existing_slugs = set(EXISTING_PAGES.keys())
+    exclude = exclude or set()
     candidates = []
 
     # 1. Suburb opportunities (geographic pages like /tea-tree-gully.html)
     for opp in analysis.get("suburb_opportunities", []):
         suburb = opp["suburb"]
         slug = f"/{suburb.replace(' ', '-')}.html"
-        if slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, slug.lstrip("/"))):
+        filename = slug.lstrip("/")
+        if filename in exclude:
+            continue
+        if slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, filename)):
             queries_text = " ".join(opp.get("top_queries", []))
             is_commercial = any(w in queries_text for w in ["commercial", "industrial", "warehouse", "office"])
             candidates.append({
@@ -376,14 +380,17 @@ def pick_best_new_page(analysis, repo_root):
                 "clicks": opp.get("clicks", 0),
                 "top_queries": opp.get("top_queries", []),
                 "keyword": f"{'commercial ' if is_commercial else ''}painters {suburb}",
-                "filename": slug.lstrip("/"),
+                "filename": filename,
                 "template_type": "commercial" if is_commercial else "residential",
             })
 
     # 2. Missing pages from service × suburb clustering
     for gap in analysis.get("missing_pages", []):
         slug = gap.get("suggested_page", "")
-        if slug and slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, slug.lstrip("/"))):
+        filename = slug.lstrip("/")
+        if filename in exclude:
+            continue
+        if slug and slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, filename)):
             suburb = gap["suburb"]
             service = gap["service"]
             queries_text = " ".join(gap.get("top_queries", []))
@@ -394,14 +401,13 @@ def pick_best_new_page(analysis, repo_root):
                 "clicks": gap.get("total_clicks", 0),
                 "top_queries": gap.get("top_queries", []),
                 "keyword": f"{service} {suburb}",
-                "filename": slug.lstrip("/"),
+                "filename": filename,
                 "template_type": "commercial" if is_commercial else "residential",
             })
 
     # 3. Missing service pages (e.g., /interior-painting.html, /roof-painting.html)
     for svc in analysis.get("missing_service_pages", []):
         service = svc["service"]
-        # Build a slug: "interior" → "interior-painting.html", "deck" → "deck-staining.html"
         slug_map = {
             "interior": "interior-painting.html",
             "exterior": "exterior-painting.html",
@@ -410,6 +416,8 @@ def pick_best_new_page(analysis, repo_root):
             "deck": "deck-staining.html",
         }
         filename = slug_map.get(service, f"{service.replace(' ', '-')}-painting.html")
+        if filename in exclude:
+            continue
         slug = f"/{filename}"
         if slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, filename)):
             candidates.append({
@@ -724,9 +732,10 @@ def _build_pr_body(changes):
 # ── Blog article generation ──────────────────────────────────────────────────
 
 
-def pick_best_blog(analysis, repo_root):
+def pick_best_blog(analysis, repo_root, exclude=None):
     """
     Pick the best blog article opportunity from informational queries.
+    Pass `exclude` set of filenames to skip (for multi-blog runs).
 
     Returns dict with topic, keyword, filename, top_queries, impressions or None.
     """
@@ -735,6 +744,7 @@ def pick_best_blog(analysis, repo_root):
         return None
 
     existing_slugs = set(EXISTING_PAGES.keys())
+    exclude = exclude or set()
 
     for opp in blog_opps:
         topic = opp["topic"]
@@ -746,7 +756,9 @@ def pick_best_blog(analysis, repo_root):
         filename = f"{slug_base}.html"
         slug = f"/{filename}"
 
-        # Skip if page already exists
+        # Skip if page already exists or was created this run
+        if filename in exclude:
+            continue
         if slug in existing_slugs or os.path.isfile(os.path.join(repo_root, filename)):
             continue
 

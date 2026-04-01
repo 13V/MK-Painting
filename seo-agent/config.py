@@ -104,6 +104,10 @@ MIN_IMPRESSIONS = 10
 # Minimum impressions for a service×suburb cluster to be flagged as a missing page
 MISSING_PAGE_MIN_IMPRESSIONS = 15
 
+# ── Page generation limits ────────────────────────────────────────────────────
+MAX_NEW_PAGES_PER_RUN = 3    # Suburb + service pages per daily run
+MAX_BLOG_ARTICLES_PER_RUN = 2  # Blog articles per daily run
+
 # ── Claude API ────────────────────────────────────────────────────────────────
 CLAUDE_MODEL = "claude-sonnet-4-20250514"
 MAX_TOKENS = 4096
