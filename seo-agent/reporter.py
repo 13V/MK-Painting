@@ -29,6 +29,8 @@ def generate_report(analysis, use_claude=True):
         _format_zero_click(analysis["zero_click"]),
         _format_missing_pages(analysis["missing_pages"]),
         _format_suburb_opportunities(analysis["suburb_opportunities"]),
+        _format_blog_opportunities(analysis.get("blog_opportunities", [])),
+        _format_missing_service_pages(analysis.get("missing_service_pages", [])),
         _format_cannibalization(analysis.get("cannibalization", [])),
         _format_trends(analysis.get("trends")),
         _format_map_pack(analysis.get("map_pack_queries", [])),
@@ -204,6 +206,46 @@ def _format_suburb_opportunities(suburbs):
         lines.append(
             f"| {s['suburb'].title()} | {s['impressions']} | {s['clicks']} | "
             f"{s['query_count']} | {top} |"
+        )
+
+    return "\n".join(lines) + "\n"
+
+
+def _format_missing_service_pages(services):
+    if not services:
+        return ""
+
+    lines = [
+        "## Missing Service Pages\n",
+        "Core services with search demand but no dedicated page.\n",
+        "| Service | Impressions | Clicks | Queries | Top Search Terms |",
+        "|---|---|---|---|---|",
+    ]
+    for s in services:
+        top = ", ".join(s["top_queries"][:3])
+        lines.append(
+            f"| {s['service'].title()} | {s['impressions']} | {s['clicks']} | "
+            f"{s['query_count']} | {top} |"
+        )
+
+    return "\n".join(lines) + "\n"
+
+
+def _format_blog_opportunities(blogs):
+    if not blogs:
+        return ""
+
+    lines = [
+        "## Blog Content Opportunities\n",
+        "Informational queries that could be answered by blog articles.\n",
+        "| Topic | Impressions | Clicks | Queries | Top Search Terms |",
+        "|---|---|---|---|---|",
+    ]
+    for b in blogs[:10]:
+        top = ", ".join(b["top_queries"][:3])
+        lines.append(
+            f"| {b['topic']} | {b['impressions']} | {b['clicks']} | "
+            f"{b['query_count']} | {top} |"
         )
 
     return "\n".join(lines) + "\n"

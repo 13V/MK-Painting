@@ -317,6 +317,136 @@ def classify_map_pack_queries(query_data):
     return map_pack, organic
 
 
+def find_blog_opportunities(query_data):
+    """
+    Find informational queries that could be answered by blog articles.
+
+    Targets queries with "how to", "cost", "guide", "tips", "best", "vs",
+    "difference", "ideas", etc. that don't already have a matching blog article.
+    """
+    INFORMATIONAL_PATTERNS = [
+        re.compile(r"\bhow (to|much|long|do)\b", re.IGNORECASE),
+        re.compile(r"\bcost\b", re.IGNORECASE),
+        re.compile(r"\bprice\b", re.IGNORECASE),
+        re.compile(r"\btips?\b", re.IGNORECASE),
+        re.compile(r"\bguide\b", re.IGNORECASE),
+        re.compile(r"\bbest\b", re.IGNORECASE),
+        re.compile(r"\bideas?\b", re.IGNORECASE),
+        re.compile(r"\bvs\.?\b", re.IGNORECASE),
+        re.compile(r"\bdifference\b", re.IGNORECASE),
+        re.compile(r"\bwhat (is|are|does)\b", re.IGNORECASE),
+        re.compile(r"\bshould i\b", re.IGNORECASE),
+        re.compile(r"\bchoose|choosing\b", re.IGNORECASE),
+        re.compile(r"\bworth\b", re.IGNORECASE),
+        re.compile(r"\bcolou?rs?\b", re.IGNORECASE),
+        re.compile(r"\btrends?\b", re.IGNORECASE),
+        re.compile(r"\bprepare|preparation\b", re.IGNORECASE),
+        re.compile(r"\bdiy\b", re.IGNORECASE),
+    ]
+
+    # Build set of existing blog slugs for matching
+    existing_blog_slugs = [
+        slug for slug in EXISTING_PAGES.keys()
+        if "guide" in slug or "choosing" in slug or "blog" in slug
+    ]
+
+    # Cluster informational queries by topic
+    topic_clusters = {}
+    for row in query_data:
+        query = row["query"].lower()
+        if not any(p.search(query) for p in INFORMATIONAL_PATTERNS):
+            continue
+        # Skip if we already have a page ranking well for this query
+        if row["position"] <= 10 and row["clicks"] > 0:
+            continue
+
+        # Normalize to a topic key (strip suburb names, common words)
+        topic = query
+        for suburb in ALL_SUBURBS:
+            topic = topic.replace(suburb, "").strip()
+        topic = re.sub(r"\b(adelaide|sa|south australia)\b", "", topic).strip()
+        topic = re.sub(r"\s+", " ", topic).strip()
+
+        if not topic or len(topic) < 5:
+            continue
+
+        if topic not in topic_clusters:
+            topic_clusters[topic] = {
+                "impressions": 0,
+                "clicks": 0,
+                "queries": [],
+            }
+        topic_clusters[topic]["impressions"] += row["impressions"]
+        topic_clusters[topic]["clicks"] += row["clicks"]
+        topic_clusters[topic]["queries"].append(row["query"])
+
+    results = []
+    for topic, data in topic_clusters.items():
+        if data["impressions"] >= 10:
+            results.append({
+                "topic": topic,
+                "impressions": data["impressions"],
+                "clicks": data["clicks"],
+                "query_count": len(data["queries"]),
+                "top_queries": data["queries"][:5],
+            })
+
+    return sorted(results, key=lambda r: r["impressions"], reverse=True)
+
+
+def find_missing_service_pages(query_data):
+    """
+    Find services with search demand but no dedicated service page.
+
+    For example, "interior painting" gets impressions but there's no
+    /interior-painting.html — only commercial, kitchen, and strata have pages.
+    """
+    # Determine which services already have a dedicated service page
+    # (not suburb pages, not blog guides — actual service pages)
+    services_with_pages = set()
+    for slug in EXISTING_PAGES:
+        slug_lower = slug.lower()
+        # Skip suburb pages, guides, and blog articles
+        if "guide" in slug_lower or any(
+            s.replace(" ", "-") in slug_lower
+            for s in ALL_SUBURBS
+        ):
+            continue
+        for service in SERVICES:
+            # Match service keywords in the slug
+            service_slug = service.replace(" ", "-")
+            if service_slug in slug_lower:
+                services_with_pages.add(service)
+
+    results = []
+    for service, keywords in SERVICES.items():
+        if service in services_with_pages:
+            continue  # Already has a page
+
+        # Sum impressions for queries mentioning this service
+        total_imp = 0
+        total_clicks = 0
+        matching_queries = []
+
+        for row in query_data:
+            query = row["query"].lower()
+            if any(re.search(r"\b" + re.escape(kw) + r"\b", query, re.IGNORECASE) for kw in keywords):
+                total_imp += row["impressions"]
+                total_clicks += row["clicks"]
+                matching_queries.append(row["query"])
+
+        if total_imp >= 10:
+            results.append({
+                "service": service,
+                "impressions": total_imp,
+                "clicks": total_clicks,
+                "query_count": len(matching_queries),
+                "top_queries": matching_queries[:5],
+            })
+
+    return sorted(results, key=lambda r: r["impressions"], reverse=True)
+
+
 def run_full_analysis(query_data, page_data, query_page_data=None):
     """
     Run the complete analysis pipeline and return all findings.
@@ -331,6 +461,8 @@ def run_full_analysis(query_data, page_data, query_page_data=None):
         "clusters": clusters,
         "missing_pages": find_missing_pages(clusters),
         "suburb_opportunities": find_suburb_opportunities(query_data),
+        "blog_opportunities": find_blog_opportunities(query_data),
+        "missing_service_pages": find_missing_service_pages(query_data),
         "cannibalization": detect_cannibalization(query_page_data),
         "map_pack_queries": map_pack,
     }

@@ -398,6 +398,30 @@ def pick_best_new_page(analysis, repo_root):
                 "template_type": "commercial" if is_commercial else "residential",
             })
 
+    # 3. Missing service pages (e.g., /interior-painting.html, /roof-painting.html)
+    for svc in analysis.get("missing_service_pages", []):
+        service = svc["service"]
+        # Build a slug: "interior" → "interior-painting.html", "deck" → "deck-staining.html"
+        slug_map = {
+            "interior": "interior-painting.html",
+            "exterior": "exterior-painting.html",
+            "heritage": "heritage-painting.html",
+            "roof": "roof-painting.html",
+            "deck": "deck-staining.html",
+        }
+        filename = slug_map.get(service, f"{service.replace(' ', '-')}-painting.html")
+        slug = f"/{filename}"
+        if slug not in existing_slugs and not os.path.isfile(os.path.join(repo_root, filename)):
+            candidates.append({
+                "suburb": "adelaide",  # City-wide service page
+                "impressions": svc["impressions"],
+                "clicks": svc.get("clicks", 0),
+                "top_queries": svc.get("top_queries", []),
+                "keyword": f"{service} painting adelaide",
+                "filename": filename,
+                "template_type": "service",
+            })
+
     if not candidates:
         return None
 
@@ -416,8 +440,11 @@ def generate_new_page(opportunity, repo_root):
         print("   ⚠ ANTHROPIC_API_KEY not set — skipping page generation")
         return None
 
-    # Pick template
-    if opportunity["template_type"] == "commercial":
+    # Pick template based on page type
+    ttype = opportunity["template_type"]
+    if ttype == "service":
+        template_file = "strata-painting.html"  # Best service page template
+    elif ttype == "commercial":
         template_file = "wingfield.html"
     else:
         template_file = "mawson-lakes.html"
@@ -435,8 +462,38 @@ def generate_new_page(opportunity, repo_root):
     filename = opportunity["filename"]
     keyword = opportunity["keyword"]
     top_queries = opportunity.get("top_queries", [])
+    is_service_page = opportunity["template_type"] == "service"
 
-    system_prompt = f"""You are a web developer creating a new landing page for M&K Painting Services ({SITE_URL}).
+    if is_service_page:
+        service_name = keyword.replace(" adelaide", "").replace(" painting", "").strip().title()
+        system_prompt = f"""You are a web developer creating a new SERVICE page for M&K Painting Services ({SITE_URL}).
+
+You will be given an existing service page (strata painting) as a template. Your job is to create a NEW service page for "{service_name}" by adapting the template.
+
+CRITICAL RULES:
+- Output ONLY the complete HTML — no explanation, no markdown fences, just the raw HTML
+- Keep the EXACT same HTML structure, CSS classes, nav, footer, scripts, and layout
+- Change ALL content to be about the {service_name} service — do NOT leave any references to strata painting
+- This is a city-wide Adelaide service page, NOT a suburb page
+- Update: title tag, meta description, canonical URL, OG tags, JSON-LD schemas, h1, all body content, FAQ questions/answers
+- The canonical URL must be: {SITE_URL}{filename}
+- The page filename is: {filename}
+- Target keyword: "{keyword}"
+- Related search queries: {', '.join(f'"' + q + '"' for q in top_queries[:5])}
+- JSON-LD areaServed should cover Adelaide and suburbs
+- FAQ questions must be specific to the {service_name} service in Adelaide
+- Include sections: what the service includes, process, why choose M&K, FAQ
+- Include 3-4 internal links to suburb pages and other service pages
+- Keep the same web3forms access key, phone number (0405 352 932), and licence details (BLD251492)
+- BreadcrumbList schema position 2 name should be: "{service_name} Adelaide"
+- Footer links: Services (/#services), About Us, Contact Us, Privacy Policy"""
+
+        user_prompt = f"""Create a new service page for {service_name} based on this template.
+
+Target keyword: "{keyword}"
+Related queries people search for: {', '.join(f'"' + q + '"' for q in top_queries[:5])}"""
+    else:
+        system_prompt = f"""You are a web developer creating a new landing page for M&K Painting Services ({SITE_URL}).
 
 You will be given an existing page as a template. Your job is to create a NEW page for {suburb} by adapting the template.
 
@@ -448,7 +505,7 @@ CRITICAL RULES:
 - The canonical URL must be: {SITE_URL}{filename}
 - The page filename is: {filename}
 - Target keyword: "{keyword}"
-- Related search queries: {', '.join(f'"{q}"' for q in top_queries[:5])}
+- Related search queries: {', '.join(f'"' + q + '"' for q in top_queries[:5])}
 - JSON-LD geo coordinates must be realistic for {suburb}, South Australia
 - FAQ questions must be specific to {suburb} — not generic
 - Project log entries should reference {suburb} streets/landmarks
@@ -457,10 +514,10 @@ CRITICAL RULES:
 - BreadcrumbList schema position 2 name should be: "Painters {suburb}" (or "Commercial Painters {suburb}" for commercial)
 - Footer links: Services (/#services), About Us, Contact Us, Privacy Policy"""
 
-    user_prompt = f"""Create a new landing page for {suburb} based on this template.
+        user_prompt = f"""Create a new landing page for {suburb} based on this template.
 
 Target keyword: "{keyword}"
-Related queries people search for: {', '.join(f'"{q}"' for q in top_queries[:5])}
+Related queries people search for: {', '.join(f'"' + q + '"' for q in top_queries[:5])}
 
 Here is the template HTML to adapt:
 
@@ -662,3 +719,350 @@ def _build_pr_body(changes):
     ])
 
     return "\n".join(lines)
+
+
+# ── Blog article generation ──────────────────────────────────────────────────
+
+
+def pick_best_blog(analysis, repo_root):
+    """
+    Pick the best blog article opportunity from informational queries.
+
+    Returns dict with topic, keyword, filename, top_queries, impressions or None.
+    """
+    blog_opps = analysis.get("blog_opportunities", [])
+    if not blog_opps:
+        return None
+
+    existing_slugs = set(EXISTING_PAGES.keys())
+
+    for opp in blog_opps:
+        topic = opp["topic"]
+        # Generate a slug from the topic
+        slug_base = re.sub(r"[^a-z0-9]+", "-", topic.lower()).strip("-")
+        slug_base = re.sub(r"-+", "-", slug_base)
+        if len(slug_base) > 60:
+            slug_base = slug_base[:60].rsplit("-", 1)[0]
+        filename = f"{slug_base}.html"
+        slug = f"/{filename}"
+
+        # Skip if page already exists
+        if slug in existing_slugs or os.path.isfile(os.path.join(repo_root, filename)):
+            continue
+
+        return {
+            "topic": topic,
+            "impressions": opp["impressions"],
+            "clicks": opp.get("clicks", 0),
+            "query_count": opp.get("query_count", 0),
+            "top_queries": opp.get("top_queries", []),
+            "keyword": opp["top_queries"][0] if opp.get("top_queries") else topic,
+            "filename": filename,
+        }
+
+    return None
+
+
+def generate_blog_article(opportunity, repo_root):
+    """
+    Generate a complete blog article using Claude, based on an existing article template.
+
+    Returns the HTML content string or None on failure.
+    """
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("   ⚠ ANTHROPIC_API_KEY not set — skipping blog generation")
+        return None
+
+    # Use choosing-colors-mawson-lakes.html as template
+    template_path = os.path.join(repo_root, "choosing-colors-mawson-lakes.html")
+    if not os.path.isfile(template_path):
+        print("   ⚠ Blog template not found")
+        return None
+
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_html = f.read()
+
+    client = anthropic.Anthropic(api_key=api_key)
+    topic = opportunity["topic"]
+    keyword = opportunity["keyword"]
+    top_queries = opportunity.get("top_queries", [])
+    filename = opportunity["filename"]
+    from datetime import datetime
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    month_year = datetime.now().strftime("%B %Y")
+
+    system_prompt = f"""You are a content writer creating a blog article for M&K Painting Services ({SITE_URL}).
+
+You will be given an existing blog article as a structural template. Your job is to create a NEW article on a different topic while keeping the exact same HTML structure.
+
+CRITICAL RULES:
+- Output ONLY the complete HTML — no explanation, no markdown fences, just raw HTML
+- Keep the EXACT same HTML structure: head (meta, OG tags, schema), nav, article-content wrapper, article-header, article-body, cta-box, footer, floating-call, scripts
+- Keep the same embedded <style> block (article-content, article-header, article-meta, article-image, cta-box styles)
+- The canonical URL must be: {SITE_URL}{filename}
+- The filename is: {filename}
+- Target keyword: "{keyword}"
+- datePublished: "{date_str}"
+- dateModified: "{date_str}"
+- Article Schema: update headline, description, url, dates
+- BreadcrumbList Schema: position 3 name should be the article title
+- OG tags: update title, description, url
+- Nav should have: ← Back to Blog (linking to /blog.html), About Us, Get Quote button
+- Write 800-1200 words of genuinely helpful, specific content
+- Include 3-5 h2 subheadings
+- Naturally mention M&K Painting Services 2-3 times
+- Include 2-3 internal links to relevant M&K pages (service pages, suburb pages, other blog articles)
+- Include a mid-article CTA box (the gold gradient one) and the end cta-box
+- The article-meta format: "By M&K Painting Services • [Category] • [N] Min Read"
+- author-byline format: "By <strong>M&K Painting Services</strong> · {month_year}"
+- Use M&K1.jpg as the article image
+- Keep the same web3forms access key, phone number (0405 352 932), licence (BLD251492)
+- Google Analytics: G-76SJSV4XFM
+- Include Vercel analytics script
+- The blog-card-footer date should be: {month_year}
+- Write for an Australian audience (use "colour" not "color", "metres" not "meters", etc.)
+- Be practical and actionable — real paint brands, real tips, real advice
+- Do NOT be generic or fluffy — write as a professional Adelaide painter would"""
+
+    user_prompt = f"""Create a new blog article about: "{topic}"
+
+Target keyword: "{keyword}"
+Related search queries: {', '.join(f'"{q}"' for q in top_queries[:5])}
+
+Here is the template HTML to adapt (keep the same structure, change all content):
+
+{template_html}"""
+
+    try:
+        message = client.messages.create(
+            model=CLAUDE_MODEL,
+            max_tokens=MAX_TOKENS * 4,  # 16384 — blog articles need room
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_prompt}],
+        )
+        html = message.content[0].text.strip()
+
+        # Strip markdown fences if Claude wrapped the output
+        if html.startswith("```"):
+            html = re.sub(r"^```(?:html)?\s*", "", html)
+            html = re.sub(r"\s*```$", "", html)
+
+        # Basic validation
+        if "<html" not in html or "</html>" not in html:
+            print("   ⚠ Generated blog HTML looks invalid — missing <html> tags")
+            return None
+
+        return html
+
+    except Exception as e:
+        print(f"   ⚠ Blog generation failed: {e}")
+        return None
+
+
+def write_blog_article(html, opportunity, repo_root):
+    """
+    Write the blog article HTML, add a card to blog.html, and update sitemap + config.
+
+    Returns list of changed files (relative paths).
+    """
+    from datetime import datetime
+
+    filename = opportunity["filename"]
+    filepath = os.path.join(repo_root, filename)
+
+    # Write the HTML file
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"   ✓ Created {filename}")
+
+    changed_files = [filename]
+
+    # Add blog card to blog.html
+    blog_html_path = os.path.join(repo_root, "blog.html")
+    if os.path.isfile(blog_html_path):
+        with open(blog_html_path, "r", encoding="utf-8") as f:
+            blog_content = f.read()
+
+        month_year = datetime.now().strftime("%B %Y")
+        topic_title = opportunity["topic"].title()
+        # Generate a short description from the keyword/topic
+        description = f"Expert insights on {opportunity['topic']} from Adelaide's trusted painters at M&K Painting Services."
+        # Determine category from topic
+        category = _categorize_blog_topic(opportunity["topic"])
+
+        new_card = (
+            f'\n                <!-- Auto-generated article -->\n'
+            f'                <a href="/{filename}" class="blog-card">\n'
+            f'                    <img src="M&K1.jpg" alt="{topic_title}" class="blog-card-img">\n'
+            f'                    <div class="blog-card-content">\n'
+            f'                        <span class="blog-card-category">{category}</span>\n'
+            f'                        <h2 style="font-size: 1.25rem;">{topic_title}</h2>\n'
+            f'                        <p>{description}</p>\n'
+            f'                    </div>\n'
+            f'                    <div class="blog-card-footer">By M&amp;K Painting Services &bull; {month_year} &bull; 6 min read</div>\n'
+            f'                </a>\n'
+        )
+
+        # Insert after <div class="blog-grid">
+        insert_point = '<div class="blog-grid">'
+        if insert_point in blog_content:
+            blog_content = blog_content.replace(
+                insert_point,
+                insert_point + new_card,
+                1,
+            )
+            with open(blog_html_path, "w", encoding="utf-8") as f:
+                f.write(blog_content)
+            print(f"   ✓ Added blog card to blog.html")
+            changed_files.append("blog.html")
+
+    # Update sitemap.xml
+    sitemap_path = os.path.join(repo_root, "sitemap.xml")
+    if os.path.isfile(sitemap_path):
+        with open(sitemap_path, "r", encoding="utf-8") as f:
+            sitemap = f.read()
+
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        new_entry = (
+            f"  <url>\n"
+            f"    <loc>{SITE_URL.rstrip('/')}/{filename}</loc>\n"
+            f"    <lastmod>{date_str}</lastmod>\n"
+            f"    <priority>0.70</priority>\n"
+            f"  </url>\n"
+        )
+        sitemap = sitemap.replace("</urlset>", f"{new_entry}</urlset>")
+
+        with open(sitemap_path, "w", encoding="utf-8") as f:
+            f.write(sitemap)
+        print(f"   ✓ Added {filename} to sitemap.xml")
+        changed_files.append("sitemap.xml")
+
+    # Update config.py EXISTING_PAGES
+    config_path = os.path.join(repo_root, "seo-agent", "config.py")
+    if os.path.isfile(config_path):
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = f.read()
+
+        slug = f"/{filename}"
+        keyword = opportunity["keyword"]
+        new_line = f'    "{slug}": "{keyword}",\n'
+        config = config.replace(
+            '\n}\n\n# ── Analysis thresholds',
+            f'\n{new_line}}}\n\n# ── Analysis thresholds',
+        )
+
+        with open(config_path, "w", encoding="utf-8") as f:
+            f.write(config)
+        print(f"   ✓ Added {slug} to config.py EXISTING_PAGES")
+        changed_files.append("seo-agent/config.py")
+
+    return changed_files
+
+
+def create_blog_pr(opportunity, changed_files, repo_root):
+    """
+    Create a PR for a new blog article.
+
+    Returns (pr_url, pr_number) or (None, None).
+    """
+    from datetime import datetime
+
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    time_str = datetime.now().strftime("%H%M")
+    slug_base = opportunity["filename"].replace(".html", "")
+    branch_name = f"blog-{slug_base}-{date_str}-{time_str}"
+
+    try:
+        _run_git(repo_root, "checkout", "-b", branch_name)
+
+        for f in changed_files:
+            _run_git(repo_root, "add", f)
+
+        topic_title = opportunity["topic"].title()
+        commit_msg = (
+            f"Add blog article: {topic_title}\n\n"
+            f"  - Created {opportunity['filename']} targeting \"{opportunity['keyword']}\"\n"
+            f"  - Added blog card to blog.html\n"
+            f"  - Updated sitemap.xml\n"
+            f"  - Updated config.py EXISTING_PAGES\n"
+            f"  - Based on {opportunity['impressions']} impressions in GSC data\n\n"
+            f"Generated by MK Painting SEO Agent"
+        )
+
+        _run_git(repo_root, "commit", "-m", commit_msg)
+        _run_git(repo_root, "push", "-u", "origin", branch_name)
+
+        pr_title = f"Blog: {topic_title[:50]} — {opportunity['impressions']} impressions"
+        pr_body = (
+            f"## New Blog Article: {topic_title}\n\n"
+            f"The SEO agent detected informational search demand and generated a blog article:\n\n"
+            f"- **{opportunity['impressions']}** impressions across **{opportunity.get('query_count', 0)}** queries\n"
+            f"- Top queries: {', '.join(f'`{q}`' for q in opportunity.get('top_queries', [])[:5])}\n"
+            f"- Target keyword: `{opportunity['keyword']}`\n\n"
+            f"### Files\n"
+            f"- `{opportunity['filename']}` — new blog article\n"
+            f"- `blog.html` — added blog card\n"
+            f"- `sitemap.xml` — added URL entry\n"
+            f"- `seo-agent/config.py` — added to EXISTING_PAGES\n\n"
+            f"### Review Checklist\n"
+            f"- [ ] Content is accurate and helpful\n"
+            f"- [ ] No placeholder or generic content\n"
+            f"- [ ] Internal links work\n"
+            f"- [ ] Schema markup is valid\n\n"
+            f"---\n"
+            f"*Generated by MK Painting SEO Agent*"
+        )
+
+        result = subprocess.run(
+            [
+                "gh", "pr", "create",
+                "--title", pr_title,
+                "--body", pr_body,
+                "--base", "main",
+                "--head", branch_name,
+            ],
+            capture_output=True, text=True, cwd=repo_root,
+        )
+
+        if result.returncode == 0:
+            pr_url = result.stdout.strip()
+            pr_number = pr_url.rstrip("/").split("/")[-1]
+            return pr_url, pr_number
+
+        print(f"   ⚠ PR creation failed: {result.stderr}")
+        return None, None
+
+    except Exception as e:
+        print(f"   ⚠ Git/PR error: {e}")
+        return None, None
+
+    finally:
+        try:
+            _run_git(repo_root, "checkout", "main")
+        except Exception:
+            pass
+
+
+def _categorize_blog_topic(topic):
+    """Categorize a blog topic for the blog card category badge."""
+    topic_lower = topic.lower()
+    if any(w in topic_lower for w in ["cost", "price", "how much", "worth", "budget"]):
+        return "Cost Guide"
+    if any(w in topic_lower for w in ["colour", "color", "palette", "shade"]):
+        return "Colour Selection"
+    if any(w in topic_lower for w in ["heritage", "restoration", "historic", "federation"]):
+        return "Heritage Painting"
+    if any(w in topic_lower for w in ["commercial", "office", "warehouse", "industrial"]):
+        return "Commercial Painting"
+    if any(w in topic_lower for w in ["kitchen", "cabinet", "respray"]):
+        return "Kitchen Respray"
+    if any(w in topic_lower for w in ["exterior", "outside", "weatherboard", "render"]):
+        return "Exterior Painting"
+    if any(w in topic_lower for w in ["interior", "inside", "room", "wall"]):
+        return "Interior Painting"
+    if any(w in topic_lower for w in ["deck", "timber", "stain", "oil"]):
+        return "Deck & Timber"
+    if any(w in topic_lower for w in ["diy", "tip", "how to", "guide", "prepare"]):
+        return "DIY Tips"
+    return "Painting Tips"

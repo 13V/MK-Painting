@@ -291,3 +291,34 @@ def send_new_page_notification(pr_url, pr_number, opportunity):
     }
 
     return send_message(text, reply_markup=reply_markup)
+
+
+def send_blog_notification(pr_url, pr_number, opportunity):
+    """Send notification about a new blog article PR."""
+    topic_title = opportunity["topic"].title()
+    text = (
+        "📝 *MK Painting — New Blog Article Ready*\n\n"
+        f"The SEO agent detected informational search demand for *{topic_title}* "
+        f"({opportunity['impressions']} impressions) and generated a blog article.\n\n"
+        f"📄 `{opportunity['filename']}`\n"
+        f"🎯 Target: _{opportunity['keyword']}_\n"
+    )
+
+    queries = opportunity.get("top_queries", [])[:3]
+    if queries:
+        text += "\n*Top queries:*\n"
+        for q in queries:
+            text += f"  • _{q}_\n"
+
+    text += f"\n*PR #{pr_number}* is ready for review."
+
+    reply_markup = {
+        "inline_keyboard": [
+            [
+                {"text": "✅ Review & Approve", "url": pr_url},
+                {"text": "📋 View Article", "url": f"{pr_url}/files"},
+            ]
+        ]
+    }
+
+    return send_message(text, reply_markup=reply_markup)

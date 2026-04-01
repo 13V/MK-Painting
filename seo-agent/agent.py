@@ -34,9 +34,14 @@ from implementer import (
     generate_new_page,
     pick_best_new_page,
     write_new_page,
+    create_blog_pr,
+    generate_blog_article,
+    pick_best_blog,
+    write_blog_article,
 )
 from reporter import generate_report, format_site_audit
 from telegram_notifier import (
+    send_blog_notification,
     send_daily_report,
     send_indexing_update,
     send_new_page_notification,
@@ -87,6 +92,10 @@ def main():
     print(f"   → {len(analysis['zero_click'])} zero-click queries")
     print(f"   → {len(analysis['missing_pages'])} missing landing pages")
     print(f"   → {len(analysis['suburb_opportunities'])} suburb opportunities")
+    if analysis.get("blog_opportunities"):
+        print(f"   → {len(analysis['blog_opportunities'])} blog opportunities")
+    if analysis.get("missing_service_pages"):
+        print(f"   → {len(analysis['missing_service_pages'])} missing service pages")
     if analysis.get("cannibalization"):
         print(f"   → {len(analysis['cannibalization'])} cannibalization alerts")
     if analysis.get("map_pack_queries"):
@@ -269,6 +278,34 @@ def main():
                 print("   → Page generation failed")
         else:
             print("\n   → No new page opportunities detected")
+
+    # ── 8b. Generate blog article ─────────────────────────────────────────────
+    if use_claude and not args.no_impl and not args.csv:
+        repo_root = str(Path(__file__).parent.parent)
+        blog_opp = pick_best_blog(analysis, repo_root)
+
+        if blog_opp:
+            print(f"\n📝 Blog opportunity: \"{blog_opp['topic']}\" "
+                  f"({blog_opp['impressions']} impressions)")
+            print(f"   Target keyword: \"{blog_opp['keyword']}\"")
+            print(f"   Generating {blog_opp['filename']}...")
+
+            blog_html = generate_blog_article(blog_opp, repo_root)
+
+            if blog_html:
+                blog_changed = write_blog_article(blog_html, blog_opp, repo_root)
+                print(f"\n📦 Creating pull request for blog article...")
+                blog_pr_url, blog_pr_number = create_blog_pr(blog_opp, blog_changed, repo_root)
+
+                if blog_pr_url:
+                    print(f"   → PR #{blog_pr_number}: {blog_pr_url}")
+                    send_blog_notification(blog_pr_url, blog_pr_number, blog_opp)
+                else:
+                    print("   → PR creation failed")
+            else:
+                print("   → Blog generation failed")
+        else:
+            print("\n   → No blog opportunities detected")
 
     # ── 9. Map Pack Update ───────────────────────────────────────────────────
     if use_claude and not args.no_impl and not args.csv:
