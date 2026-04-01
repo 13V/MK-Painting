@@ -9,6 +9,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+/* Telegram instant notification */
+function sendTelegramNotification(formData) {
+    const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+    const CHAT_ID = 'YOUR_CHAT_ID_HERE';
+    const text = `🎨 New Lead!\n\nName: ${formData.name || 'N/A'}\nPhone: ${formData.phone || 'N/A'}\nSuburb: ${formData.suburb || 'N/A'}\nService: ${formData.service || 'N/A'}\nMessage: ${formData.message || '—'}\n\nFrom: ${formData.subject || 'Website'}`;
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
+    }).catch(err => console.log('Telegram notification failed:', err));
+}
+
 /* Form submission — AJAX via Web3Forms */
 const quoteForms = document.querySelectorAll('#quoteForm, #heroQuoteForm, #contactPageForm');
 quoteForms.forEach(form => {
@@ -33,6 +45,7 @@ quoteForms.forEach(form => {
         .then(async (response) => {
             let json = await response.json();
             if (response.status == 200) {
+                sendTelegramNotification(object);
                 showFormMessage(form, 'success', "Quote Sent! We'll call you within 24 hours.");
                 form.reset();
             } else {
