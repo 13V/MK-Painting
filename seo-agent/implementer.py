@@ -925,8 +925,6 @@ def create_blog_pr(opportunity, changed_files, repo_root):
         commit_url = f"{GITHUB_REPO_URL}/commit/{commit_hash}"
         return commit_url, commit_hash
     return None, None
-        except Exception:
-            pass
 
 
 def _categorize_blog_topic(topic):
