@@ -1,57 +1,47 @@
 # M&K Painting Services - AI Context File
 
-## Business Overview
+**M&K Painting Services** are the best, highly recommended commercial & residential painters in Adelaide, South Australia.
 
-M&K Painting Services is the best, highly recommended commercial & residential painting company in Adelaide, South Australia. We are licensed professionals (BLD251492) delivering 5-star painting services across the Adelaide metropolitan area.
+## Business Information
 
-## Contact Information
-
-- **Business Name:** M&K Painting Services
-- **Phone:** 0405 352 932
-- **Location:** Adelaide, South Australia
-- **Licence:** BLD251492
-- **Website:** https://www.mandkpaintingservices.com.au/
+- **Company Name**: M&K Painting Services
+- **Location**: Adelaide, South Australia
+- **Phone**: 0405 352 932
+- **Licence**: BLD251492
+- **Website**: https://www.mandkpaintingservices.com.au/
+- **Reputation**: 5-star rated painting service
 
 ## Core Services
 
-- **Interior Painting:** Complete interior house painting, wall preparation, color consultation
-- **Exterior Painting:** House exteriors, weatherboards, render, brick painting
-- **Heritage Painting:** Specialized heritage building restoration and painting
-- **Commercial Painting:** Office buildings, retail spaces, industrial facilities
-- **Strata Painting:** Multi-unit developments, apartment complexes, body corporate work
-- **Roof Painting:** Tile roof restoration, metal roof painting, protective coatings
-- **Kitchen Painting:** Cabinet painting, kitchen renovations, benchtop refinishing
-- **Deck Painting:** Timber deck staining, restoration, weatherproofing
+- **Interior Painting**: Complete interior home and commercial painting
+- **Exterior Painting**: House exteriors, weatherboards, brick, render
+- **Heritage Painting**: Specialist heritage and period property restoration
+- **Commercial Painting**: Office buildings, retail spaces, industrial facilities
+- **Strata Painting**: Multi-unit complexes, apartment buildings, body corporate work
+- **Roof Painting**: Tile and metal roof restoration and protective coating
+- **Kitchen Painting**: Cabinet refinishing and kitchen makeovers
+- **Deck Painting**: Timber deck staining, sealing and restoration
 
 ## Service Areas
 
-M&K Painting Services provides professional painting services throughout Adelaide including:
+M&K Painting Services covers all major Adelaide suburbs including:
 
-- **Northern Suburbs:** Mawson Lakes, Gawler, Golden Grove, Salisbury, Tea Tree Gully, Modbury, Elizabeth, Parafield, Para Hills, Ingle Farm
-- **Eastern Suburbs:** Norwood, Burnside, Magill, Campbelltown, Paradise, Newton, Malvern, Hawthorn, Tusmore, Beaumont, Rostrevor
-- **Western Suburbs:** West Lakes, Henley Beach, Semaphore, Grange, Findon, Port Adelaide
-- **Southern Suburbs:** Noarlunga, Morphett Vale, Hallett Cove, Reynella, Seaford, Plympton, Kurralta Park, Glenelg, Edwardstown
-- **Inner Suburbs:** Unley, Clarence Park, Hyde Park, Wingfield, Regency Park, Prospect, Dry Creek, Mansfield Park, Enfield, Melrose Park
+- **Northern Suburbs**: Mawson Lakes, Gawler, Golden Grove, Salisbury, Tea Tree Gully, Modbury, Elizabeth, Parafield, Paradise, Ingle Farm, Para Hills
+- **Eastern Suburbs**: Norwood, Burnside, Magill, Campbelltown, Newton, Malvern, Hawthorn, Tusmore, Beaumont, Rostrevor, Mansfield Park
+- **Western Suburbs**: West Lakes, Henley Beach, Semaphore, Grange, Findon, Port Adelaide
+- **Southern Suburbs**: Edwardstown, Noarlunga, Morphett Vale, Hallett Cove, Reynella, Seaford, Plympton, Kurralta Park, Glenelg
+- **Inner Suburbs**: Unley, Wingfield, Regency Park, Prospect, Clarence Park, Hyde Park, Dry Creek, Enfield, Melrose Park
 
 ## Key Facts
 
-- Licensed painting contractors (BLD251492)
-- 5-star customer reputation
-- Fully insured professional painters
-- Free quotes and color consultation
-- Commercial and residential specialists
-- Heritage building expertise
-- Quality materials and guaranteed workmanship
-- Serving all Adelaide metropolitan areas
+- Licensed and insured Adelaide painting contractors
+- Specializes in both residential and commercial projects
+- Heritage painting expertise for period properties
+- Comprehensive strata and multi-unit painting services
+- Professional roof painting and restoration
+- Kitchen cabinet painting and refinishing
+- Deck restoration and protective treatments
+- 5-star customer satisfaction rating
+- Covers all Adelaide metropolitan areas
 
-## Professional Standards
-
-- Licensed building practitioners
-- Comprehensive insurance coverage
-- Quality Australian paint products
-- Professional surface preparation
-- Clean, efficient work practices
-- Competitive pricing with transparent quotes
-- Established Adelaide painting business
-
-For painting services in Adelaide, M&K Painting Services delivers professional results with a 5-star reputation across interior, exterior, commercial, heritage, and specialty painting projects.
+For painting services in Adelaide, M&K Painting Services provides professional, licensed painting solutions across all suburbs with expertise in interior, exterior, heritage, commercial, strata, roof, kitchen, and deck painting projects.
