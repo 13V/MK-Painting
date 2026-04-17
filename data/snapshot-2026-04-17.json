@@ -1,0 +1,1027 @@
+{
+  "date": "2026-04-17",
+  "queries": [
+    {
+      "query": "painters gawler",
+      "clicks": 0,
+      "impressions": 211,
+      "ctr": 0,
+      "position": 17.7
+    },
+    {
+      "query": "painter gawler",
+      "clicks": 1,
+      "impressions": 165,
+      "ctr": 0.0061,
+      "position": 15.8
+    },
+    {
+      "query": "house painter",
+      "clicks": 0,
+      "impressions": 144,
+      "ctr": 0,
+      "position": 1
+    },
+    {
+      "query": "painters unley",
+      "clicks": 0,
+      "impressions": 136,
+      "ctr": 0,
+      "position": 25.3
+    },
+    {
+      "query": "house painter near me",
+      "clicks": 0,
+      "impressions": 135,
+      "ctr": 0,
+      "position": 1
+    },
+    {
+      "query": "commercial painters adelaide",
+      "clicks": 0,
+      "impressions": 128,
+      "ctr": 0,
+      "position": 60.3
+    },
+    {
+      "query": "gawler painter",
+      "clicks": 1,
+      "impressions": 127,
+      "ctr": 0.0079,
+      "position": 17.0
+    },
+    {
+      "query": "gawler painters",
+      "clicks": 0,
+      "impressions": 116,
+      "ctr": 0,
+      "position": 16.4
+    },
+    {
+      "query": "painter near me",
+      "clicks": 0,
+      "impressions": 106,
+      "ctr": 0,
+      "position": 1.9
+    },
+    {
+      "query": "commercial painting adelaide",
+      "clicks": 0,
+      "impressions": 89,
+      "ctr": 0,
+      "position": 70.0
+    },
+    {
+      "query": "painters northern suburbs",
+      "clicks": 0,
+      "impressions": 81,
+      "ctr": 0,
+      "position": 45.8
+    },
+    {
+      "query": "commercial painters west lakes",
+      "clicks": 0,
+      "impressions": 68,
+      "ctr": 0,
+      "position": 4.0
+    },
+    {
+      "query": "painter",
+      "clicks": 0,
+      "impressions": 68,
+      "ctr": 0,
+      "position": 2.4
+    },
+    {
+      "query": "body corporate painters",
+      "clicks": 0,
+      "impressions": 63,
+      "ctr": 0,
+      "position": 73.5
+    },
+    {
+      "query": "painters norwood",
+      "clicks": 0,
+      "impressions": 63,
+      "ctr": 0,
+      "position": 27.6
+    },
+    {
+      "query": "strata painting services",
+      "clicks": 0,
+      "impressions": 58,
+      "ctr": 0,
+      "position": 16.1
+    },
+    {
+      "query": "commercial painting contractors adelaide",
+      "clicks": 0,
+      "impressions": 48,
+      "ctr": 0,
+      "position": 48.4
+    },
+    {
+      "query": "painters adelaide northern suburbs",
+      "clicks": 0,
+      "impressions": 45,
+      "ctr": 0,
+      "position": 13.7
+    },
+    {
+      "query": "painter golden grove",
+      "clicks": 0,
+      "impressions": 44,
+      "ctr": 0,
+      "position": 5.5
+    },
+    {
+      "query": "painters west lakes",
+      "clicks": 0,
+      "impressions": 43,
+      "ctr": 0,
+      "position": 11.6
+    },
+    {
+      "query": "painter west lakes",
+      "clicks": 0,
+      "impressions": 40,
+      "ctr": 0,
+      "position": 10.5
+    },
+    {
+      "query": "strata painting adelaide",
+      "clicks": 0,
+      "impressions": 40,
+      "ctr": 0,
+      "position": 22.1
+    },
+    {
+      "query": "commercial painters bedford park",
+      "clicks": 0,
+      "impressions": 39,
+      "ctr": 0,
+      "position": 24.0
+    },
+    {
+      "query": "painter salisbury",
+      "clicks": 0,
+      "impressions": 38,
+      "ctr": 0,
+      "position": 10.5
+    },
+    {
+      "query": "strata painting",
+      "clicks": 0,
+      "impressions": 36,
+      "ctr": 0,
+      "position": 22.2
+    },
+    {
+      "query": "commercial painter adelaide",
+      "clicks": 0,
+      "impressions": 35,
+      "ctr": 0,
+      "position": 70.1
+    },
+    {
+      "query": "commercial painting contractor adelaide",
+      "clicks": 0,
+      "impressions": 33,
+      "ctr": 0,
+      "position": 59.9
+    },
+    {
+      "query": "painters adelaide",
+      "clicks": 0,
+      "impressions": 33,
+      "ctr": 0,
+      "position": 38.1
+    },
+    {
+      "query": "painting tips adelaide",
+      "clicks": 0,
+      "impressions": 32,
+      "ctr": 0,
+      "position": 21.2
+    },
+    {
+      "query": "commercial painting services adelaide",
+      "clicks": 0,
+      "impressions": 31,
+      "ctr": 0,
+      "position": 61.7
+    },
+    {
+      "query": "commercial painters sa",
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 63.7
+    },
+    {
+      "query": "commercial painting sa",
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 64.4
+    },
+    {
+      "query": "paint protection mawson lakes",
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 28.7
+    },
+    {
+      "query": "painter burnside",
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 8.2
+    },
+    {
+      "query": "respray kitchen cabinets",
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 40.1
+    },
+    {
+      "query": "commercial painter sa",
+      "clicks": 0,
+      "impressions": 29,
+      "ctr": 0,
+      "position": 63.2
+    },
+    {
+      "query": "strata body corporate painting services",
+      "clicks": 0,
+      "impressions": 29,
+      "ctr": 0,
+      "position": 66.6
+    },
+    {
+      "query": "commercial building painters",
+      "clicks": 0,
+      "impressions": 28,
+      "ctr": 0,
+      "position": 1
+    },
+    {
+      "query": "commercial painters hillbank",
+      "clicks": 0,
+      "impressions": 28,
+      "ctr": 0,
+      "position": 4.5
+    },
+    {
+      "query": "kitchen painting",
+      "clicks": 0,
+      "impressions": 28,
+      "ctr": 0,
+      "position": 73.4
+    },
+    {
+      "query": "commercial painters golden grove",
+      "clicks": 0,
+      "impressions": 26,
+      "ctr": 0,
+      "position": 10.6
+    },
+    {
+      "query": "m&k painting",
+      "clicks": 5,
+      "impressions": 25,
+      "ctr": 0.2,
+      "position": 4.8
+    },
+    {
+      "query": "commercial interior painting adelaide",
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 91.3
+    },
+    {
+      "query": "residential painting golden grove",
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 10.2
+    },
+    {
+      "query": "painter norwood",
+      "clicks": 0,
+      "impressions": 24,
+      "ctr": 0,
+      "position": 22.8
+    },
+    {
+      "query": "painters north lake",
+      "clicks": 0,
+      "impressions": 24,
+      "ctr": 0,
+      "position": 81.1
+    },
+    {
+      "query": "commercial painters findon",
+      "clicks": 0,
+      "impressions": 23,
+      "ctr": 0,
+      "position": 10.0
+    },
+    {
+      "query": "residential painting wynn vale",
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": 0,
+      "position": 9.0
+    },
+    {
+      "query": "exterior painting west lakes",
+      "clicks": 0,
+      "impressions": 21,
+      "ctr": 0,
+      "position": 11.3
+    },
+    {
+      "query": "commercial painters christies beach",
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 12.4
+    },
+    {
+      "query": "exterior painting golden grove",
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 8.7
+    },
+    {
+      "query": "residential painting west lakes",
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 11.8
+    },
+    {
+      "query": "strata painters",
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": 0,
+      "position": 17.4
+    },
+    {
+      "query": "interior painting christies beach",
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 11.1
+    },
+    {
+      "query": "interior painting west lakes",
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 11.4
+    },
+    {
+      "query": "residential painting fairview park",
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": 0,
+      "position": 7.2
+    },
+    {
+      "query": "exterior painting kidman park",
+      "clicks": 0,
+      "impressions": 18,
+      "ctr": 0,
+      "position": 8.9
+    },
+    {
+      "query": "residential painting findon",
+      "clicks": 0,
+      "impressions": 18,
+      "ctr": 0,
+      "position": 11.2
+    },
+    {
+      "query": "adelaide office painting",
+      "clicks": 0,
+      "impressions": 17,
+      "ctr": 0,
+      "position": 55.9
+    },
+    {
+      "query": "residential painters unley",
+      "clicks": 0,
+      "impressions": 17,
+      "ctr": 0,
+      "position": 38.9
+    },
+    {
+      "query": "commercial painters wynn vale",
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 1
+    },
+    {
+      "query": "exterior painting christies beach",
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 11
+    },
+    {
+      "query": "exterior painting findon",
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 13.9
+    },
+    {
+      "query": "interior painting golden grove",
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 5.4
+    },
+    {
+      "query": "commercial painters fairview park",
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 7.4
+    },
+    {
+      "query": "commercial painters grange",
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 9.7
+    },
+    {
+      "query": "commercial painters henley beach",
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 15.6
+    },
+    {
+      "query": "commercial painters reynella",
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 13.1
+    },
+    {
+      "query": "residential painting semaphore",
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 15.3
+    },
+    {
+      "query": "commercial painters parafield",
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 11.9
+    },
+    {
+      "query": "commercial painters semaphore",
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 16.6
+    },
+    {
+      "query": "interior painting gawler",
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": 0,
+      "position": 10.1
+    },
+    {
+      "query": "driveway painting west lakes",
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 18.5
+    },
+    {
+      "query": "exterior painting gawler",
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 12.8
+    },
+    {
+      "query": "exterior painting morphettville",
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 14.9
+    },
+    {
+      "query": "house painting services adelaide",
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 36.2
+    },
+    {
+      "query": "kitchen cupboard respray",
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 28.5
+    },
+    {
+      "query": "kitchen spray painting",
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 43.3
+    },
+    {
+      "query": "residential painting grange",
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 12.2
+    },
+    {
+      "query": "adelaide office painters",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 76.1
+    },
+    {
+      "query": "commercial painters banksia park",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 1
+    },
+    {
+      "query": "commercial painters west beach",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 11.2
+    },
+    {
+      "query": "exterior painting brown hill creek",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 9.9
+    },
+    {
+      "query": "how much to redo 2 pack paint on kitchen cupboards",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 1.9
+    },
+    {
+      "query": "interior painting semaphore",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 11.9
+    },
+    {
+      "query": "norwood painters",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 16.8
+    },
+    {
+      "query": "residential painting christies beach",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 19
+    },
+    {
+      "query": "adelaide commercial painters",
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 64.3
+    },
+    {
+      "query": "commercial painters edwardstown",
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 9.5
+    },
+    {
+      "query": "exterior painting tusmore",
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 11.2
+    },
+    {
+      "query": "french wash painting west lakes",
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 9.6
+    },
+    {
+      "query": "interior painting fairview park",
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 7.3
+    },
+    {
+      "query": "office painting adelaide",
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 49
+    },
+    {
+      "query": "painters chandler",
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "position": 51.1
+    },
+    {
+      "query": "body corporate painting",
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 80.9
+    },
+    {
+      "query": "commercial painters kidman park",
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 13.3
+    },
+    {
+      "query": "commercial painters wingfield",
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 7
+    },
+    {
+      "query": "exterior painting west beach",
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 13.7
+    },
+    {
+      "query": "interior painting morphettville",
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 15.2
+    }
+  ],
+  "pages": [
+    {
+      "page": "https://www.mandkpaintingservices.com.au/",
+      "clicks": 15,
+      "impressions": 1279,
+      "ctr": 0.0117,
+      "position": 10.1
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/commercial-painting.html",
+      "clicks": 0,
+      "impressions": 802,
+      "ctr": 0,
+      "position": 52.4
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/gawler.html",
+      "clicks": 2,
+      "impressions": 640,
+      "ctr": 0.0031,
+      "position": 13.9
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/kitchen-respray-guide.html",
+      "clicks": 8,
+      "impressions": 538,
+      "ctr": 0.0149,
+      "position": 27.1
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/west-lakes.html",
+      "clicks": 0,
+      "impressions": 338,
+      "ctr": 0,
+      "position": 18.3
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/strata-painting.html",
+      "clicks": 0,
+      "impressions": 293,
+      "ctr": 0,
+      "position": 40.7
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/golden-grove.html",
+      "clicks": 0,
+      "impressions": 250,
+      "ctr": 0,
+      "position": 9.1
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/unley.html",
+      "clicks": 0,
+      "impressions": 204,
+      "ctr": 0,
+      "position": 25.5
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/northern-suburbs.html",
+      "clicks": 0,
+      "impressions": 148,
+      "ctr": 0,
+      "position": 32.1
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/heritage-painting-gawler.html",
+      "clicks": 0,
+      "impressions": 144,
+      "ctr": 0,
+      "position": 37.9
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/norwood.html",
+      "clicks": 0,
+      "impressions": 130,
+      "ctr": 0,
+      "position": 25.4
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/burnside.html",
+      "clicks": 0,
+      "impressions": 103,
+      "ctr": 0,
+      "position": 14.6
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/salisbury.html",
+      "clicks": 2,
+      "impressions": 101,
+      "ctr": 0.0198,
+      "position": 11.6
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/mawson-lakes.html",
+      "clicks": 0,
+      "impressions": 94,
+      "ctr": 0,
+      "position": 27.9
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/kitchen-respray.html",
+      "clicks": 3,
+      "impressions": 83,
+      "ctr": 0.0361,
+      "position": 33.1
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/regency-park.html",
+      "clicks": 0,
+      "impressions": 47,
+      "ctr": 0,
+      "position": 51.7
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/blog.html",
+      "clicks": 0,
+      "impressions": 43,
+      "ctr": 0,
+      "position": 22.5
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/wingfield.html",
+      "clicks": 0,
+      "impressions": 42,
+      "ctr": 0,
+      "position": 39.4
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/golden-grove-painting-guide.html",
+      "clicks": 0,
+      "impressions": 41,
+      "ctr": 0,
+      "position": 26.6
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/edwardstown.html",
+      "clicks": 0,
+      "impressions": 40,
+      "ctr": 0,
+      "position": 19.1
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/findon.html",
+      "clicks": 0,
+      "impressions": 36,
+      "ctr": 0,
+      "position": 32.2
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/western-suburbs-painting-guide.html",
+      "clicks": 0,
+      "impressions": 33,
+      "ctr": 0,
+      "position": 12.3
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/heritage-painting-guide.html",
+      "clicks": 1,
+      "impressions": 28,
+      "ctr": 0.0357,
+      "position": 7.5
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/commercial-painting-guide.html",
+      "clicks": 1,
+      "impressions": 27,
+      "ctr": 0.037,
+      "position": 11.6
+    },
+    {
+      "page": "https://www.mandkpaintingservices.com.au/choosing-colors-mawson-lakes.html",
+      "clicks": 0,
+      "impressions": 27,
+      "ctr": 0,
+      "position": 45.4
+    }
+  ],
+  "summary": {
+    "total_clicks": 7,
+    "total_impressions": 3504,
+    "avg_ctr": 0.002,
+    "avg_position": 24.6,
+    "total_queries": 99,
+    "total_pages": 25,
+    "top_pages": [
+      {
+        "page": "https://www.mandkpaintingservices.com.au/",
+        "clicks": 15,
+        "impressions": 1279,
+        "ctr": 0.0117,
+        "position": 10.1
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/kitchen-respray-guide.html",
+        "clicks": 8,
+        "impressions": 538,
+        "ctr": 0.0149,
+        "position": 27.1
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/kitchen-respray.html",
+        "clicks": 3,
+        "impressions": 83,
+        "ctr": 0.0361,
+        "position": 33.1
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/gawler.html",
+        "clicks": 2,
+        "impressions": 640,
+        "ctr": 0.0031,
+        "position": 13.9
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/salisbury.html",
+        "clicks": 2,
+        "impressions": 101,
+        "ctr": 0.0198,
+        "position": 11.6
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/heritage-painting-guide.html",
+        "clicks": 1,
+        "impressions": 28,
+        "ctr": 0.0357,
+        "position": 7.5
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/commercial-painting-guide.html",
+        "clicks": 1,
+        "impressions": 27,
+        "ctr": 0.037,
+        "position": 11.6
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/commercial-painting.html",
+        "clicks": 0,
+        "impressions": 802,
+        "ctr": 0,
+        "position": 52.4
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/west-lakes.html",
+        "clicks": 0,
+        "impressions": 338,
+        "ctr": 0,
+        "position": 18.3
+      },
+      {
+        "page": "https://www.mandkpaintingservices.com.au/strata-painting.html",
+        "clicks": 0,
+        "impressions": 293,
+        "ctr": 0,
+        "position": 40.7
+      }
+    ],
+    "top_queries": [
+      {
+        "query": "m&k painting",
+        "clicks": 5,
+        "impressions": 25,
+        "ctr": 0.2,
+        "position": 4.8
+      },
+      {
+        "query": "painter gawler",
+        "clicks": 1,
+        "impressions": 165,
+        "ctr": 0.0061,
+        "position": 15.8
+      },
+      {
+        "query": "gawler painter",
+        "clicks": 1,
+        "impressions": 127,
+        "ctr": 0.0079,
+        "position": 17.0
+      },
+      {
+        "query": "painters gawler",
+        "clicks": 0,
+        "impressions": 211,
+        "ctr": 0,
+        "position": 17.7
+      },
+      {
+        "query": "house painter",
+        "clicks": 0,
+        "impressions": 144,
+        "ctr": 0,
+        "position": 1
+      },
+      {
+        "query": "painters unley",
+        "clicks": 0,
+        "impressions": 136,
+        "ctr": 0,
+        "position": 25.3
+      },
+      {
+        "query": "house painter near me",
+        "clicks": 0,
+        "impressions": 135,
+        "ctr": 0,
+        "position": 1
+      },
+      {
+        "query": "commercial painters adelaide",
+        "clicks": 0,
+        "impressions": 128,
+        "ctr": 0,
+        "position": 60.3
+      },
+      {
+        "query": "gawler painters",
+        "clicks": 0,
+        "impressions": 116,
+        "ctr": 0,
+        "position": 16.4
+      },
+      {
+        "query": "painter near me",
+        "clicks": 0,
+        "impressions": 106,
+        "ctr": 0,
+        "position": 1.9
+      }
+    ]
+  }
+}
